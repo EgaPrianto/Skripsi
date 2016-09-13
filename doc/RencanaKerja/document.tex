@@ -30,7 +30,7 @@
 \newcommand{\@npm}{2013730047}
 \newcommand{\@judultopik}{Deteksi Gerakan Kepala dengan Google Cardboard} % Judul/topik anda
 \newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
-\newcommand{\tanggal}{02/08/2016}
+\newcommand{\tanggal}{05/09/2016}
 \maketitle
 
 \pagenumbering{arabic}
@@ -43,14 +43,13 @@ Google Cardboard adalah gawai murah yang terbuat dari kardus untuk dapat merasak
 Pada Gawai Google Cardboard cara pengguna memberikan \textit{input} kepada program sangatlah terbatas. Cara tersebut hanyalah dengan gerakan kepala dan tombol magnet. Tombol magnet ini pun terkadang tidak berfungsi dengan baik, karena bergantung pada medan magnet yang di deteksi oleh \textit{smartphone} yang digunakan. Cara lainnya agar dapat memberikan \textit{input} kepada program adalah dengan menghubungkan \textit{smartphone} yang digunakan dengan \textit{bluetooth controller}. 
 Skripsi ini akan membuat aplikasi untuk menambahkan cara baru  memberikan \textit{input} pada Google Cardboard. Pada skripsi ini, akan dibuat dua buah perangkat lunak. Perangkat lunak pertama akan digunakan untuk menganalisis data yang didapat dari sensor-sensor pada Android. Perangkat lunak kedua akan dapat mendeteksi gerakan kepala penggunanya ketika sedang menggeleng atau mengangguk. Pada perangkat lunak kedua ini akan memberikan \textit{input} baru kepada program virtual reality. Jenis \textit{input} yang diberikan kepada komputer hanya ya(mengangguk) atau tidak(menggeleng).
 
-Agar \textit{Virtual Reality} menggunakan Google Cardboard dapat berjalan dengan sempurna, dibutuhkan \textit{smartphone} yang memiliki 3 jenis sensor. Ketiga sensor itu adalah Magnetometer, Accelerometer, dan Gyroscope. Jika salah satu sensor itu tidak ada, tampilan gambar pada \textit{Virtual Reality} akan tidak akurat atau lambat. Magnetometer digunakan untuk mengetahui arah pandang pengguna. Accelerometer digunakan untuk mengetahui arah gaya gravitasi. Dan Gyroscope digunakan untuk mengetahui percepatan perputaran sudut kepala pengguna. Ketiga sensor ini juga harus menggunakan sensor 3 sumbu. Ketiga sensor tersebut tidak hanya berfungsi agar dapat menjalankan \textit{Virtual Reality} dengan Google Cardboard dan \textit{smartphone}, tetapi juga dapat berfungsi sebagai pendeteksi gerakan kepala.
+Agar \textit{Virtual Reality} menggunakan Google Cardboard dapat berjalan dengan sempurna, dibutuhkan \textit{smartphone} yang memiliki 3 jenis sensor. Ketiga sensor itu adalah Magnetometer, Accelerometer, dan Gyroscope. Jika salah satu sensor itu tidak ada, tampilan gambar pada \textit{Virtual Reality} akan tidak akurat atau lambat. Magnetometer digunakan  untuk mengetahui arah pandang pengguna. Accelerometer digunakan untuk mengetahui arah gaya gravitasi. Gyroscope digunakan untuk mengetahui percepatan perputaran sudut kepala pengguna. Ketiga sensor ini juga harus menggunakan sensor 3 sumbu. Ketiga sensor tersebut tidak hanya berfungsi agar dapat menjalankan \textit{Virtual Reality} dengan Google Cardboard dan \textit{smartphone}, tetapi juga dapat berfungsi sebagai pendeteksi gerakan kepala.
 
 \section{Rumusan Masalah}
 
 \begin{itemize}
 	\item Bagaimana cara menampilkan grafik data yang diambil dari sensor-sensor pada \textit{smartphone}?
 	\item Bagaimana cara mendeteksi gerakan kepala dari data yang didapat dari sensor-sensor pada \textit{smartphone}?
-	\item Bagaimana cara mendeteksi gerakan kepala dengan bantuan Google VR API?
 \end{itemize}
 
 \section{Tujuan}
@@ -58,13 +57,12 @@ Agar \textit{Virtual Reality} menggunakan Google Cardboard dapat berjalan dengan
 \begin{itemize}
 	\item Mengetahui cara untuk menampilkan grafik data dari sensor-sensor pada \textit{smartphone}.
 	\item Mengetahui cara mendeteksi gerakan kepala dari data yang didapat dari sensor-sensor pada \textit{smartphone}.
-	\item Mengetahui cara mendeteksi gerakan kepala dengan bantuan Google VR API?
 \end{itemize}
 \section{Deskripsi Perangkat Lunak}
+Pada Skripsi ini akan dibuat dua buah perangkat lunak. Perangkat lunak pertama bertujuan untuk membantu dalam menganalisis data dari sensor-sensor pada \textit{smartphone}. Perangkat lunak kedua merupakan perangkat lunak untuk mendeteksi gerakan kepala.
 Perangkat lunak pertama yang dibuat memiliki fitur minimal sebagai berikut :
 \begin{itemize}
-\item	Menampilkan grafik data untuk setiap sensor pada \textit{smartphone}.
-\item	Merekam data untuk setiap sensor dalam rentang waktu menggeleng atau mengangguk.
+\item	Merekam data untuk setiap sensor dalam rentang waktu menggeleng atau mengangguk untuk divisualisasikan.
 \end{itemize}
 Perangkat lunak kedua yang dibuat memiliki fitur minimal sebagai berikut :
 \begin{itemize}
@@ -75,7 +73,7 @@ Perangkat lunak kedua yang dibuat memiliki fitur minimal sebagai berikut :
 
 Bagian-bagian pengerjaan skripsi ini adalah sebagai berikut :
 	\begin{enumerate}
-		\item Melakukan studi literatur tentang Android SDK, Google VR SDK, dan Quaternion.
+		\item Melakukan studi literatur tentang Android SDK, Google VR SDK, Quaternion, dan algoritma \textit{Head Motion Detection}.
 		\item Merancang dan membuat aplikasi untuk menampilkan grafik sensor-sensor pada \textit{smartphone} Android.
 		\item Menganalisis aplikasi-aplikasi sejenis.
 		\item Merekam dan menganalisis grafik dari sensor-sensor pada smartphone ketika mengangguk dan menggeleng.
@@ -87,9 +85,7 @@ Bagian-bagian pengerjaan skripsi ini adalah sebagai berikut :
 
 	\end{enumerate}
 \section{Rencana Kerja}
-Tuliskan rencana anda untuk menyelesaikan skripsi. Rencana kerja dibagi menjadi dua bagian yaitu yang akan dilakukan pada saat mengambil kuliah AIF401 Skripsi 1 dan pada saat mengambil kuliah AIF402 Skripsi 2. Perhatikan contoh berikut ini :
-
-
+Berikut adalah rencana kerja yang akan dilakukan dalam skripsi ini:
 \begin{center}
   \begin{tabular}{ | c | c | c | c | l |}
     \hline
