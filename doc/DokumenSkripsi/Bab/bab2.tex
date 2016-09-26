@@ -9,7 +9,7 @@ Pada bab ini akan dijelaskan dasar-dasar teori mengenai Android SDK, Google VR S
 Android SDK(\textit{software development kit}) adalah kumpulan \textit{source code, development tools, emulator,}\cite{developers2011android} dan semua \textit{libraries} untuk membuat suatu aplikasi untuk \textit{platform} Android. IDE (\textit{integrated development environment} yang resmi untuk Android SDK adalah Android Studio. Android Studio dapat di download di halaman situs web Google Developer\cite{developers2011android}, sekaligus dengan Android SDKnya.  
 
 % 2.1.1 Struktur File Android Studio Project
-\subsection{Struktur File Android Studio Project}
+\subsection{Struktur File Android Studio Project}\cite{android_developers}
 Pada saat \textbf{project} baru telah dibuat, Android Studio akan membuatkan folder-folder standar (Gambar \ref{fig:android-studio-structure}). Berikut adalah sebagian penjelasan dari hal yang perlu di perhatikan pada struktur tersebut:
 \begin{itemize}
 	\item Folder \textbf{\textit{module}/build} mengandung file-file dari hasil pembangunan \textit{project}.
@@ -40,6 +40,7 @@ Folder \textbf{App} pada Gambar \ref{fig:android-studio-structure} merupakan fol
 
 % 2.1.2 Membuat User Interface
 \subsection{Membuat User Interface}
+\cite{android_developers}
 Pada subbab ini akan dijelaskan bagaimana membuat layout di XML termasuk \textit{text field} dan \textit{button}
 
 % Sub 2.1.2 Hierarki (GUI) untuk Aplikasi Android
@@ -107,6 +108,7 @@ Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dal
 
 \subsection{Activity}
 \label{sec:activity}
+\cite{android_developers}
 Activity adalah suatu hal yang terfokuskan dengan apa yang bisa pengguna lakukan. Hampir semua \textit{Activity} berinteraksi dengan pengguna, jadi kelas Activity akan membuat suatu halaman baru yang bisa ditambahkan dengan konten-konten View. Selain Activity dapat direpresentasikan kepada pengguna dengan halaman \textit{full-screen}, Activity juga dapat direpresentasikan dengan cara lain: seperti halaman \textit{floating} atau tertanam di Activity lain.
 
 \subsubsection{Activity Lifecycle}
@@ -138,7 +140,7 @@ Ada 3 \textit{key loops} untuk memantau suatu Activity:
 
 \subsection{Android Sensor Framework}
 \label{sec:android_sensor_framework}
-Sebagian besar dari perangkat android sudah memiliki sensor yang mengukur gerakan, orientasi, dan berbagai keadaan lingkungan. Sensor-sensor ini dapat memberikan data mentah dengan tingkat akurasi yang tinggi. Sensor ini juga berguna untuk memantau pergerakan tiga dimensi atau posisi perangkat. Sensor ini juga dapat memantau perubahan keadaan lingkungan yang dekat dengan perangkat. 
+\cite{android_developers}Sebagian besar dari perangkat android sudah memiliki sensor yang mengukur gerakan, orientasi, dan berbagai keadaan lingkungan. Sensor-sensor ini dapat memberikan data mentah dengan tingkat akurasi yang tinggi. Sensor ini juga berguna untuk memantau pergerakan tiga dimensi atau posisi perangkat. Sensor ini juga dapat memantau perubahan keadaan lingkungan yang dekat dengan perangkat. 
 Android mendukung tiga kategori sensor:
 \begin{itemize}
 	\item \textbf{Sensor gerak}
@@ -343,6 +345,7 @@ Dalam membuat aplikasi Google Cardboard VR membutuhkan beberapa API(Application 
 
 \subsection{API Audio}
 \label{sec:api_audio}
+\cite{google_vr_developers}
 API ini membantu developer untuk menspasialisasikan sumber suara dalam tiga dimensi, termasuk jarak dengan tinggi isyarat sumber suara. Pada API ini hanya terdapat satu class utama yaitu \textbf{GvrAudioEngine}. \textbf{GvrAudioEngine} mampu memutarkan suara secara spasial dalam dua cara yang berbeda :
 \begin{itemize}
 	\item Metode pertama dikenal sebagai \textit{Sound Object rendering}. Metode ini memungkinkan pengguna membuat sumber suara virtual dalam ruang tiga dimensi.
@@ -357,6 +360,7 @@ API ini juga dapat memutarkan suara secara \textit{stereo}. Kelas \textbf{GvrAud
 
 \subsection{API Base}
 \label{sec:api_base}
+\cite{google_vr_developers}
 API ini digunakan sebagai fondasi dari suatu aplikasi Google VR. Fitur-fitur Binocular rendering, Head movement tracking, dan Trigger input diimplementasikan pada API ini. Kelas-kelas penting yang ada di API ini adalah AndroidCompat, Eye, GvrActivity, GvrView, HeadTransform, Viewport.
 \begin{itemize}
 	\item AndroidCompat\\
@@ -453,11 +457,14 @@ Jadi, dengan Markov Model pada gambar \ref{fig:markov-model-example}, didapatkan
 
 \subsubsection{Hidden Markov Models}
 \label{sec:hidden-markov-models}
+\cite{manning1999natural} 
 Pada HMM(Hidden Markov Models), tidak dapat diketahui urutan kondisi yand dilewati model, tetapi hanya beberapa fungsi probabilistik saja yang diketahui. HMM berguna ketika dapat memikirkan peristiwa secara probabilistik yang menghasilkan peristiwa muka. 
 
 \textbf{Bentuk Umum HMM}\\
+\cite{manning1999natural} 
 HMM dispesifikasikan dengan (\(S,K,II,A,B)\), dimana S dengan K adalah kumpulan kondisi dan keluaran alphabet, dan II, A, dan B adalah probabilitas untuk kondisi awal, kondisi transisi, dan emisi simbul, secara berturut-turut. Notasi-notasi tersebut akan dijelaskan lebih lanjut pada tabel \ref{tab:hmm-notation}
 
+\cite{manning1999natural} 
 \begin{table}%
 	\centering
 \begin{tabular}{l l}
@@ -477,6 +484,7 @@ Deretan keluaran & \(O= (o_1,...,o_T) O_t \in K\)
 
 
 \textbf{Mencari Probabilitas dari Suatu Observasi}
+\cite{manning1999natural} 
 Diberikan suatu urutan observasi \(O = (o_1,...,o_T)\) dan suatu model \(\mu = (A,B,II)\), yang ingin dicari adalah bagaimana mengkalukasi \(P(O|\mu )\) secara efisien. Proses ini sering disebut juga sebagai \textit{decoding}. Untuk semua deret kondisi \(X = (X_1,...,X_{T+1})\),
 \begin{align*}
 	P(O|X,\mu ) =& \Pi^{T}_{t=1} P(o_t|X_t,X_t+1,\mu )\\
@@ -495,9 +503,11 @@ olehkarena itu,
 	P(O|\mu ) =& \Sigma_X P(O|X,\mu ) P(X|\mu )\\
 	=& \Sigma_{X_1 ...X_{T+1}} \pi X_1 \Pi^{T}_{t=1} a_{X_t X_{T+1}}b_{X_t X_{t+1}o_T}
 \end{align*}
+\cite{manning1999natural} 
 Penurunan ini cukup terang-terangan. Sayangnya, evaluasi langsung dari ekspresi yang dihasilkan tersebut sangatlah tidak efisien. Untuk kasus umum (kasus yang dapat dimulai pada kondisi apapun, dan pindah ke kondisi lain pada setiap tahapnya), kalkukasinya membutuhkan \((2T+1).T^{T+1}\) Untuk menangai kompleksitas ini dapat menggunakan teknik umum yaitu \textit{dynamic programming memoization} yang mengingat sebagian hasil dibandingkan harus menghitung ulang kembali. Untuk algoritma seperti HMM, \textit{dynamic programming} secara umum dideskripsikan dalam bentuk dari \textit{trellises}(bisa juga disebut dengan \textit{laticces}). \textit{Trellis} dapa merekan probabilitas semua \textit{subpaths} awal dari suatu HMM yang berakhir pada kondisi tertentu pada waktu tertentu. Probabilitas dari \textit{subpaths} yang lebih panjang dapat digunakan untuk suatu hal dari \textit{subpaths} yang lebih pendek.
-\section{Teori Quaternion}
+\section{Teori Quaternion untuk Transformasi Rotasi}
 \label{sec:teori_quaternion}
+
 Pada Android SDK \textbf{SensorEvent.values} \cite{android_developers} tipe sensor \textbf{Sensor.TYPE\_ROTATION\_VECTOR}, yaitu tipe sensor yang mendeteksi vektor perputaran pada \textit{smartphone}. Tipe sensor ini dijelaskan akan mengembalikan nilai-nilai dari komponen quaternion. 
 Quaternion\cite{kuipers:1999} adalah objek penggabungan dari suatu skalar dengan suatu vektor, sesuatu yang tidak dapat didefinisikan dalam aljabar linear biasa. 
 
@@ -513,15 +523,35 @@ Dalam matematika, bilangan kompleks adalah bilangan yang berbentuk\\
 dan \(a\) dengan \(b\) merupakan bilangan riil, dan \(i\) merupakan bilangan imajiner tertentu yang memiliki sifat \(i^2=-1\).
 
 Berikut notasi-notasi bilangan kompleks :
+\begin{itemize}
+	\item Penjumlahan\\
+	\[
+	 (a + bi) + (c + di) = (a+c) + i(b+d)
+	\]\\
+	\item Perkalian\\
+	\[
+	 (a + bi)(c + di) = (ac−bd) + (bc+ad)i
+	\]
+	\item Pengurangan\\
+	\[
+	 (a + bi) - (c + di) = (a-c) + i(b-d)
+	\]
+	\item Pembagian\\
+	\[
+	 \frac{(a + bi)}{(c + di)} = \frac{(ac+bd)}{c^2+d^2} + i \frac{bc-ad}{c^2+d^2}
+	\]
+\end{itemize}
+Terlihat jelas bahwa penjumlahan dan perkalian untuk bilangan kompleks keduanya adalah assosiatif dan komutatif. Detilnya dapat dilihat dengan persamaan di bawah ini.
 \[
- (a + bi) + (c + di) = (a+c) + i(b+d)
+	(a+ib) + (c+id) = (a+c) + i(b+d)\\
+	(c+id) + (a+ib) = (c+a) + i(d+b)
 \]
+Karena penjumlahan untuk bilangan riil bersifat komutatif:
 \[
- (a + bi)(c + di) = (ac−bd) + (bc+ad)i
+	a+c = c+a\\
+	b+d = d+b
 \]
-\[
- a(c + id) = ac + iad
-\]
+
 Bilangan kompleks dapat digunakan untuk rotasi dua dimensi. Dengan \(a = \cos (\frac{\theta}{2})\), dan \(b = \sin(\frac{\theta}{2})\), kemudian akan dikalikan dengan vektor yang ingin di putar, dengan sumbu putar adalah titik pusat.
 
 
@@ -543,18 +573,11 @@ Dari kedua persamaan diatas dapat dihasilkan :
 \]
 
 \subsection{\textit{Quaternion Algebra} dan Operasi-operasi pada Quaternion}
-\cite{kuipers:1999}Pada buku "Quaternions and Rotation Sequences : A Primer with Applications to Orbits, Aerospace, and Virtual Reality" disebutkan :
-\begin{quote}
-In 1843 Hamilton invented the so-called hyper-complex number of rank 4, to which he gave the name \textit{quaternion}. Crucial to this invention was his celebrated rule
+\cite{kuipers:1999}Pada buku "Quaternions and Rotation Sequences : A Primer with Applications to Orbits, Aerospace, and Virtual Reality" disebutkan bahwa tingkat empat bilangan sangat kompleks, dinamakan quaternion. Dari penemuan ini dibuat aturan:
 \[
 	i^2 = j^2 = k^2 = ijk = -1
 \]
-for dealing with the operations on the vector part of the quaternion .
-\end{quote}\cite{kuipers:1999}\\
-Dari kutipan diatas bilangan \textit{hyper-complex} tingkat empat yang dapat disebut juga \textit{quaternion} memiliki satu aturan yang dicetuskan oleh Hamilton yaitu:
-\[
-	i^2 = j^2 = k^2 = ijk = -1
-\]
+untuk beoperasi dengan vektor bagian dari suatu quaternion.
 Untuk hasil dari perkalian dua \textit{quaternion} memiliki aturan yang lebih rumit, sehingga memiliki aturan-aturan khusus. Berikut aturan-aturan khususnya :
 \begin{equation}
 	\begin{split}
@@ -579,3 +602,28 @@ Sama seperti pada bilangan kompleks, \textit{quaternion} juga memiliki konjugasi
 \[
 	q = q_0 - i q_1 - j q_2 - k q_3
 \]
+\subsubsection{Operasi pada Quaternion}
+Dua buah quaternion dapat dikatakan sama jika dan hanya jika kedua quaternion memiliki komponen yang sama.
+\[
+	p = p_0 + +ip_1+jp_2+kp_3
+\]
+dan,
+\[
+	q = q_0 + i q_1 + j q_2 + k q_3
+\]
+maka p = q jika dan hanya jika
+\[
+	p_0=q_0\\
+	p_1=q_1\\
+	p_2=q_2\\
+	p_3=q_3\\
+\]
+Penjumlahan dari kedua quaternion diatas dapat didefinisikan sebagai komponen penjumlahan yaitu:
+\[
+	(p+q)=(p_0+q_0)+i(p_1+q_1)+j(p_2+q_2)+k(p_3+q_3)
+\]
+Perkalian dari kedua quaternion diatas dapat didefinisikan sebagai komponen perkalian yaitu:
+\[
+	pq = (p_0 + +ip_1+jp_2+kp_3)(q_0 + i q_1 + j q_2 + k q_3)
+\]
+Begitu pula juga dengan pembagian dan pengurangan.
