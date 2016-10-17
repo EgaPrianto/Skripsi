@@ -1,6 +1,6 @@
 \chapter{Dasar Teori}
 \label{chap:dasar_teori}
-Pada bab ini akan dijelaskan dasar-dasar teori mengenai Android SDK, Google VR SDK,Quaternion, \textit{Sensor Fusion}, dan algoritma \textit{Head Motion Detection}.
+Pada bab ini akan dijelaskan dasar-dasar teori mengenai Android SDK, Google VR SDK,Kuaternion, \textit{Sensor Fusion}, dan algoritma \textit{Head Motion Detection}.
 
 % 2.1 Android SDK
 \section{Android SDK}
@@ -45,6 +45,7 @@ Pada subbab ini akan dijelaskan bagaimana membuat layout di XML termasuk \textit
 
 % Sub 2.1.2 Hierarki (GUI) untuk Aplikasi Android
 \subsubsection{Hierarki \textit{Graphical User Interface} (GUI) untuk Aplikasi Android}
+\label{sssec:hierarki_gui_untuk_aplikasi_android}
 GUI untuk aplikasi Android dibuat dengan hierarki dari objek View dan ViewGroup (Gambar \ref{fig:viewgroup}). Objek-objek dari View biasanya adalah \textit{UI(User Interface) Widgets} seperti \textit{button} atau \textit{text field}. Objek-objek dari ViewGroup tidak terlihat oleh \textit{view containers} yang mendefinisikan bagaimana \textit{child views} ditata seperti \textit{grid} atau \textit{vertical list}.
 
 \begin{figure}[htbp]
@@ -57,6 +58,7 @@ GUI untuk aplikasi Android dibuat dengan hierarki dari objek View dan ViewGroup 
 Android menggunakan file XML yang berkorespondesi kepada \textit{subclasses} dari View dan ViewGroup, sehingga UI dapat didefinisikan dalam XML menggunakan hierarki dari elemen UI.
 
 \subsubsection{Attribut-attribut Objek View}
+\label{sssec:attribut_attribut_objek_view}
 Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dalam membuat GUI pada file activity\_main.xml
 \begin{itemize}
 	\item \textbf{android:id}
@@ -112,7 +114,7 @@ Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dal
 Activity adalah suatu hal yang terfokuskan dengan apa yang bisa pengguna lakukan. Hampir semua \textit{Activity} berinteraksi dengan pengguna, jadi kelas Activity akan membuat suatu halaman baru yang bisa ditambahkan dengan konten-konten View. Selain Activity dapat direpresentasikan kepada pengguna dengan halaman \textit{full-screen}, Activity juga dapat direpresentasikan dengan cara lain: seperti halaman \textit{floating} atau tertanam di Activity lain.
 
 \subsubsection{Activity Lifecycle}
-
+\label{sssec:activity_lifecycle}
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[scale=0.48]{Gambar/activity-lifecycle.png}
@@ -168,7 +170,7 @@ TYPE\_ROTATION\_VECTOR & Perangkat Lunak dan Perangkat Keras & Mengukur orisenta
 \end{tabular}
 \end{table}
 \subsubsection{Sistem Koordinat Sensor}
-\label{sec:sistem_koordinat_sensor}
+\label{sssec:sistem_koordinat_sensor}
 Pada umumnya, sensor framework menggunakan sistem tiga sumbu koordinat standar untuk mengekspresikan nilai data. Sebagian besar sensor sistem koordinat didefinisikan relatif terhadap layar perangkat bila perangkat dibuat dalam orientasi standar (lihat Gambar \ref{fig:axis-device})
 \begin{figure}[htbp]
 	\centering
@@ -185,9 +187,133 @@ Sensor-sensor yang menggunakan sistem tiga sumbu seperti Gambar \ref{fig:axis-de
 	\item Sensor Medan Geomagnetik
 \end{itemize}
 Koordinat sistem yang sumbunya tidak tertukar ketika orientasi perangkat berubah. Sistem koordinat sensor tidak pernah berubah seiring perangkatnya bergerak. Dalam aplikasi android tidak dapat diassumsikan bahwa standar orientasi perangkat android adalah \textit{portrait}. Kebanyakan perangkat \textit{Tablet} standar orientasinya adalah \textit{landscape}. Sistem koordinat sensor selalu di dasarkan pada orientasi dasar dari suatu perangkat android.
+\subsubsection{Mengidentifikasi Sensor dan Kapabilitas Sensor}
+\label{sssec:mengidentifikasi_sensor_dan_kapabilitas_sensor}
+Android Sensor Framework menyediakan beberapa method yang dapat membuat developer mudah untuk menentukan sensor mana yang akan digunakan. APInya juga dapat menyediakan method yang memungkinkan penggunanya menentukan kapabilitas masing-masing sensor, seperti jangkauan maksimum, resolusi, dan kebutuhan dayanya.
+Untuk mengidentifikasi sensor-sensor yang ada pada perangkat, hal pertama yang perlu dilakukan adalah mendapatkan referensi sensor tersebut. Untuk mendapatkan referensi tersebut, dapat dilakukan dengan membuat instansiasi dari kelas SensorManager dan memanggul method getSystemService() dan memasukkan isi Parameternya dengan SENSOR\_SERVICE. Contohnya pada kode \ref{lst:init-sensor-manager}.
+ 
+\begin{lstlisting}[caption={Contoh inisialisasi kelas SensorManager},label={lst:init-sensor-manager},language=java]
+private SensorManager mSensorManager;
+...
+mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+\end{lstlisting}
+
+Kemudian untuk mendapatkan daftar dari setiap sensor pada suatu perangkat dapat dilakukan dengan cara memanggil method getSensorList() dan menggunakan konstanta TYPE\_ALL pada kelas Sensor. Contohnya pada kode \ref{lst:get-sensor-lists}
+
+\begin{lstlisting}[caption={Contoh untuk mendapatkan daftar dari setiap sensor yang ada},label={lst:get-sensor-lists},language=java]
+List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+\end{lstlisting}
+
+Namun jika ingin mendapatkan sensor-sensor yang sesuai dengan tipe sensor yang diberikan, dapat menggunakan TYPE\_GYROSCOPE, TYPE\_LINEAR\_ACCELERATION, TYPE\_GRAVITY, atau TYPE\_GRAVITY.
+
+Untuk menentukan jenis tertentu dari sensor yang ada pada perangkat dapat didapatkan dengan method getDefaultSensor() dengan dimasukkan dengan konstanta yang berada pada kelas Sensor. Jika perangkatnya memiliki lebih dari satu sensor dari tipe sensor yang diberikan, salah satu dari sensor tersebut akan dianggap sebagai sensor dasar. Jika sensor dasanya tidak ada untuk sensor tersebut, perangkat tersebut berarti tidak memiliki sensor dengan jenis yang diberikan. Kode \ref{lst:check-sensor} adalah contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan.
+
+\begin{lstlisting}[caption={Contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan},label={lst:check-sensor},language=java]
+private SensorManager mSensorManager;
+...
+mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+if (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null){
+  // Sukses! Perangkat ini memiliki sensor magnetometer.
+  }
+else {
+  // Gagal! Perangkat ini tidak memiliki sensor magnetometer.
+  }
+\end{lstlisting}
+
+Jika ingin membatasi versi atau vendor dari sensor yang akan digunakan, dapat menggunakan method getVendor() dan getVersion(). Seperti pada kode \ref{lst:check-sensor-version} yang mengharuskan sensor gravitasi bervendor "Google Inc." dan memiliki versi 3. Jika sensor tersebut tidak tersedia pada perangkat, sensor accelerometerlah yang digunakan.
+
+\begin{lstlisting}[caption={Contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan},label={lst:check-sensor-version},language=java]
+private SensorManager mSensorManager;
+private Sensor mSensor;
+
+...
+
+mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+mSensor = null;
+
+if (mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) != null){
+  List<Sensor> gravSensors = mSensorManager.getSensorList(Sensor.TYPE_GRAVITY);
+  for(int i=0; i<gravSensors.size(); i++) {
+    if ((gravSensors.get(i).getVendor().contains("Google Inc.")) &&
+       (gravSensors.get(i).getVersion() == 3)){
+      // menggunakan sensor gravitasi versi 3.
+      mSensor = gravSensors.get(i);
+    }
+  }
+}
+if (mSensor == null){
+  // Use the accelerometer.
+  if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null){
+    mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+  }
+  else{
+    // Tidak ada sensor gravitasi dan sensor accelerometer!
+  }
+}
+\end{lstlisting}
+
+Salah satu method yang sangat berguna lagi adalah, getMinDelay(). Method ini digunakan untuk mengetahui minimum interval waktu suatu sensor dapat menerima data dalam mikrodetik. Jika method getMinDelay() mengembalikan nilai nol, hal ini berarti sensor ini akan mengembalikan data setiap kali ada perubahan nilai pada sensor tersebut. 
+
+\subsubsection{Memonitor Nilai Sensor}
+\label{sssec:memonitor_nilai_sensor}
+
+Untuk memonitor data mentah dari sensor, dibutuhkan untuk mengimplement dua buah method callback yang berada pada interface SensorEventListener. Kedua method tersebut adalah onAccuracyChanged(Sensor sensor, int accuracy) dan onSensorChanged(SensorEvent event). Sistem android akan memanggil kedua method ini ketika terjadi salah satu kondisi ini:
+
+\begin{itemize}
+	\item \textbf{Perubahan akurasi sensor.}\\
+Dalam kasus ini sistem memanggil method onAccuracyChanged(Sensor sensor, int accuracy). Parameter sensor akan diberikan objek Sensor yang telah berubah akurasinya, dan parameter accuracy adalah nilai akurasi sensor yang baru.
+	\item \textbf{Sensor memberitahu adanya nilai baru.}\\
+Dalam kasus ini sistem memanggil method onSensorChanged(SensorEvent event), dengan parameter event akan diisi dengan objek SensorEvent untuk mendapatkan nilai barunya. Objek SensorEvent Mengandung semua infromasi tentang data sensor yang baru, termasuk: akurasi dari data, sensor yang mendapatkan data, dan catatan waktu data tersebut didapatkan, dan data yang baru yang telah didapatkan.
+\end{itemize}
+
+Pada kode \ref{lst:monitoring-light-sensor} akan ditunjukkan bagaimana menggunakan method onSensorChanged(SensorEvent event) untuk memonitor data dari sensor cahaya. Pada kode \ref{lst:monitoring-light-sensor} akan menampilkan data mentah dari sensor ke TextView yang telah didefinisikan pada file main.xml sebagai sensor\_data.
+\begin{lstlisting}[caption={Contoh memonitor data mentah pada sensor cahaya},label={lst:monitoring-light-sensor},language=java]
+public class SensorActivity extends Activity implements SensorEventListener {
+  private SensorManager mSensorManager;
+  private Sensor mLight;
+
+  @Override
+  public final void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
+
+    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+    mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+  }
+
+  @Override
+  public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+    // Hal yang perlu dilakukan aplikasi ketika akurasinya berubah.
+  }
+
+  @Override
+  public final void onSensorChanged(SensorEvent event) {
+    // Sensor cahaya akan mengembalikan 1 nilai saja.
+    // Banyak sensor lain yang akan mengembalikan lebih dari 1 nilai.
+    float lux = event.values[0];
+    // Hal yang perlu dilakukan ketika ada perubahan data.
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    mSensorManager.unregisterListener(this);
+  }
+}
+\end{lstlisting}
+Pada method onSensorChanged(SensorEvent event), struktur nilai-nilai yang dikembalikan akan dijelaskan pada subbab \ref{sssec:struktur_nilai_yang_dikembalikan_oleh_sensor}. Pada method onResume(), ada pemanggilan method registerListener(). Method registerListener() ini berguna untuk menspesifikasikan waktu delay pada pemanggilan onSensorChanged(). Untuk menspesifikasikan delaynya dapat menggunakan konstanta yang ada pada kelas SensorManager. Konstanta-konstanta tersebut adalah SENSOR\_DELAY\_NORMAL (200.000 mikrodetik),SENSOR\_DELAY\_GAME (20.000 mikrodetik),SENSOR\_DELAY\_UI (60.000 mikrodetik), atau SENSOR\_DELAY\_FASTEST (0 mikrodetik). Pengaturan dasar untuk waktu delay ini menggunakan konstanta SENSOR\_DELAY\_NORMAL.
+Perlu diperhatikan juga pemesanan sensor ketika activity sedang di berhentikan sementara maupun dilanjutkan kembali. Sistem tidak boleh tetap merekam sensor ketika activity tidak aktif. Hal ini diperlukan karena pada saat perangkat android menggunakan sensor, perangkat akan menggunakan tenanga yang banyak. Akan lebih baik jika penggunaan sensor diberhentikan ketika activitynya sudah tidak lagi digunakan. 
 \subsubsection{Struktur Nilai yang Dikembalikan oleh Sensor}
-Nilai dari sensor akan didapatkan ketika ada perubahan nilai pada sensor. Setiap sensor memiliki ketelitian perubahan nilai yang berbeda-beda. Nilai ini akan didapatkan dengan tipe data array of float. Besar dan isi dari array tergantung pada sensor yang sedang di pantau.\\
-\textbf{TYPE\_ACCELEROMETER}\\
+\label{sssec:struktur_nilai_yang_dikembalikan_oleh_sensor}
+Setiap sensor android akan mengembalikan nilai-nilainya dengan struktur-struktur tertentu. Pada bab ini akan dijelaskan secara detil struktur nilai sistem android dalam mengembalikan nilai-nilai yang diperoleh dari sensor. Nilai ini akan didapatkan dengan tipe data array of float. Besar dan isi dari array tergantung pada sensor yang sedang di pantau. Berikut ini adalah struktur-struktur nilai dari setiap sensor pada sistem android :\\
+\begin{itemize}
+	\item \textbf{TYPE\_ACCELEROMETER}\\
 Semua nilai didefinisikan sebagai satuan \(m/s^2\)
 \begin{itemize}
 	\item values[0]: Percepatan yang terjadi pada sumbu x dikali -1
@@ -224,9 +350,9 @@ Suatu saat akan di butuhkan untuk mengukur percepatan asli yang terjadi pada per
      }
 \end{lstlisting}
 \textit{Low-pass} filter dapat diimplementasikan pada kode \ref{lst:low-pass-filter}\\
-\textbf{TYPE\_MAGNETIC\_FIELD}\\
+\item \textbf{TYPE\_MAGNETIC\_FIELD}\\
 Sensor ini mengukur medan magnet sekitar perangkat pada sumbu X,Y, dan Z dalam satuan micro-Tesla.\\
-\textbf{TYPE\_GYROSCOPE}\\
+\item \textbf{TYPE\_GYROSCOPE}\\
 Sensor ini mengukur rata-rata perputaran pada perangkat yang berputar di sumbu X,Y, dan Z dalam satuan radians/second. Sistem koordinat yang digunakan sama dengan sistem koordinat pada sensor percepatan(Accelerometer). Jika perangkat berputar berlawanan arah jarum jam pada sumbu tertentu, maka rotasi yang terjadi akan bernilai positif. Perhatikan bahwa standar perputaran ini adalah definisi matematika standar pada rotasi positif.
 \begin{itemize}
 	\item values[0]: Percepatan angular pada sumbu X.
@@ -262,7 +388,7 @@ Biasanya keluaran dari gyroscope terintegrasi dari waktu ke waktu untuk menghitu
               // Integrate around this axis with the angular speed by the time step
               // in order to get a delta rotation from this sample over the time step
               // We will convert this axis-angle representation of the delta rotation
-              // into a quaternion before turning it into the rotation matrix.
+              // into a kuaternion before turning it into the rotation matrix.
               float thetaOverTwo = omegaMagnitude * dT / 2.0f;
               float sinThetaOverTwo = sin(thetaOverTwo);
               float cosThetaOverTwo = cos(thetaOverTwo);
@@ -281,16 +407,18 @@ Biasanya keluaran dari gyroscope terintegrasi dari waktu ke waktu untuk menghitu
      }
 \end{lstlisting}
 Dalam prakteknya, gyroscope \textit{noise} dan \textit{offset} akan menyebabkan beberapa kesalahan yang harus dikompensasi. Cara untuk mengkompensasinya biasanya dilakukan dengan menggunakan informasi dari sensor lain.\\
-\textbf{TYPE\_GRAVITY}\\
+\item \textbf{TYPE\_GRAVITY}\\
 Sensor ini menunjukkan arah dan besarnya vektor gaya gravitasi. Sensor ini mengembalikan nilai dengan satuan \(m/s^2\). Sistem koordinat sama seperti sistem koordinat yang umum digunakan sensor percepatan. 
 
 Catatan: Bila perangkat sedang diam, maka keluaran dari sensor gravitasi harus identik dengan accelerometer. \\
-\textbf{TYPE\_LINEAR\_ACCELERATION}\\
+
+\item \textbf{TYPE\_LINEAR\_ACCELERATION}\\
 Sensor yang menunjukkan percepatan pada setiap sumbu perangkat, tidak termasuk percepatan yang terjadi karena gravitasi. Nilai diberikan dalam satuan \(m/s^2\). Sistem koordinat yang digunakan sama seperti sistem koordinat yang digunakan sensor percepatan. Keluaran dari sensor accelerometer, gravitasi dan percepatan linear harus mengikuti aturan berikut:
 \[
 	percepatan = gravitasi + percepatan linear
 \]\\
-\textbf{TYPE\_ORIENTATION}\\
+
+\item \textbf{TYPE\_ORIENTATION}\\
 Semua nilai adalah sudut dalam derajat.
 \begin{itemize}
 	\item values[0]: Azimuth, sudut diantara arah magnetik utara dengan sumbu y, sekitar sumbu z (0 sampai 359). 0 = Utara, 90 = Timur, 180 = Selatan, 270 = Barat
@@ -301,8 +429,8 @@ Semua nilai adalah sudut dalam derajat.
 Catatan: Definisi ini berbeda dengan definisi yaw, pitch, dan roll yang digunakan pada aviasi yang sumbu X adalah sepanjang sisi bidang.
 
 Catatan: Sensor ini sudah tidak digunakan lagi(deprecated), yang digunakan sekarang adalah sensor rotasi vector.\\
-\textbf{TYPE\_ROTATION\_VECTOR}\\
-Sensor ini merepresentasikan orientasi perangkat dengan kombinasi dari sumbu dan sudut. Perangkat akan di putar sebesar sudut \(\theta\) mengelilingi sumbu \(x,y,z\). Tiga elemen dari vektor rotasi adalah (\(x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)), sehingga besarnya vektor rotasi sama dengan \(\sin (\frac{\theta}{2})\), dan arah vektor rotasi sama dengan sumbu rotasi. Tiga elemen dari vektor rotasi sama dengan tiga komponen terakhir pada unit quaternion(\(\cos (\frac{\theta}{2}),x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)) yang dijelaskan pada subbab \ref{sec:teori_quaternion}. Elemen dari vektor rotasi tak memiliki satuan. Sistem koordinat yang digunakan sama dengan sistem koordinat yang digunakan pada sensor percepatan. Referensi koordinat didefinisikan sebagai basis orthonormal, yaitu:
+\item \textbf{TYPE\_ROTATION\_VECTOR}\\
+Sensor ini merepresentasikan orientasi perangkat dengan kombinasi dari sumbu dan sudut. Perangkat akan di putar sebesar sudut \(\theta\) mengelilingi sumbu \(x,y,z\). Tiga elemen dari vektor rotasi adalah (\(x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)), sehingga besarnya vektor rotasi sama dengan \(\sin (\frac{\theta}{2})\), dan arah vektor rotasi sama dengan sumbu rotasi. Tiga elemen dari vektor rotasi sama dengan tiga komponen terakhir pada unit kuaternion(\(\cos (\frac{\theta}{2}),x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)) yang dijelaskan pada subbab \ref{sec:teori_quaternion}. Elemen dari vektor rotasi tak memiliki satuan. Sistem koordinat yang digunakan sama dengan sistem koordinat yang digunakan pada sensor percepatan. Referensi koordinat didefinisikan sebagai basis orthonormal, yaitu:
 \begin{itemize}
 	\item X didefinisikan sebagai perkalian dot product \textbf{Y.Z}
 	\item Y merupakan tangensial ke tanan pada lokasi perangkat saat ini dan menunjuk ke arah utara. 
@@ -319,6 +447,13 @@ Sensor ini merepresentasikan orientasi perangkat dengan kombinasi dari sumbu dan
 	\item values[3]: \(\cos (\frac{\theta}{2})\)
 	\item values[4]: Perkiraan akurasi (dalam radians) (-1 jika tidak tersedia) 
 \end{itemize}
+
+
+
+\end{itemize}
+
+
+
 \section{Google VR SDK}
 \label{sec:google_vr_sdk}
 Google VR SDK\cite{google_vr_developers} digunakan untuk membantu dalam pembuatan aplikasi Virtual Reality pada \textit{smartphone}. Google VR SDK memberikan beberapa fitur sebagai berikut :
@@ -405,129 +540,35 @@ Ketika suatu kelas mengimplement Kelas GvrView.StereoRenderer, kelas tersebut ha
 		\item \textbf{public void getHeadView (float[] headView, int offset)}\\
 		Method ini digunakan untuk mendapatkan matriks transformasi dari camera virtual ke kepala. Kepala disini didefinisikan sebagai titik tengah diantara kedua mata. Matriks yang didapatkan akan disimpan pada parameter \textbf{headView}.
 		\item \textbf{public void getQuaternion (float[] quaternion, int offset)}\\
-		Method ini digunakan untuk mendapatkan quaternion yang merepresentasikan rotasi kepala.
+		Method ini digunakan untuk mendapatkan kuaternion yang merepresentasikan rotasi kepala.
 	\end{itemize}
 	\item Viewport\\
 	Kelas ini didefinisikan sebagai \textit{viewport}(area pandang) berbentuk persegi.
 \end{itemize}
-\section{Head Motion Detection Menggunakan Camera Inframerah}
-\label{sec:head_motion_detection}
-\cite{kapoor2001real}Mengangguk kepala dan menggeleng kepala merupakan gerakan non-verbal yang sering digunakan untuk berkomunikasi.  Arah dari pergerakan kepala dapat diperoleh dari posisi pupil pada camera. Posisi pupil pada camera ini digunakan pada observasi diskrit Hidden Markov Model(HMM) berdasarkan pola alat analisa untuk mendeteksi kepala ketika sedang mengangguk atau menggeleng. Sistem ini akan dilatih dan diuji pada data rekaman dari sepuluh pengguna dengan variasi pencahayaan dan ekspresi muka. Sistem ini memiliki tingkat akurasi sebesar 78.46\% berdasarkan pada data tes.
-\subsection{Probabilitas Kemungkinan dan Kebebasan}
-Terkadang kita memiliki pengetahuan tentang hasil dari suatu eksperimen dan secara alamiah mungkin mempengaruhi hasil pencobaan lainnya. Pengetahuan ini dapat di peroled dengan konsep probabilitas bersyarat. Kemungkinan dari suatu kejadian sebelum mempertimbahkan pengetahuan tambahan disebut juga \textit{prior probability} dari suatu kejadian. Kemungkinan dari hasil penggunaan pengetahuan tambahan disebut dengan \textit{posterior probability} dari suatu kejadian. Probabilitas bersyarat dari suatu kejadian A yang terjadi setelah kejadian B terjadi(\(P(A|B)\)) dengan Peluang B lebih besar dari 0 (\(P(B)>0\)) adalah:
-\begin{align*}
-	P(A|B) =& \frac{P(A\cap B)}{P(B)}\\
-	&atau,\\
-	P(A|B) =& \frac{P(A,B)}{P(B)}
-\end{align*}
-bahkan jika P(B) = 0, masih dapat diselesaikan dengan aturan perkalian:
-\[
-	P(A\cap B) = P(B)P(A|B) = P(A)P(B|A)
-\]
-Generalisasi dari aturan ini untuk banyak kejadian adalah sebagai berikut, atau disebut juga sebagai \textit{chain rule}:
-\[
-	P(A_1\cap ...\cap A_n)=P(A_1)P(A_2|A_1)P(A_3|A_1\cap A_2)...P(A_n|\cap^{n-1}_{i=1} A_i)
-\]
-\textit{Chain rule} ini akan digunakan dalam Markov Model.
-Kejadian A dengan B bersifat independen. Hal ini menyebabkan jika \(P(A\cap B) = P(A)P(B)\) kecuali \(P(B) = 0 \) akan menghasilkan persamaan \(P(A) = P(A|B)\)
-\subsection{Markov Model} 
-\label{sec:markov-model}
-\cite{manning1999natural} 
-\begin{figure}[htbp]
-	\centering
-		\includegraphics{Gambar/markov-model-example.png}
-	\caption{Contoh Markov Model}
-	\label{fig:markov-model-example}
-\end{figure}
-Markov model dapat digunakan ketika ingin memodelkan probabilitas dari suatu urutan linear pada suatu peristiwa. Contohnya, markov model yang digunakan dalam pemodelan urutan tutur perkataan dalam suatu dialog. Selain itu markov model juga digunakan untuk pengenal suara dan lain-lain. 
-Deret Markov menggunakan 
-Deret Markov dapat merepresentasikan oleh Markov model dengan suatu State Diagram seperti pada gambar \ref{fig:markov-model-example}. Transisi yang mungkin terjadi digambarkan dengan panah yang menghubungkan antar kondisi, dan pada lengkungan panahnya di berikan label probabilitas dari transisi tersebut. Jumlah dari seluruh probabilitas yang keluar dari suatu kondisi akan berjumlah 1. Dalam Markov Model, dapat diketahui bahwa kondisi-kondisi yang akan suatu mesin tempuh, sehingga urutan kondisi atau beberapa fungsi deterministik dapat dijadikan sebagai pengeluaran. 
-Probabilitas dari suatu urutan kondisi (yaitu urutan dari variabel-variabel random) \(X_i,...,X_T\) dapat dengan mudah di kalkukasi dengan deret Markov. Deret Markov dapat direpresentasikan dengan persamaan berikut:
-\begin{align*}
-P(X_1,...,X_T) =& P(X_1)P(X_2|X_1)P(X_3|X_1,X_2)...P(X_T|X_1,...,X_{T-1})\\
-=& P(X_1)P(X_2|X_1)P(X_3|X_2)...P(X_T|X_1,...,X_{T-1})\\
-=& \pi_{X_1} \Pi^{T-1}_{t=1} A X_t X_{t+1}
-\end{align*}\\
-Jadi, dengan Markov Model pada gambar \ref{fig:markov-model-example}, didapatkan:
-\begin{align*}
-	P(t,i,p) =& P(X_1 = t)P(X_2 = i|X_1 = t)P(X_3 = p|X_2 = i)\\
-	 =& 1.0 \times* 0.3 \times* 0.6\\
-	 =& 0.18
-\end{align*}
-
-\subsubsection{Hidden Markov Models}
-\label{sec:hidden-markov-models}
-\cite{manning1999natural} 
-Pada HMM(Hidden Markov Models), tidak dapat diketahui urutan kondisi yand dilewati model, tetapi hanya beberapa fungsi probabilistik saja yang diketahui. HMM berguna ketika dapat memikirkan peristiwa secara probabilistik yang menghasilkan peristiwa muka. 
-
-\textbf{Bentuk Umum HMM}\\
-\cite{manning1999natural} 
-HMM dispesifikasikan dengan (\(S,K,II,A,B)\), dimana S dengan K adalah kumpulan kondisi dan keluaran alphabet, dan II, A, dan B adalah probabilitas untuk kondisi awal, kondisi transisi, dan emisi simbul, secara berturut-turut. Notasi-notasi tersebut akan dijelaskan lebih lanjut pada tabel \ref{tab:hmm-notation}
-
-\cite{manning1999natural} 
-\begin{table}%
-	\centering
-\begin{tabular}{l l}
-Kumpulan kondisi  & \(S=\{ s_1,...,s_N\}\)\\
-Keluaran alphabet	& \(\{k_1,...,k_M\} = \{1,...,M\}\)\\
-\\
-Probabilitas kondisi awal & \(II = \{\pi_i\}, i\in S\)\\
-Probabilitas kondisi transisi & \(\{a_{ij}\},i,j\in S\)\\
-Probabilitas emisi simbol & \(\{a_{ij}\},i,j\in S\)\\
-\\
-Deretan kondisi	& \(x= (X_,...,X_{T+1}) X_t : s \stackrel{}{\rightarrow} \{1,...,M\}\)\\
-Deretan keluaran & \(O= (o_1,...,o_T) O_t \in K\)
-\end{tabular}
-\caption{Notasi yang digunakan dalam HMM}
-\label{tab:hmm-notation}
-\end{table}
-
-
-\textbf{Mencari Probabilitas dari Suatu Observasi}
-\cite{manning1999natural} 
-Diberikan suatu urutan observasi \(O = (o_1,...,o_T)\) dan suatu model \(\mu = (A,B,II)\), yang ingin dicari adalah bagaimana mengkalukasi \(P(O|\mu )\) secara efisien. Proses ini sering disebut juga sebagai \textit{decoding}. Untuk semua deret kondisi \(X = (X_1,...,X_{T+1})\),
-\begin{align*}
-	P(O|X,\mu ) =& \Pi^{T}_{t=1} P(o_t|X_t,X_t+1,\mu )\\
-		=& b_{X_1 X_2 o_1}b_{X_2 X_3 o_2}... b_{X_T X_{T+1}o_T}
-\end{align*}
-dan, 
-\[
-	P(X|\mu ) = \Pi_{X_1}a_{X_1 X_2}a_{X_2 X_3}...a_{X_T X_{T+1}}\\
-\]
-adapun,
-\[
-	P(O,X|\mu ) = P(O|X,\mu ) P(X|\mu )
-\]
-olehkarena itu, 
-\begin{align*}
-	P(O|\mu ) =& \Sigma_X P(O|X,\mu ) P(X|\mu )\\
-	=& \Sigma_{X_1 ...X_{T+1}} \pi X_1 \Pi^{T}_{t=1} a_{X_t X_{T+1}}b_{X_t X_{t+1}o_T}
-\end{align*}
-\cite{manning1999natural} 
-Penurunan ini cukup terang-terangan. Sayangnya, evaluasi langsung dari ekspresi yang dihasilkan tersebut sangatlah tidak efisien. Untuk kasus umum (kasus yang dapat dimulai pada kondisi apapun, dan pindah ke kondisi lain pada setiap tahapnya), kalkukasinya membutuhkan \((2T+1).T^{T+1}\) Untuk menangai kompleksitas ini dapat menggunakan teknik umum yaitu \textit{dynamic programming memoization} yang mengingat sebagian hasil dibandingkan harus menghitung ulang kembali. Untuk algoritma seperti HMM, \textit{dynamic programming} secara umum dideskripsikan dalam bentuk dari \textit{trellises}(bisa juga disebut dengan \textit{laticces}). \textit{Trellis} dapa merekan probabilitas semua \textit{subpaths} awal dari suatu HMM yang berakhir pada kondisi tertentu pada waktu tertentu. Probabilitas dari \textit{subpaths} yang lebih panjang dapat digunakan untuk suatu hal dari \textit{subpaths} yang lebih pendek.
-\section{Teori Quaternion}
+\section{Teori Kuaternion}
 \label{sec:teori_quaternion}
 
-Pada Android SDK \textbf{SensorEvent.values} \cite{android_developers} tipe sensor \textbf{Sensor.TYPE\_ROTATION\_VECTOR}, yaitu tipe sensor yang mendeteksi vektor perputaran pada \textit{smartphone}. Tipe sensor ini dijelaskan akan mengembalikan nilai-nilai dari komponen quaternion. 
-Quaternion\cite{kuipers:1999} adalah objek penggabungan dari suatu skalar dengan suatu vektor, sesuatu yang tidak dapat didefinisikan dalam aljabar linear biasa. 
-
+Pada Android SDK \textbf{SensorEvent.values} \cite{android_developers} tipe sensor \textbf{Sensor.TYPE\_ROTATION\_VECTOR}, yaitu tipe sensor yang mendeteksi vektor perputaran pada \textit{smartphone}. Tipe sensor ini dijelaskan akan mengembalikan nilai-nilai dari komponen kuaternion. 
+Kuaternion\cite{kuipers:1999} adalah objek penggabungan dari suatu skalar dengan suatu vektor, sesuatu yang tidak dapat didefinisikan dalam aljabar linear biasa. Kuaternion ditemukan oleh William Rowan Hamilton dengan memperpanjang notasi dari bilangan kompleks menjadi Kuaternion. 
 \subsection{Struktur Ajabar}
-Struktur-Struktur aljabar yang digunakan adalah Bilangan Kompleks, Konjugasi Kompleks, \textit{Quaternion Algebra}, dan Operasi-operasi pada \textit{Quaternion}.
+Karena Kuaternion merupakan bilangan kompleks yang diperpanjang notasinya, struktur aljabar Kuaternion hampir mirip dengan bilangan kompleks. Untuk mengerti struktur-struktur aljabar kuaternion, diperlukan untuk mengerti  bilangan kompleks terlebih dahulu. Berikut adalah penjelasan singkat tentang bilangan kompleks. 
+
 
 \subsubsection{Bilangan Kompleks}
+\label{sssec:bilangan_kompleks}
+\cite{kuipers:1999}
+Bilangan kompleks adalah bilangan yang merupakan gabungan dari bilangan imajiner dengan bilangan riil. Notasi umum dari bilangan kompleks adalah :
 
-Dalam matematika, bilangan kompleks adalah bilangan yang berbentuk\\
-\[
+\begin{equation}
 	a+bi
-\]\cite{kuipers:1999}\\
-dan \(a\) dengan \(b\) merupakan bilangan riil, dan \(i\) merupakan bilangan imajiner tertentu yang memiliki sifat \(i^2=-1\).
-
-Berikut notasi-notasi bilangan kompleks :
+\label{eq:notasi_umum_bilangan_kompleks}
+\end{equation}
+Pada notasi \ref{eq:notasi_umum_bilangan_kompleks} bilangan \(a\) dengan \(b\) merupakan bilangan riil, dan \(i\) merupakan bilangan imajiner tertentu yang memiliki sifat \(i^2=-1\). Bilangan kompleks juga dapat beroperasi dengan bilangan kompleks lainnya seperti penjumlahan, perkalian, pengurangan, dan pembagian. Berikut adalah contoh-contoh operasi pada bilangan kompleks \ref{eq:notasi_umum_bilangan_kompleks} dengan bilangan kompleks \(c+di\):
 \begin{itemize}
 	\item Penjumlahan\\
 	\[
 	 (a + bi) + (c + di) = (a+c) + i(b+d)
-	\]\\
+	\]
 	\item Perkalian\\
 	\[
 	 (a + bi)(c + di) = (ac−bd) + (bc+ad)i
@@ -541,44 +582,30 @@ Berikut notasi-notasi bilangan kompleks :
 	 \frac{(a + bi)}{(c + di)} = \frac{(ac+bd)}{c^2+d^2} + i \frac{bc-ad}{c^2+d^2}
 	\]
 \end{itemize}
-Terlihat jelas bahwa penjumlahan dan perkalian untuk bilangan kompleks keduanya adalah assosiatif dan komutatif. Detilnya dapat dilihat dengan persamaan di bawah ini.
-\[
-	(a+ib) + (c+id) = (a+c) + i(b+d)\\
+Pada operasi penjumlahan dan perkalian untuk kedua bilangan kompleks tersebut memiliki hukum assosiatif dan komutatif. Notasi \ref{eq:penjumlahan_hukum} menunjukkan bagaimana bagaimana kedua hukum tersebut berlaku pada penjumlahan.
+\begin{equation}
+	\begin{split}
+	(a+ib) + (c+id) = (a+c) + i(b+d)=\\
 	(c+id) + (a+ib) = (c+a) + i(d+b)
+	\end{split}
+\label{eq:penjumlahan_hukum}
+\end{equation}
+
+Bilangan kompleks dapat digunakan untuk rotasi dua dimensi. Bilangan kompleks dengan \(a = \cos (\frac{\theta}{2})\), dan \(b = \sin(\frac{\theta}{2})\) yang dikalikan dengan suatu vektor akan menghasilkan rotasi(berlawanan arah jarum jam) sebesar \(\theta\)  pada vektor tersebut, dengan titik pusat sebagai sumbu putarnya.
+
+
+\subsection{\textit{Aljabar Kuaternion} dan Operasi-operasi pada Kuaternion}
+\cite{kuipers:1999}
+Kuaternion ditemukan oleh ahli matematika dan astronomi Inggris, William Rowan Hamilton, dengan memperpanjang aritmatika dari bilangan kompleks. Dari penemuan tersebut William Rowan Hamilton menemukan bahwa dia tidak hanya membutuhkan bilangan imajiner \(i\) saja untuk melakukan rotasi pada ruang tiga dimensi. Dia menemukan bahwa dia juga membutuhkan tiga komponen imajiner lainnya yaitu \(i,j\) dan \(k\). Persamaan umum Kuaternion memiliki empat bilangan riil atau skalar. Persamaan tersebut adalah 
+\[
+	q = q_0 + i q_1 + j q_2 + k q_3
 \]
-Karena penjumlahan untuk bilangan riil bersifat komutatif:
-\[
-	a+c = c+a\\
-	b+d = d+b
-\]
-
-Bilangan kompleks dapat digunakan untuk rotasi dua dimensi. Dengan \(a = \cos (\frac{\theta}{2})\), dan \(b = \sin(\frac{\theta}{2})\), kemudian akan dikalikan dengan vektor yang ingin di putar, dengan sumbu putar adalah titik pusat.
-
-
-\subsubsection{Konjugasi Kompleks}
-\cite{kuipers:1999}Berhubungan dengan bentuk umum bilangan kompleks,
-\[
-	z = a + ib
-\]\\
-satu bilangan dikatakan konjugasi kompleks jika
-\[
-	\bar{z} = a - ib
-\]\\
-Dari kedua persamaan diatas dapat dihasilkan :
-\[
-	z + \bar{z} = 2a
-\]dan,
-\[
-	z \bar(z) = a^2 +b^2 = |z|^2
-\]
-
-\subsection{\textit{Quaternion Algebra} dan Operasi-operasi pada Quaternion}
-\cite{kuipers:1999}Pada buku "Quaternions and Rotation Sequences : A Primer with Applications to Orbits, Aerospace, and Virtual Reality" disebutkan bahwa tingkat empat bilangan sangat kompleks, dinamakan quaternion. Dari penemuan ini dibuat aturan:
+Ketiga komponen tersebut memiliki relasi sebagai berikut:
 \[
 	i^2 = j^2 = k^2 = ijk = -1
 \]
-untuk beoperasi dengan vektor bagian dari suatu quaternion.
-Untuk hasil dari perkalian dua \textit{quaternion} memiliki aturan yang lebih rumit, sehingga memiliki aturan-aturan khusus. Berikut aturan-aturan khususnya :
+
+Hasil dari perkalian dua \textit{kuaternion} memiliki aturan yang lebih rumit, sehingga memiliki aturan-aturan khusus. Berikut aturan-aturan khususnya :
 \begin{equation}
 	\begin{split}
 	& ij = k = -ji\\
@@ -587,23 +614,16 @@ Untuk hasil dari perkalian dua \textit{quaternion} memiliki aturan yang lebih ru
 	\end{split}
 \label{eq:persamaan_khusus_aturan_quaternion}
 \end{equation}\\
-Perhatikan bahwa ketiga persamaan diatas mirip dengan cross product vektor sesuai dengan aturan tangan kanan (\textit{right-hand rule}). Dapat di katakan pada Gambar \ref{fig:right-hand-rule}, \(A\) berperan sebagai \(i\), \(B\) berperan sebagai \(j\), dan \(C\) berperan sebagai \(k\). Sehingga terpenuhi sesuai dengan persaman-persamaan \ref{eq:persamaan_khusus_aturan_quaternion}\\
+Ketiga persamaan diatas mirip dengan aturan tangan kanan (\textit{right-hand rule})pada perkalian cross product dari suatu vector. Pada Gambar \ref{fig:right-hand-rule}, \(A\) berperan sebagai \(i\), \(B\) berperan sebagai \(j\), dan \(C\) berperan sebagai \(k\).\\
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=1]{Gambar/right-hand-rule}
 \caption{Right-hand rule dalam \textit{cross product} vektor} 
 \label{fig:right-hand-rule}
 \end{figure}\\
-\textit{Quaternion} memiliki persamaan umum yang memiliki empat bilangan riil atau skalar. Persamaan tersebut adalah 
-\[
-	q = q_0 + i q_1 + j q_2 + k q_3
-\]\cite{kuipers:1999}
-Sama seperti pada bilangan kompleks, \textit{quaternion} juga memiliki konjugasi kompleksnya. Berikut adalah konjugasi kompleks \textit{quaternion}
-\[
-	q = q_0 - i q_1 - j q_2 - k q_3
-\]
-\subsubsection{Operasi pada Quaternion}
-Dua buah quaternion dapat dikatakan sama jika dan hanya jika kedua quaternion memiliki komponen yang sama.
+\subsubsection{Operasi pada Kuaternion}
+\label{sssec:operasi_pada_quaternion}
+Dua buah kuaternion dapat dikatakan identik jika dan hanya jika kedua kuaternion memiliki komponen yang identik.
 \[
 	p = p_0 + +ip_1+jp_2+kp_3
 \]
@@ -612,17 +632,19 @@ dan,
 	q = q_0 + i q_1 + j q_2 + k q_3
 \]
 maka p = q jika dan hanya jika
-\[
+\begin{equation}
+	\begin{split}
 	p_0=q_0\\
 	p_1=q_1\\
 	p_2=q_2\\
 	p_3=q_3\\
-\]
-Penjumlahan dari kedua quaternion diatas dapat didefinisikan sebagai komponen penjumlahan yaitu:
+	\end{split}
+\end{equation}
+Penjumlahan dari kedua kuaternion diatas dapat didefinisikan sebagai komponen penjumlahan yaitu:
 \[
 	(p+q)=(p_0+q_0)+i(p_1+q_1)+j(p_2+q_2)+k(p_3+q_3)
 \]
-Perkalian dari kedua quaternion diatas dapat didefinisikan sebagai komponen perkalian yaitu:
+Perkalian dari kedua kuaternion diatas dapat didefinisikan sebagai komponen perkalian yaitu:
 \[
 	pq = (p_0 + +ip_1+jp_2+kp_3)(q_0 + i q_1 + j q_2 + k q_3)
 \]
