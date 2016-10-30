@@ -62,13 +62,13 @@ Android menggunakan file XML yang berkorespondesi kepada \textit{subclasses} dar
 Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dalam membuat GUI pada file activity\_main.xml
 \begin{itemize}
 	\item \textbf{android:id}
-	Attribut ini merupakan pengidentifikasi dari suatu view. Attribut ini dapat digunakan untuk menjadi referrensi object dari kode aplikasi seperti membaca dan memanipulasi objek tersebut (Akan dijelaskan lebih lanjut pada subbab \ref{sec:activity}). Tanda '@' dibutuhkan ketika mereferensi object dari suatu XML. Tanda '@' tersebut diikuti dengan tipe (id pada kasus ini), \textit{slash}, dan nama (edit\_message pada kode \ref{lst:attribute-view}). Tanda tambah (+) sebelum tipe hanya dibutuhkan jika ingin mendefinisikan \textit{resource ID} untuk pertama kalinya.
+	Attribut ini merupakan pengidentifikasi dari suatu view. Attribut ini dapat digunakan untuk menjadi referrensi object dari kode aplikasi seperti membaca dan memanipulasi objek tersebut (Akan dijelaskan lebih lanjut pada subbab \ref{sec:activity}). Tanda '@' dibutuhkan ketika mereferensi object dari suatu XML. Tanda '@' tersebut diikuti dengan tipe (id pada kasus ini), \textit{slash}, dan nama (edit\_message pada Listing \ref{lst:attribute-view}). Tanda tambah (+) sebelum tipe hanya dibutuhkan jika ingin mendefinisikan \textit{resource ID} untuk pertama kalinya.
 	\item \textbf{android:layout\_width} dan \textbf{android:layout\_height}
-	Attribut ini digunakan untuk mendefinisikan panjang dan lebar dari suatu objek View. Daripada menggunakan besar spesifik untuk panjang dan lebarnya, lebih baik menggunakan "wrap\_content" yang menspesifikasi viewnya hanya akan sebesar yang dibutuhkan untuk memuat konten-konten dari View. Jika menggunakan "match\_parent" pada kasus kode \ref{lst:attribute-view} View akan memenuhi layar, karena besarnya akan mengikuti besar dari paretnya LinearLayout.
+	Attribut ini digunakan untuk mendefinisikan panjang dan lebar dari suatu objek View. Daripada menggunakan besar spesifik untuk panjang dan lebarnya, lebih baik menggunakan "wrap\_content" yang menspesifikasi viewnya hanya akan sebesar yang dibutuhkan untuk memuat konten-konten dari View. Jika menggunakan "match\_parent" pada kasus Listing \ref{lst:attribute-view} View akan memenuhi layar, karena besarnya akan mengikuti besar dari paretnya LinearLayout.
 
 
 	\item \textbf{android:hint}
-	Attribut ini merupakan \textit{default string} untuk di tampilkan ketika objek View kosong. Daripada menggunakan \textit{hard-coded string} sebagai \textit{nilai} untuk ditampilkan, \textit{value} "@string/edit\_message" mereferensi ke sumber string pada file yang berbeda. Karena mereferensi ke sumber konkrit, maka tidak dibutuhkan tanda tambah (+). Nilai string ini akan di simpan pada file Strings.xml yang ditunjukkan pada Kode \ref{lst:string-xml}.
+	Attribut ini merupakan \textit{default string} untuk di tampilkan ketika objek View kosong. Daripada menggunakan \textit{hard-coded string} sebagai \textit{nilai} untuk ditampilkan, \textit{value} "@string/edit\_message" mereferensi ke sumber string pada file yang berbeda. Karena mereferensi ke sumber konkrit, maka tidak dibutuhkan tanda tambah (+). Nilai string ini akan di simpan pada file Strings.xml yang ditunjukkan pada Listing \ref{lst:string-xml}.
 	\begin{lstlisting}[caption={Contoh kode pada string.xml},label={lst:string-xml},language=xml]
 	<resources>
     <string name="app_name">MyFirstAndroidApp</string>
@@ -80,7 +80,7 @@ Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dal
 
 
 	\item \textbf{android:onClick}
-	Attribut ini akan memberitahu \textit{system} untuk memanggil method yang sesuai namanya (contoh pada kode \ref{lst:attribute-view} adalah \textbf{sendMessage()}) di Activity ketika pengguna melakukan klik pada \textit{button} tersebut. Agar \textit{system} dapat memanggil method yang tepat, method tersebut harus memenuhi kriteria berikut.
+	Attribut ini akan memberitahu \textit{system} untuk memanggil method yang sesuai namanya (contoh pada Listing \ref{lst:attribute-view} adalah \textbf{sendMessage()}) di Activity ketika pengguna melakukan klik pada \textit{button} tersebut. Agar \textit{system} dapat memanggil method yang tepat, method tersebut harus memenuhi kriteria berikut.
 	\begin{itemize}
 		\item \textit{Access Modifier} haruslah \textit{public}.
 		\item Harus \textit{void return value}nya.
@@ -190,7 +190,7 @@ Koordinat sistem yang sumbunya tidak tertukar ketika orientasi perangkat berubah
 \subsubsection{Mengidentifikasi Sensor dan Kapabilitas Sensor}
 \label{sssec:mengidentifikasi_sensor_dan_kapabilitas_sensor}
 Android Sensor Framework menyediakan beberapa method yang dapat membuat developer mudah untuk menentukan sensor mana yang akan digunakan. APInya juga dapat menyediakan method yang memungkinkan penggunanya menentukan kapabilitas masing-masing sensor, seperti jangkauan maksimum, resolusi, dan kebutuhan dayanya.
-Untuk mengidentifikasi sensor-sensor yang ada pada perangkat, hal pertama yang perlu dilakukan adalah mendapatkan referensi sensor tersebut. Untuk mendapatkan referensi tersebut, dapat dilakukan dengan membuat instansiasi dari kelas SensorManager dan memanggul method getSystemService() dan memasukkan isi Parameternya dengan SENSOR\_SERVICE. Contohnya pada kode \ref{lst:init-sensor-manager}.
+Untuk mengidentifikasi sensor-sensor yang ada pada perangkat, hal pertama yang perlu dilakukan adalah mendapatkan referensi sensor tersebut. Untuk mendapatkan referensi tersebut, dapat dilakukan dengan membuat instansiasi dari kelas SensorManager dan memanggul method getSystemService() dan memasukkan isi Parameternya dengan SENSOR\_SERVICE. Contohnya pada Listing \ref{lst:init-sensor-manager}.
  
 \begin{lstlisting}[caption={Contoh inisialisasi kelas SensorManager},label={lst:init-sensor-manager},language=java]
 private SensorManager mSensorManager;
@@ -198,7 +198,7 @@ private SensorManager mSensorManager;
 mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 \end{lstlisting}
 
-Kemudian untuk mendapatkan daftar dari setiap sensor pada suatu perangkat dapat dilakukan dengan cara memanggil method getSensorList() dan menggunakan konstanta TYPE\_ALL pada kelas Sensor. Contohnya pada kode \ref{lst:get-sensor-lists}
+Kemudian untuk mendapatkan daftar dari setiap sensor pada suatu perangkat dapat dilakukan dengan cara memanggil method getSensorList() dan menggunakan konstanta TYPE\_ALL pada kelas Sensor. Contohnya pada Listing \ref{lst:get-sensor-lists}
 
 \begin{lstlisting}[caption={Contoh untuk mendapatkan daftar dari setiap sensor yang ada},label={lst:get-sensor-lists},language=java]
 List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
@@ -206,7 +206,7 @@ List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
 Namun jika ingin mendapatkan sensor-sensor yang sesuai dengan tipe sensor yang diberikan, dapat menggunakan TYPE\_GYROSCOPE, TYPE\_LINEAR\_ACCELERATION, TYPE\_GRAVITY, atau TYPE\_GRAVITY.
 
-Untuk menentukan jenis tertentu dari sensor yang ada pada perangkat dapat didapatkan dengan method getDefaultSensor() dengan dimasukkan dengan konstanta yang berada pada kelas Sensor. Jika perangkatnya memiliki lebih dari satu sensor dari tipe sensor yang diberikan, salah satu dari sensor tersebut akan dianggap sebagai sensor dasar. Jika sensor dasanya tidak ada untuk sensor tersebut, perangkat tersebut berarti tidak memiliki sensor dengan jenis yang diberikan. Kode \ref{lst:check-sensor} adalah contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan.
+Untuk menentukan jenis tertentu dari sensor yang ada pada perangkat dapat didapatkan dengan method getDefaultSensor() dengan dimasukkan dengan konstanta yang berada pada kelas Sensor. Jika perangkatnya memiliki lebih dari satu sensor dari tipe sensor yang diberikan, salah satu dari sensor tersebut akan dianggap sebagai sensor dasar. Jika sensor dasanya tidak ada untuk sensor tersebut, perangkat tersebut berarti tidak memiliki sensor dengan jenis yang diberikan. Listing \ref{lst:check-sensor} adalah contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan.
 
 \begin{lstlisting}[caption={Contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan},label={lst:check-sensor},language=java]
 private SensorManager mSensorManager;
@@ -220,7 +220,7 @@ else {
   }
 \end{lstlisting}
 
-Jika ingin membatasi versi atau vendor dari sensor yang akan digunakan, dapat menggunakan method getVendor() dan getVersion(). Seperti pada kode \ref{lst:check-sensor-version} yang mengharuskan sensor gravitasi bervendor "Google Inc." dan memiliki versi 3. Jika sensor tersebut tidak tersedia pada perangkat, sensor accelerometerlah yang digunakan.
+Jika ingin membatasi versi atau vendor dari sensor yang akan digunakan, dapat menggunakan method getVendor() dan getVersion(). Seperti pada Listing \ref{lst:check-sensor-version} yang mengharuskan sensor gravitasi bervendor "Google Inc." dan memiliki versi 3. Jika sensor tersebut tidak tersedia pada perangkat, sensor accelerometerlah yang digunakan.
 
 \begin{lstlisting}[caption={Contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan},label={lst:check-sensor-version},language=java]
 private SensorManager mSensorManager;
@@ -266,7 +266,7 @@ Dalam kasus ini sistem memanggil method onAccuracyChanged(Sensor sensor, int acc
 Dalam kasus ini sistem memanggil method onSensorChanged(SensorEvent event), dengan parameter event akan diisi dengan objek SensorEvent untuk mendapatkan nilai barunya. Objek SensorEvent Mengandung semua infromasi tentang data sensor yang baru, termasuk: akurasi dari data, sensor yang mendapatkan data, dan catatan waktu data tersebut didapatkan, dan data yang baru yang telah didapatkan.
 \end{itemize}
 
-Pada kode \ref{lst:monitoring-light-sensor} akan ditunjukkan bagaimana menggunakan method onSensorChanged(SensorEvent event) untuk memonitor data dari sensor cahaya. Pada kode \ref{lst:monitoring-light-sensor} akan menampilkan data mentah dari sensor ke TextView yang telah didefinisikan pada file main.xml sebagai sensor\_data.
+Pada Listing \ref{lst:monitoring-light-sensor} akan ditunjukkan bagaimana menggunakan method onSensorChanged(SensorEvent event) untuk memonitor data dari sensor cahaya. Pada Listing \ref{lst:monitoring-light-sensor} akan menampilkan data mentah dari sensor ke TextView yang telah didefinisikan pada file main.xml sebagai sensor\_data.
 \begin{lstlisting}[caption={Contoh memonitor data mentah pada sensor cahaya},label={lst:monitoring-light-sensor},language=java]
 public class SensorActivity extends Activity implements SensorEventListener {
   private SensorManager mSensorManager;
@@ -349,7 +349,7 @@ Suatu saat akan di butuhkan untuk mengukur percepatan asli yang terjadi pada per
           linear_acceleration[2] = event.values[2] - gravity[2];
      }
 \end{lstlisting}
-\textit{Low-pass} filter dapat diimplementasikan pada kode \ref{lst:low-pass-filter}\\
+\textit{Low-pass} filter dapat diimplementasikan pada Listing \ref{lst:low-pass-filter}\\
 \item \textbf{TYPE\_MAGNETIC\_FIELD}\\
 Sensor ini mengukur medan magnet sekitar perangkat pada sumbu X,Y, dan Z dalam satuan micro-Tesla.\\
 \item \textbf{TYPE\_GYROSCOPE}\\
@@ -359,7 +359,7 @@ Sensor ini mengukur rata-rata perputaran pada perangkat yang berputar di sumbu X
 	\item values[1]: Percepatan angular pada sumbu Y.
 	\item values[2]: Percepatan angular pada sumbu Z.
 \end{itemize}
-Biasanya keluaran dari gyroscope terintegrasi dari waktu ke waktu untuk menghitung rotasi yang menggambarkan perubahan sudut atas langkah waktu, misalnya pada kode \ref{lst:gryoscope-example}
+Biasanya keluaran dari gyroscope terintegrasi dari waktu ke waktu untuk menghitung rotasi yang menggambarkan perubahan sudut atas langkah waktu, misalnya pada Listing \ref{lst:gryoscope-example}
 \begin{lstlisting}[caption=contoh implementasi gyroscope,label={lst:gryoscope-example},language=java]
 	  private static final float NS2S = 1.0f / 1000000000.0f;
      private final float[] deltaRotationVector = new float[4]();
@@ -591,15 +591,57 @@ Pada operasi penjumlahan dan perkalian untuk kedua bilangan kompleks tersebut me
 \label{eq:penjumlahan_hukum}
 \end{equation}
 
-Bilangan kompleks dapat digunakan untuk rotasi dua dimensi. Bilangan kompleks dengan \(a = \cos (\frac{\theta}{2})\), dan \(b = \sin(\frac{\theta}{2})\) yang dikalikan dengan suatu vektor akan menghasilkan rotasi(berlawanan arah jarum jam) sebesar \(\theta\)  pada vektor tersebut, dengan titik pusat sebagai sumbu putarnya.
+Suatu bilangan dapat dikatakan konjugasi kompleks dari suatu bilangan kompleks jika nilai bilangan riilnya sama, tetapi nilai bilangan imajinernya berlawanan dengan nilai pada bilangan kompleks tersebut. Maka konjugasi kompleks dari bilangan kompleks \ref{eq:notasi_umum_bilangan_kompleks} adalah \(a-bi\). 
 
+Bilangan kompleks ini dapat digunakan untuk rotasi vektor pada bidang dua dimensi. Rotasi ini dapat dilakukan dengan mengalikan suatu vektor dengan bilangan imajiner $i$. Mengalikan suatu vektor dengan bilangan imajiner $i$ akan memutar vektor sebesar $90^{\circ}$ berlawanan arah jarum jam. Mengalikan suatu vektor dengan bilangan imajiner $i^2$ akan memutar vektor sebesar $180^{\circ}$ berlawanan arah jarum jam. Untuk memperjelas perputaran dengan bilangan kompleks diberikan contoh berikut:
+Sebuah vektor $v = 3 + i3$ akan diputar $90^{\circ}$ berlawanan arah jarum jam dengan mengalikan vektor tersebut dengan bilangan imajiner $i$. Maka vektor hasil perputarannya($v'$) adalah :
+\begin{equation}
+	\begin{split}
+		v' = &i(3 + i3)\\
+		= & i3 + i^2 3\\
+		= & i3 + (-1) 3\\
+		= & -3 + i3
+	\end{split}
+\label{eq:rotasi_kompleks}
+\end{equation}
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=1]{Gambar/diagram-rotasi-kompleks.png}
+\caption{Contoh perputaran dengan bilangan kompleks} 
+\label{fig:diagram-rotasi-kompleks}
+\end{figure}
+Dengan bilangan pada bilangan riil diasumsikan sebagai nilai pada sumbu x dan bilangan yang dikalikan dengan bilangan $i$ diasumsikan pada sumbu y($x + iy$) Seperti yang ditunjukkan pada Gambar \ref{fig:diagram-rotasi-kompleks}. Oleh karena itu rumus perputaran menggunakan bilangan kompleks dapat di rumuskan sebagai berikut: 
+\[
+	v' = v\times(\cos \theta + i \sin \theta)
+\]
+dengan $\theta$ adalah besar sudut perputaran. Jika vektor $v = 3 + i3$ diputar $30^{\circ}$ berlawanan arah jarum jam menggunakan konsep diatas, akan menghasilkan vektor berikut:
 
+\begin{equation}
+	\begin{split}
+		v' = &(3 + i3)(\cos 30^{\circ} + i \sin 30^{\circ})\\
+		= & (3 + i3)(\frac{\sqrt{3}}{2} + i \frac{1}{2})\\
+		= & \frac{3\sqrt{3}-3}{2} + i\frac{3\sqrt{3}+3}{2}\\
+		= & 1.098 + i4.098
+	\end{split}
+\label{eq:rotasi_kompleks_tiga_puluh_derajat}
+\end{equation}
+
+Dari persamaan tersebut dapat divisualisasikan pada Gambar \ref{fig:diagram-rotasi-kompleks1}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=1]{Gambar/diagram-rotasi-kompleks1.png}
+\caption{Contoh perputaran tiga puluh derajat dengan bilangan kompleks} 
+\label{fig:diagram-rotasi-kompleks1}
+\end{figure}
 \subsection{\textit{Aljabar Kuaternion} dan Operasi-operasi pada Kuaternion}
 \cite{kuipers:1999}
 Kuaternion ditemukan oleh ahli matematika dan astronomi Inggris, William Rowan Hamilton, dengan memperpanjang aritmatika dari bilangan kompleks. Dari penemuan tersebut William Rowan Hamilton menemukan bahwa dia tidak hanya membutuhkan bilangan imajiner \(i\) saja untuk melakukan rotasi pada ruang tiga dimensi. Dia menemukan bahwa dia juga membutuhkan tiga komponen imajiner lainnya yaitu \(i,j\) dan \(k\). Persamaan umum Kuaternion memiliki empat bilangan riil atau skalar. Persamaan tersebut adalah 
-\[
-	q = q_0 + i q_1 + j q_2 + k q_3
-\]
+
+\begin{equation}
+	q = q_0 + i q_1 + j q_2 + k q_3	
+\label{eq:notasi_kuaternion}
+\end{equation}
 Ketiga komponen tersebut memiliki relasi sebagai berikut:
 \[
 	i^2 = j^2 = k^2 = ijk = -1
@@ -621,8 +663,13 @@ Ketiga persamaan diatas mirip dengan aturan tangan kanan (\textit{right-hand rul
 \caption{Right-hand rule dalam \textit{cross product} vektor} 
 \label{fig:right-hand-rule}
 \end{figure}\\
+
+Seperti pada bilangan kompleks, kuaternion juga memiliki konjugasinya. Konjugasi kuaternion ini akan digunakan untuk melakukan operasi rotasi tiga dimensi(Akan dijelaskan pada subsubbab berikut). Sama dengan konjugasi pada bilangan kompleks, kuaternion yang bilangan riilnya sama, dan bilangan imajinernya berlawanan dengan kuaternionnya disebut dengan konjugasi kuaternion. Oleh karena itu konjugasi kuaternion dari notasi kuaternion \ref{eq:notasi_kuaternion} adalah: 
+\[
+	q = q_0 - i q_1 - j q_2 - k q_3
+\]
 \subsubsection{Operasi pada Kuaternion}
-\label{sssec:operasi_pada_quaternion}
+\label{sssec:operasi_pada_kuaternion}
 Dua buah kuaternion dapat dikatakan identik jika dan hanya jika kedua kuaternion memiliki komponen yang identik.
 \[
 	p = p_0 + +ip_1+jp_2+kp_3
@@ -646,6 +693,27 @@ Penjumlahan dari kedua kuaternion diatas dapat didefinisikan sebagai komponen pe
 \]
 Perkalian dari kedua kuaternion diatas dapat didefinisikan sebagai komponen perkalian yaitu:
 \[
-	pq = (p_0 + +ip_1+jp_2+kp_3)(q_0 + i q_1 + j q_2 + k q_3)
+	pq = (p_0 +ip_1+jp_2+kp_3)(q_0 + i q_1 + j q_2 + k q_3)
 \]
-Begitu pula juga dengan pembagian dan pengurangan.
+Begitu pula untuk komponen pengurangan dengan pembagian. 
+Dari keempat operasi kuaternion tersebut, operasi kuaternion yang digunakan untuk rotasi bidang tiga dimensi adalah operasi perkalian. Fungsi rotasi vektor dapat menggunakan operasi kuaternion seperti pada bilangan kompleks, dengan rumus:
+\[
+	v' = qvq^*
+\]
+dengan,
+\begin{itemize}
+	\item \(v = 1 + x_A i +y_A j + z_A k\)
+	\item \(q = q_0 + i q_1 + j q_2 + k q_3	\)
+	\item \(q^* =  q_0 - i q_1 - j q_2 - k q_3\)
+	\item \(v' = 1 + x_(A') i +y_(A') j + z_(A') k\)
+\end{itemize}
+Seperti pada bilangan kompleks, bilangan $q_0 ,i q_1,j q_2,k q_3$ akan memiliki nilai sebagai berikut jika suatu kuaternion ingin digunakan untuk rotasi tiga dimensi:
+\begin{equation}
+	\begin{split}
+	q_0=& \cos (\frac{\theta}{2})\\
+	q_1=& \sin (\frac{\theta}{2}) x_f\\
+	q_2=& \sin (\frac{\theta}{2}) y_f\\
+	q_3=& \sin (\frac{\theta}{2}) z_f\\
+	\end{split}
+\end{equation}
+dengan vektor f ($x_f,y_f,z_f$) merupakan sumbu perputaran dan $\theta$ merupakan besar sudut putar berlawanan arah dengan jarum jam.
