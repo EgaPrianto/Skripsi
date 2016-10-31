@@ -146,7 +146,7 @@ Ada 3 \textit{key loops} untuk memantau suatu Activity:
 Android mendukung tiga kategori sensor:
 \begin{itemize}
 	\item \textbf{Sensor gerak}
-	Sensor-sensor ini mengukur akselerasi dan rotasi pada tiga sumbu. Kategori sensor ini meliputi \textit{accelerometers}, sensor gravitasi, \textit{gyroscope}, dan rotasi vektor. 
+	Sensor-sensor ini mengukur akselerasi dan rotasi pada tiga sumbu. Kategori sensor ini meliputi \textit{accelerometers}, sensor gravitasi, \textit{gyroscope}, dan \textit{rotation vector}. 
 	\item \textbf{Sensor keadaan lingkungan}
 	Sensor-sensor ini mengukur berbagai keadaan lingkungan seperti suhu udara, tekanan, pencahayaan, dan kelembaban. Kateori sensor ini termasuk barimeter, fotometer dan termometer.
 	\item \textbf{Sensor posisi}
@@ -702,10 +702,10 @@ Dari keempat operasi kuaternion tersebut, operasi kuaternion yang digunakan untu
 \]
 dengan,
 \begin{itemize}
-	\item \(v = 1 + x_A i +y_A j + z_A k\)
+	\item \(v = 1 + x_v i +y_v j + z_v k\)
 	\item \(q = q_0 + i q_1 + j q_2 + k q_3	\)
 	\item \(q^* =  q_0 - i q_1 - j q_2 - k q_3\)
-	\item \(v' = 1 + x_(A') i +y_(A') j + z_(A') k\)
+	\item \(v' = 1 + x_{v'} i +y_{v'} j + z_{v'} k\)
 \end{itemize}
 Seperti pada bilangan kompleks, bilangan $q_0 ,i q_1,j q_2,k q_3$ akan memiliki nilai sebagai berikut jika suatu kuaternion ingin digunakan untuk rotasi tiga dimensi:
 \begin{equation}
