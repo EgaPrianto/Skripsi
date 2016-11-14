@@ -10,63 +10,437 @@
 % terdapat beberapa pilihan : tiny, scriptsize, footnotesize, dll
 %
 % caption : nama yang akan ditampilkan di dokumen akhir, lihat contoh
-\begin{lstlisting}[language=Java,basicstyle=\tiny,caption=MyFurSet.java]
+\begin{lstlisting}[language=Java,basicstyle=\tiny,caption=MainActivity.java]
+package com.example.egaprianto.testingsensors;
 
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    TextView mTextView; 
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        android.os.Debug.stopMethodTracing();
+    }
+
+    public void onClickLightSensorButton(View view){
+        Intent intent = new Intent(this, SensorAccelerometerActivity.class);
+        startActivity(intent);
+    }
+
+    public void onRotVecSensorButton(View view){
+        Intent intent = new Intent(this, QuaternionTheta.class);
+        startActivity(intent);
+    }
+
+    public void recordAllRAWSensorData(View view){
+        Intent intent = new Intent(this, RecordAllRAWSensorData.class);
+        startActivity(intent);
+    }
+
+    public void onGyroSensorClicked(View view){
+        Intent intent = new Intent(this, SensorGyroscopeActivity.class);
+        startActivity(intent);
+    }
+    public void onMagSensorClicked(View view){
+        Intent intent = new Intent(this, SensorGeomagnetoticRotationActivity.class);
+        startActivity(intent);
+    }
+}
+
+\end{lstlisting}
+\begin{lstlisting}[language=Java,basicstyle=\tiny,caption=RecordAllRAWSensorData.java]
+package com.example.egaprianto.testingsensors;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
+
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 
-/**
- *
- * @author Lionov
- */
+public class RecordAllRAWSensorData extends AppCompatActivity implements SensorEventListener {
+    private static final String FILENAME = "sensorRecord-";
+    private SensorManager mSensorManager;
+    private ArrayList<Sensor> sensorArrayList;
+    private TextView textViewCountDown;
+    private boolean isCapturing;
+    private File file;
+    private ArrayList<double[]> acceleroData;
+    private ArrayList<double[]> gyroData;
+    private long startCaptureTime;
+    private long runningTime;
+    private ArrayList<double[]> rotData;
+    private ArrayList<double[]> rotVecData;
 
-//class for set of vertices close to furthest edge
-public class MyFurSet {
-    protected int id;                                  //id of the set
-    protected MyEdge FurthestEdge;                     //the furthest edge
-    protected HashSet<MyVertex> set;                   //set of vertices close to furthest edge
-    protected ArrayList<ArrayList<Integer>> ordered;   //list of all vertices in the set for each trajectory
-    protected ArrayList<Integer> closeID;              //store the ID of all vertices
-    protected ArrayList<Double> closeDist;             //store the distance of all vertices
-    protected int totaltrj;                            //total trajectories in the set
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.sensorArrayList = new ArrayList<Sensor>();
+        setContentView(R.layout.activity_record_all_rawsensor_data);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        textViewCountDown = (TextView) findViewById(R.id.textViewCountDown);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            this.sensorArrayList.add(sensorGetter(Sensor.TYPE_ACCELEROMETER));
+            this.sensorArrayList.add(sensorGetter(Sensor.TYPE_GYROSCOPE));
+            this.sensorArrayList.add(sensorGetter(Sensor.TYPE_ROTATION_VECTOR));
+        }
 
-    /**
-     * Constructor
-     * @param id : id of the set
-     * @param totaltrj : total number of trajectories in the set
-     * @param FurthestEdge : the furthest edge
-     */
-    public MyFurSet(int id,int totaltrj,MyEdge FurthestEdge) {
-        this.id = id;
-        this.totaltrj = totaltrj;
-        this.FurthestEdge = FurthestEdge;
-        set = new HashSet<MyVertex>();
-        ordered = new ArrayList<ArrayList<Integer>>();
-        for (int i=0;i<totaltrj;i++) ordered.add(new ArrayList<Integer>());
-        closeID = new ArrayList<Integer>(totaltrj);
-        closeDist = new ArrayList<Double>(totaltrj);
-        for (int i = 0;i <totaltrj;i++) {
-            closeID.add(-1);
-            closeDist.add(Double.MAX_VALUE);
+        int REQUEST_EXTERNAL_STORAGE = 1;
+        String[] PERMISSIONS_STORAGE = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+        int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+        isCapturing = false;
+        for (Sensor sensor :
+                sensorArrayList) {
+            mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
         }
     }
 
-    /**
-     * set a vertex into the set
-     * @param v : vertex to be added to the set
-     */
-    public void add(MyVertex v) {
-        set.add(v);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        for (Sensor sensor :
+                sensorArrayList) {
+            mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
+        }
     }
 
-    /**
-     * check whether vertex v is a member of the set
-     * @param v : vertex to be checked
-     * @return true if v is a member of the set, false otherwise
-     */
-    public boolean contains(MyVertex v) {
-        return this.set.contains(v);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        Sensor sensor = event.sensor;
+        if (isCapturing) {
+            float[] copyData = new float[4];
+            System.arraycopy(event.values, 0, copyData, 1, 3);
+            copyData[0] = System.currentTimeMillis() - startCaptureTime;
+            if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                this.acceleroData.add(convertFloatsToDoubles(copyData));
+            } else if (sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+                this.gyroData.add(convertFloatsToDoubles(copyData));
+            }else if (sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+                copyData = new float[6];
+                System.arraycopy(event.values, 0, copyData, 1, event.values.length);
+                copyData[0] = System.currentTimeMillis() - startCaptureTime;
+                this.rotData.add(convertFloatsToDoubles(copyData));
+                double theta = (Math.acos(event.values[3]))*2;
+                double x = event.values[0]/ Math.sin(theta/2);
+                double y = event.values[1]/ Math.sin(theta/2);
+                double z = event.values[2]/ Math.sin(theta/2);
+                double [] vecData = new double[5];
+                vecData[0] = copyData[0];
+                vecData[1] = x;
+                vecData[2] = y;
+                vecData[3] = z;
+                vecData[4] = theta;
+                this.rotVecData.add(vecData);
+            }
+            runningTime = (System.currentTimeMillis() - startCaptureTime);
+            this.textViewCountDown.setText("Time : " + runningTime / 1000 + "sec");
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    public void onStartButtonClicked(View view) throws InterruptedException {
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        acceleroData = new ArrayList<double[]>();
+        gyroData = new ArrayList<double[]>();
+        rotData = new ArrayList<double[]>();
+        rotVecData = new ArrayList<double[]>();
+        String time = DateFormat.format("MM-dd-yyyyy-h|mm|ss-aa", System.currentTimeMillis()).toString();
+        File root = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + File.separator + "DataSensors");
+        root.mkdirs();
+        file = new File(root, FILENAME + time + ".csv");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                textViewCountDown.setText("Count Down = " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                textViewCountDown.setText("Capturing Data!");
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                r.play();
+                isCapturing = true;
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                startCaptureTime = System.currentTimeMillis();
+            }
+        }.start();
+
+    }
+
+    private Sensor sensorGetter(int input) {
+
+        List<Sensor> sensorList = mSensorManager.getSensorList(input);
+        Sensor sensor = null;
+        for (int i = 0; i < sensorList.size(); i++) {
+            sensor = sensorList.get(i);
+        }
+        return sensor;
+    }
+
+    private void writeData(BufferedWriter bw, ArrayList<double[]> data, String title, String columnTitle) throws IOException {
+        bw.write(title);
+        bw.newLine();
+        bw.write(columnTitle);
+        bw.newLine();
+        for (int i = 0; i < data.size(); i++) {
+            for (int j = 0; j < data.get(i).length; j++) {
+                bw.write(data.get(i)[j] + ",");
+            }
+            bw.newLine();
+        }
+        bw.newLine();
+    }
+
+    private double[] convertFloatsToDoubles(float[] input)
+    {
+        if (input == null)
+        {
+            return null;
+        }
+        double[] output = new double[input.length];
+        for (int i = 0; i < input.length; i++)
+        {
+            output[i] = input[i];
+        }
+        return output;
+    }
+
+    public void onStopButtonClicked(View view) {
+        isCapturing = false;
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(this.file));
+            writeData(bw, acceleroData, "Accelerometer", "time,x,y,z");
+            writeData(bw, gyroData, "Gyroscope", "time,x,y,z");
+            writeData(bw, rotData, "Rotation Vector", "time,x*sin(theta/2),y*sin(theta/2),z*sin(theta/2),cos(theta/2),akurasi (dalam radians) (-1 jika tidak ada)");
+            writeData(bw, rotVecData, "Rotation Vector by Vector and Angle", "time,x,y,z,theta");
+            bw.newLine();
+            bw.write("Running Time : " + runningTime + "ms");
+            bw.flush();
+            bw.close();
+            file.createNewFile();
+            textViewCountDown.setText("Data Captured! at " + file.getAbsolutePath());
+            Log.d("File", "File is located at " + file.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+\end{lstlisting}
+\begin{lstlisting}[language=Java,basicstyle=\tiny,caption=SensorAccelerometerActivity.java]
+package com.example.egaprianto.testingsensors;
+
+import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class SensorAccelerometerActivity extends Activity implements SensorEventListener {
+    private SensorManager mSensorManager;
+    private Sensor mAccelSensor;
+    private TextView textViewXData;
+    private TextView textViewYData;
+    private TextView textViewZData;
+    private TextView textViewDebug;
+    private TextView textViewAccuracy;
+
+    @Override
+    public final void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_accelero_sensor);
+        textViewXData = (TextView) findViewById(R.id.textViewXData);
+        textViewYData = (TextView) findViewById(R.id.textViewYData);
+        textViewZData = (TextView) findViewById(R.id.textViewZData);
+        textViewDebug = (TextView) findViewById(R.id.textViewDebug);
+        textViewAccuracy = (TextView) findViewById(R.id.textViewAccuracy);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            List<Sensor> accelerometerSensors = mSensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
+            mAccelSensor = null;
+            if (accelerometerSensors != null) {
+                for (int i = 0; i < accelerometerSensors.size(); i++) {
+                    mAccelSensor = accelerometerSensors.get(i);
+                }
+            }
+        }
+    }
+
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        textViewXData.setText("x = " + x);
+        textViewYData.setText("y = " + y);
+        textViewZData.setText("z = " + z);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mAccelSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+
+}
+\end{lstlisting}
+\begin{lstlisting}[language=Java,basicstyle=\tiny,caption=SensorGyroscopeActivity.java]
+package com.example.egaprianto.testingsensors;
+
+import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class SensorGyroscopeActivity extends Activity implements SensorEventListener {
+    private SensorManager mSensorManager;
+    private Sensor mGryoSensor;
+    private TextView textViewXData;
+    private TextView textViewYData;
+    private TextView textViewZData;
+    private TextView textViewDebug;
+    private TextView textViewAccuracy;
+
+    @Override
+    public final void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_gyroscope_sensor);
+        textViewXData = (TextView) findViewById(R.id.textViewXData);
+        textViewYData = (TextView) findViewById(R.id.textViewYData);
+        textViewZData = (TextView) findViewById(R.id.textViewZData);
+        textViewDebug = (TextView) findViewById(R.id.textViewDebug);
+        textViewAccuracy = (TextView) findViewById(R.id.textViewAccuracy);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            List<Sensor> gyroscopeSensors = mSensorManager.getSensorList(Sensor.TYPE_GYROSCOPE);
+            mGryoSensor = null;
+            if (gyroscopeSensors != null) {
+                for (int i = 0; i < gyroscopeSensors.size(); i++) {
+                    mGryoSensor = gyroscopeSensors.get(i);
+                }
+            }
+        }
+    }
+
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        textViewXData.setText("x = " + x);
+        textViewYData.setText("y = " + y);
+        textViewZData.setText("z = " + z);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mGryoSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+
 }
 \end{lstlisting}

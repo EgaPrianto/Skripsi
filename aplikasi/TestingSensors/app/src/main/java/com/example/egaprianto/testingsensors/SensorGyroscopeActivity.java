@@ -21,10 +21,6 @@ public class SensorGyroscopeActivity extends Activity implements SensorEventList
     private TextView textViewDebug;
     private TextView textViewAccuracy;
 
-    private float lastX;
-    private float lastY;
-    private float lastZ;
-
     @Override
     public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +36,6 @@ public class SensorGyroscopeActivity extends Activity implements SensorEventList
             List<Sensor> gyroscopeSensors = mSensorManager.getSensorList(Sensor.TYPE_GYROSCOPE);
             mGryoSensor = null;
             if (gyroscopeSensors != null) {
-                System.out.print("ADA SENSORNYA");
                 for (int i = 0; i < gyroscopeSensors.size(); i++) {
                     mGryoSensor = gyroscopeSensors.get(i);
                 }
@@ -50,47 +45,16 @@ public class SensorGyroscopeActivity extends Activity implements SensorEventList
 
     @Override
     public final void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
-        textViewAccuracy.setText("Accuracy ="+accuracy+" Coba sout aja sensornya ="+sensor);
     }
 
     @Override
     public final void onSensorChanged(SensorEvent event) {
-        // The light sensor returns a single value.
-        // Many sensors return 3 values, one for each axis.
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
         textViewXData.setText("x = " + x);
         textViewYData.setText("y = " + y);
         textViewZData.setText("z = " + z);
-//        System.out.println("INI DEBUGNYA WOOI");
-//        for (float debug:event.values
-//             ) {
-//            System.out.println("["+debug+"]");
-//        }
-        String tambahanAja = "";
-        if (lastX!=x){
-            tambahanAja += " beda";
-        }else{
-            tambahanAja += " sama";
-        }
-        if (lastY!=y){
-            tambahanAja += " beda";
-        }else{
-            tambahanAja += " sama";
-        }
-        if (lastZ!=z){
-            tambahanAja += " beda";
-        }else{
-            tambahanAja += " sama";
-        }
-
-        textViewDebug.setText("Debugging = " + mGryoSensor.getMinDelay()+tambahanAja);
-        // Do something with this sensor value.
-        lastX = x;
-        lastY = y;
-        lastZ = z;
     }
 
     @Override

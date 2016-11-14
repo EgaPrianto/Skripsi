@@ -46,32 +46,24 @@ public class RecordAllRAWSensorData extends AppCompatActivity implements SensorE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("MASUK");
         super.onCreate(savedInstanceState);
         this.sensorArrayList = new ArrayList<Sensor>();
         setContentView(R.layout.activity_record_all_rawsensor_data);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         textViewCountDown = (TextView) findViewById(R.id.textViewCountDown);
-        System.out.println("Sensor Manager = " + mSensorManager);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            //sensor accelero
             this.sensorArrayList.add(sensorGetter(Sensor.TYPE_ACCELEROMETER));
-            //sensor Gyro
             this.sensorArrayList.add(sensorGetter(Sensor.TYPE_GYROSCOPE));
-            //sensor Rotation Vector keluarinnya quaternion, tapi tidak make magnetic field
             this.sensorArrayList.add(sensorGetter(Sensor.TYPE_ROTATION_VECTOR));
         }
-        System.out.println(sensorArrayList);
 
         int REQUEST_EXTERNAL_STORAGE = 1;
         String[] PERMISSIONS_STORAGE = {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
-        System.out.println("DEBUGDEBUGDEBUGDEBUGDEBUGDEBUG");
         int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
                     this,
                     PERMISSIONS_STORAGE,
@@ -79,7 +71,6 @@ public class RecordAllRAWSensorData extends AppCompatActivity implements SensorE
             );
         }
         isCapturing = false;
-        System.out.println("DEBUGDEBUGDEBUGDEBUG");
         for (Sensor sensor :
                 sensorArrayList) {
             mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
@@ -151,7 +142,6 @@ public class RecordAllRAWSensorData extends AppCompatActivity implements SensorE
         root.mkdirs();
         file = new File(root, FILENAME + time + ".csv");
         try {
-            System.out.println(file.getAbsolutePath());
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
@@ -227,7 +217,6 @@ public class RecordAllRAWSensorData extends AppCompatActivity implements SensorE
             bw.flush();
             bw.close();
             file.createNewFile();
-
             textViewCountDown.setText("Data Captured! at " + file.getAbsolutePath());
             Log.d("File", "File is located at " + file.getAbsolutePath());
         } catch (IOException e) {
@@ -235,6 +224,4 @@ public class RecordAllRAWSensorData extends AppCompatActivity implements SensorE
         }
 
     }
-
-
 }

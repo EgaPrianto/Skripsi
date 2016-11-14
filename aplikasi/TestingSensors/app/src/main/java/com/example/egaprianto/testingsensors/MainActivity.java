@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    TextView mTextView; // Member variable for text view in the layout
+    TextView mTextView; 
     private SensorManager mSensorManager;
     private Sensor mSensor;
 
@@ -17,28 +17,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        mTextView = (TextView) findViewById(R.id.text_message);
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-//            mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-//            List<Sensor> accelerometerSensors = mSensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
-//            mSensor = null;
-//            if (accelerometerSensors != null) {
-//                for (int i = 0; i < accelerometerSensors.size(); i++) {
-//                    if (accelerometerSensors.get(i).getVendor().contains("Google Inc.")) {
-//                        // Use the version 3 gravity sensor.
-//                        mSensor = accelerometerSensors.get(i);
-//                    }
-//                }
-//            }
-//        }
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();  // Always call the superclass
-
-        // Stop method tracing that the activity started during onCreate()
+        super.onDestroy();
         android.os.Debug.stopMethodTracing();
     }
 
