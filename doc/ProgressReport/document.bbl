@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{developers2011android}
+A.~Developers, ``What is android,'' 2011.
+
+\bibitem{android_developers}
+``Android 7.0 nougat!.'' \url{https://developer.android.com/}.
+\newblock [Online; diakses 12-September-2016].
+
+\bibitem{google_vr_developers}
+``Google vr | google developers.'' \url{https://developers.google.com/vr/}.
+\newblock [Online; diakses 20-September-2016].
+
+\bibitem{kuipers:1999}
+J.~B. Kuipers, {\em Quaternions and Rotation Sequences : A Primer with
+  Applications to Orbits, Aerospace, and Virtual Reality}.
+\newblock Princeton University Press, 1998.
+
+\bibitem{aldin_dynamics}
+``Aldin dynamics.'' \url{http://www.aldindynamics.com/}.
+\newblock [Online; diakses 22-November-2016].
+
+\end{thebibliography}

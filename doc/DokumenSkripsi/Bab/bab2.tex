@@ -9,34 +9,40 @@ Pada bab ini akan dijelaskan dasar-dasar teori mengenai Android SDK, Google VR S
 Android SDK(\textit{software development kit}) adalah kumpulan \textit{source code, development tools, emulator,}\cite{developers2011android} dan semua \textit{libraries} untuk membuat suatu aplikasi untuk \textit{platform} Android. IDE (\textit{integrated development environment} yang resmi untuk Android SDK adalah Android Studio. Android Studio dapat di download di halaman situs web Google Developer\cite{developers2011android}, sekaligus dengan Android SDKnya.  
 
 % 2.1.1 Struktur File Android Studio Project
-\subsection{Struktur File Android Studio Project}\cite{android_developers}
-Pada saat \textbf{project} baru telah dibuat, Android Studio akan membuatkan folder-folder standar (Gambar \ref{fig:android-studio-structure}). Berikut adalah sebagian penjelasan dari hal yang perlu di perhatikan pada struktur tersebut:
-\begin{itemize}
-	\item Folder \textbf{\textit{module}/build} mengandung file-file dari hasil pembangunan \textit{project}.
-	\item Folder \textbf{\textit{module}/libs} mengandung \textit{libraries} privat.
-	\item Folder \textbf{\textit{module}/src} mengandung semua kode dan file sumber untuk suatu modul yang terbagi menjadi \textit{subdirectories} berikut:
-	\begin{itemize}
-		\item Folder \textbf{androidTest/} mengandung kode untuk mengetes yang berjalan di perangkat Android. 
-		\item Folder \textbf{main/} mengandung file-file kode dan file sumber inti dari suatu module yang terbagi menjadi \textit{subdirectories} berikut:
-		\begin{itemize}
-			\item File \textbf{AndroidManifest.xml} mendeskripsikan sifat dari aplikasi dan setiap komponennya. 
-			\item Folder \textbf{java/} mengandung kode java.
-			\item Folder \textbf{jni/} mengandung kode yang menggunakan Java Native Interface (JNI).
-			\item Folder \textbf{gen/} mengandung file java yang dihasilkan oleh Android Studio.
-			\item Folder \textbf{res/} mengandung file-file sumber untuk aplikasi, seperti file drawable, layout, dan UI String.
-			\item Folder \textbf{assets/} mengandung file yang akan di kompile menjadi file \textbf{.apk}. File-file yang biasa disimpan di folder ini adalah file audio, video, file html, gambar dan file bantu lainnya.
-		\end{itemize}
-		\item File \textbf{build.gradle}(module) mendefinisikan konfigurasi modul untuk proses \textit{build}.
-	\end{itemize}
-	\item File \textbf{build.gradle}(project) mendefinisikan konfigurasi proses \textbf{build} untuk \textit{project} yang berlaku untuk semua modul.
-\end{itemize}
-Folder \textbf{App} pada Gambar \ref{fig:android-studio-structure} merupakan folder \textit{module}.
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[scale=1]{Gambar/android-studio-structure.png}
-	\caption{Tampilan struktur folder pada \textit{project} Android Studio}
-	\label{fig:android-studio-structure}
-\end{figure}
+\subsection{Struktur File Android Studio Project}
+\cite{android_developers}
+		Dalam membuat aplikasi pada perangkat Android, dibutuhkan Android SDK. Android SDK(\textit{software development kit}) adalah kumpulan \textit{source code, development tools, emulator,}\cite{developers2011android} dan semua \textit{libraries} untuk membuat suatu aplikasi untuk \textit{platform} Android. IDE (\textit{integrated development environment} yang resmi untuk Android SDK adalah Android Studio. Android Studio dapat di download di halaman situs web Google Developer\cite{developers2011android}, sekaligus dengan Android SDKnya.  
+				 textbf{Struktur File Android Studio Project} \\
+				Pada saat \textbf{project} baru telah dibuat, Android Studio akan membuatkan folder-folder standar seperti pada Gambar \ref{fig:android-studio-structure}.
+				\begin{figure}[htbp]
+				\dirtree{%
+					.1 {module}.
+					.2 {build} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file-file dari hasil pembangunan \textit{project}{.}\end{minipage}.
+					.2 {libs} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung \textit{libraries} privat{.}\end{minipage}.
+					.2 {src} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung semua kode dan file sumber untuk suatu modul{.}\end{minipage}.
+					.3 {androidTest} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung kode untuk mengetes yang berjalan di perangkat Android{.}\end{minipage}.
+					.3 {main} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file-file kode dan file sumber inti dari suatu module{.}\end{minipage}.
+					.4 {AndroidManifest.xml} \ldots{} \begin{minipage}[t]{5cm}File yang mendeskripsikan sifat dari aplikasi dan setiap komponennya{.}\end{minipage}.
+					.4 {java} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung kode-kode java{.}\end{minipage}.
+					.4 {jni} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung kode-kode yang menggunakan Java Native Interface (JNI){.}\end{minipage}.
+					.4 {gen} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file-file java yang dihasilkan oleh Android Studio{.}\end{minipage}.
+					.4 {res} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file-file sumber untuk aplikasi, seperti file drawable, layout, dan UI String{.}\end{minipage}.
+					.4 {assets} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file yang akan di kompile menjadi file .apk{.}\end{minipage}.
+					.2 {build.gradle} \ldots{} \begin{minipage}[t]{5cm}File yang mendefinisikan konfigurasi modul untuk proses build{.}\end{minipage}.
+					.1 {build.gradle} \ldots{} \begin{minipage}[t]{5cm}File yang mendefinisikan konfigurasi proses build untuk project yang berlaku untuk semua modul{.}\end{minipage}.
+				}
+				\caption{Tampilan struktur folder pada \textit{project} Android Studio}
+				\label{fig:android-studio-structure}
+				\end{figure}
+				Gambar \ref{fig:android-studio-structure-screenshot} merupakan \textit{screenshot} dari project pada IDE Android Studio.
+				Folder \textbf{App} pada Gambar \ref{fig:android-studio-structure-screenshot} merupakan folder \textit{module}.
+				
+				\begin{figure}[htbp]
+					\centering
+						\includegraphics[scale=1]{Gambar/android-studio-structure.png}
+					\caption{Tampilan struktur folder pada \textit{project} Android Studio}
+					\label{fig:android-studio-structure-screenshot}
+				\end{figure}
 
 % 2.1.2 Membuat User Interface
 \subsection{Membuat User Interface}
@@ -111,7 +117,7 @@ Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dal
 \subsection{Activity}
 \label{sec:activity}
 \cite{android_developers}
-Activity adalah suatu hal yang terfokuskan dengan apa yang bisa pengguna lakukan. Hampir semua \textit{Activity} berinteraksi dengan pengguna, jadi kelas Activity akan membuat suatu halaman baru yang bisa ditambahkan dengan konten-konten View. Selain Activity dapat direpresentasikan kepada pengguna dengan halaman \textit{full-screen}, Activity juga dapat direpresentasikan dengan cara lain: seperti halaman \textit{floating} atau tertanam di Activity lain.
+Activity adalah suatu hal yang terfokuskan dengan apa yang bisa pengguna lakukan. Hampir semua \textit{Activity} berinteraksi dengan pengguna, jadi kelas Activity akan membuat suatu halaman baru yang bisa ditambahkan dengan konten-konten View. Selain dapat direpresentasikan kepada pengguna dengan halaman \textit{full-screen}, Activity juga dapat direpresentasikan dengan cara lain: seperti halaman \textit{floating} atau tertanam di Activity lain.
 
 \subsubsection{Activity Lifecycle}
 \label{sssec:activity_lifecycle}

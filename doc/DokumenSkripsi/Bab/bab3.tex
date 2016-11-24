@@ -18,150 +18,82 @@ Pada analisis ini akan dilakukan perekaman mengganguk dan menggeleng dengan sens
 Grafik-grafik yang akan ditunjukkan pada bab ini akan memiliki beberapa karakteristik. Sumbu y pada grafik yang akan ditunjukkan akan merepresentasikan besar nilainya, Sedangkan sumbu x akan merepresentasikan waktunya. Grafik yang ditunjukkan akan memiliki beberapa nilai, tergantung dari jumlah nilai yang dikembalikan untuk setiap sensornya. Contohnya pada sensor \textit{accelerometer} yang memiliki tiga jenis nilai, sehingga pada grafik akan terbentuk tiga buah garis nilai. Aplikasi akan merekam beberapa sensor secara langsung ketika pengguna mengangguk atau menggeleng, sehingga nilai wakunya akan sama untuk kondisi muka yang sama walaupun sensornya berbeda.
 
 Analisis grafik data sensor-sensor pada Android dilakukan dengan membuat suatu aplikasi perekam sensor-sensor yang ada pada \textit{smartphone} Android terlebih dahulu. Aplikasi ini akan merekam nilai-nilai yang dihasilkan dari sebagian sensor-sensor pada android setiap ada perubahan. Pada skripsi ini, nilai sensor-sensor yang dibutuhkan adalah sensor \textit{accelerometer}, \textit{gyroscope}, \textit{rotation vector}, dan \textit{geomagnetic rotation}. Aplikasi menyimpan nilai sensor-sensor menggunakan format CSV \textit{(Comma Separated Values)}. Dari data yang diperoleh oleh apliasi tersebut dibuatkan grafiknya menggunakan aplikasi Microsoft Excel. Penjelasan dari setiap grafik akan dijelaskan pada subbab-subbab berikut.
-\subsection{Analisis Grafik Sensor \textit{Accelerometer}}
+\subsection{Perekaman Grafik Sensor \textit{Accelerometer}}
 \label{sec:analisis_grafik_sensor_accelerometer}
-Seperti yang sudah dijelaskan pada bab sebelumnya, sensor \textit{accelerometer} akan mendeteksi seluruh percepatan yang terjadi pada perangkat Android. Perekaman ini perangkat android akan diletakkan di depan muka pengguna, sehingga percepatan yang mempengaruhi perangkat Android hanya percepatan gravitasi dengan percepatan yang dilakukan oleh gerakan kepala pengguna. Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-depan} merupakan grafik yang terbentuk dari nilai yang di terima oleh sensor \textit{accelerometer} ketika pengguna mengangguk dan sedang menghadap ke depan.
+Seperti yang sudah dijelaskan pada bab sebelumnya, sensor \textit{accelerometer} akan mendeteksi seluruh percepatan yang terjadi pada perangkat Android. Perekaman ini perangkat android akan diletakkan di depan muka pengguna, sehingga percepatan yang mempengaruhi perangkat Android hanya percepatan gravitasi dengan percepatan yang dilakukan oleh gerakan kepala pengguna. 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-accelerometer-mengangguk-depan.png}
-\caption{Gambar grafik nilai sensor \textit{accelerometer} ketika pengguna mengangguk dan sedang menghadap ke depan.} 
-\label{fig:grafik-sensor-accelerometer-mengangguk-depan}
-\end{figure}
-Pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-depan} terlihat nilai z menaik dan nilai x menurun ketika sedang mengangguk. Tetapi nilai x kembali menaik ketika nilai z sudah hampir mencapai nilai tertinggi. Sedangkan nilai y terlihat cukup konstan di sekitar angka 0. Kemudian Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-atas} merupakan grafik yang terbentuk dari nilai yang diterima oleh sensor \textit{accelerometer} ketika pengguna mengangguk dan sedang menghadap ke atas.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-accelerometer-mengangguk-atas.png}
-\caption{Gambar grafik nilai sensor \textit{accelerometer} ketika pengguna mengangguk dan sedang menghadap ke atas.} 
-\label{fig:grafik-sensor-accelerometer-mengangguk-atas}
+\includegraphics[scale=0.6]{Gambar/grafik-sensor-accelerometer-mengangguk.png}
+\caption{Grafik nilai kuaternion dari sensor \textit{accelerometer} ketika pengguna mengangguk dengan posisi muka awal (a) menghadap ke depan, (b) menghadap ke atas, (c) menghadap ke kiri atas.} 
+\label{fig:grafik-sensor-accelerometer-mengangguk}
 \end{figure}
 
-Pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-atas} terlihat nilai x dengan y memiliki pola yang serupa ketika mengangguk. Kedua nilai menaik ketika pengguna sedang mengangguk. Nilai x bermulai dari nilai sekitar sebesar 9 sedangkan nilai z bernilai sekitar sebesar -5. Sama seperti pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-depan} nilai y terlihat konstan di sekitar angka 0. Selanjutnya Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-kiri-atas} merupakan grafik yang terbentuk dari nilai yang diterima oleh sensor \textit{accelerometer} ketika pengguna mengangguk dan sedang menghadap ke kiri atas.
+Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk} merupakan grafik-grafik yang terbentuk dari nilai yang di terima oleh sensor \textit{accelerometer} ketika pengguna sedang mengangguk. Pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk} grafik (a) terlihat nilai z menaik dan nilai x menurun ketika sedang mengangguk. Tetapi nilai x kembali menaik ketika nilai z sudah hampir mencapai nilai tertinggi. Sedangkan nilai y terlihat cukup konstan di sekitar angka 0. Pada grafik (b) terlihat nilai x dengan y memiliki pola yang serupa ketika mengangguk. Kedua nilai menaik ketika pengguna sedang mengangguk. Nilai x bermulai dari nilai sekitar sebesar 9 sedangkan nilai z bernilai sekitar sebesar -5. Sama seperti pada grafik (a) nilai y terlihat konstan di sekitar angka 0. Selanjutnya grafik (c) pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk} merupakan grafik yang terbentuk dari nilai yang diterima oleh sensor \textit{accelerometer} ketika pengguna mengangguk dan sedang menghadap ke kiri atas. Grafik pada bagian ini sangat tidak beraturan. Pada Grafik ini sulit untuk membedakan kondisi kapan pengguna sedang mengangguk. Goncangan yang terjadi terhadap \textit{smartphone}, seperti munculnya notifikasi mungkin dapat menyebabkan hal ini. Namun pada waktu mencapai 1000 milidetik terlihat cukup stabil. Pada grafik (c) di Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk} juga menunjukkan bahwa nilai x dengan z memiliki pola yang sama hingga akhir, dan nilai y konstan di sekitar angka 0. Hasil nilai tersebut serupa dengan kasus ketika menghadap ke atas. 
 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-accelerometer-mengangguk-kiri-atas.png}
-\caption{Gambar grafik nilai sensor \textit{accelerometer} ketika pengguna mengangguk dan sedang menghadap ke kiri atas.} 
-\label{fig:grafik-sensor-accelerometer-mengangguk-kiri-atas}
+\includegraphics[scale=0.6]{Gambar/grafik-sensor-accelerometer-menggeleng.png}
+\caption{Grafik nilai kuaternion dari sensor \textit{accelerometer} ketika pengguna menggeleng dengan posisi muka awal (a) menghadap ke depan, (b) menghadap ke atas, (c) menghadap ke kiri atas.} 
+\label{fig:grafik-sensor-accelerometer-menggeleng}
 \end{figure}
 
-Pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-kiri-atas} grafik tersebut terlihat berantakan. Pada Grafik ini sulit untuk membedakan kondisi kapan pengguna sedang mengangguk. Goncangan yang terjadi terhadap \textit{smartphone}, seperti munculnya notifikasi mungkin dapat menyebabkan hal ini. Namun pada waktu mencapai 1000 milidetik terlihat cukup stabil. Pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-kiri-atas} juga menunjukkan bahwa nilai x dengan z memiliki pola yang sama hingga akhir, dan nilai y konstan di sekitar angka 0. Hasil nilai tersebut serupa dengan kasus ketika menghadap ke atas. Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng-depan} merupakan grafik yang terbentuk dari nilai yang diterima oleh sensor \textit{accelerometer} ketika pengguna menggeleng dan sedang menghadap ke depan.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-accelerometer-menggeleng-depan.png}
-\caption{Gambar grafik nilai sensor \textit{accelerometer} ketika pengguna menggeleng dan sedang menghadap ke depan.} 
-\label{fig:grafik-sensor-accelerometer-menggeleng-depan}
-\end{figure}
-
-Pada grafik di Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng-depan}, nilai x konstan di sekitar angka 10. Nilai y dengan z menaik dan menurun ketika pengguna menggelengkan kepala. Berbeda dengan kasus pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-atas} dan pada Gambar \ref{fig:grafik-sensor-accelerometer-mengangguk-kiri-atas} yang nilai x dengan z memiliki pola yang serupa, sedang pada kasus ini nilai y dan z tidak memiliki pola yang serupa. Kemudian pada Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng-atas} menunjukan grafik yang terbentuk dari nilai yang diterima oleh sensor \textit{accelerometer} ketika pengguna menggeleng dan sedang menghadap ke atas.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-accelerometer-menggeleng-atas.png}
-\caption{Gambar grafik nilai sensor \textit{accelerometer} ketika pengguna menggeleng dan sedang menghadap ke atas.} 
-\label{fig:grafik-sensor-accelerometer-menggeleng-atas}
-\end{figure}
-
-Berbeda dengan kasus pada Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng-depan}, nilai x pada grafik di Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng-atas} terlihat konstan di sekitar nilai 10 dan nilai z di sekitar nilai -3. Nilai y mengalami kenaikan dan penurunan saat menggeleng. Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng-atas} menunjukan grafik yang terbentuk dari nilai yang diterima oleh sensor \textit{accelerometer} ketika pengguna menggeleng dan sedang menghadap ke kiri atas.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-accelerometer-menggeleng-kiri-atas.png}
-\caption{Gambar grafik nilai sensor \textit{accelerometer} ketika pengguna menggeleng dan sedang menghadap ke kiri atas.} 
-\label{fig:grafik-sensor-accelerometer-menggeleng-kiri-atas}
-\end{figure}
-
-Pada grafik di Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng-kiri-atas} nilai x konstan di sekitar nilai 10. Nilai y menaik dan menurun, tetapi tidak beraturan. Nilai pada z juga mengalami sedikit kenaikan dan penurunan. 
+Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng} merupakan grafik yang terbentuk dari nilai yang diterima oleh sensor \textit{accelerometer} ketika pengguna menggeleng. Pada grafik (a), nilai x konstan di sekitar angka 10. Nilai y dengan z pada grafik (a) menaik dan menurun ketika pengguna menggelengkan kepala. Pada grafik (b) nilai x terlihat konstan di sekitar nilai 10 dan nilai z sedikit tidak beraturan di sekitar nilai -4 hingga -2. Nilai y mengalami kenaikan dan penurunan saat menggeleng. Pada grafik (c) di Gambar \ref{fig:grafik-sensor-accelerometer-menggeleng} nilai x konstan di sekitar nilai 10. Nilai y menaik dan menurun, tetapi tidak beraturan. Nilai pada z juga mengalami sedikit kenaikan dan penurunan. Pada grafik (b) dengan (c) nilai z mengalami perubahan yang tidak beraturan dan puncak tertinggi dengan puncak terendahnya tidak terlalu berbeda jauh dengan nilai awalnya.
 
 Dari keenam grafik tersebut terlihat bahwa nilai yang terpengaruh ketika pengguna sedang mengangguk adalah nilai x dengan z. Nilai y tidak berpengaruh karena nilai y cenderung konstan. Nilai yang terpengaruh ketika pengguna sedang menggeleng adalah nilai y. Nilai x terlihat konstan pada setiap grafik, tetapi nilai z mengalami sedikit pergerakan ketika pengguna sedang mengangguk sehingga tidak dapat dipastikan bahwa nilai z terpengaruhi gerakan menggeleng. 
 
-\subsection{Analisis Grafik Sensor \textit{Gyroscope}}
+\subsection{Perekaman Grafik Sensor \textit{Gyroscope}}
 \label{sec:analisis_grafik_sensor_gyroscope}
-Perekaman menggunakan sensor \textit{gyroscope} akan mendapatkan percepatan angular yang terjadi setiap waktunya. Berbeda dengan sensor \textit{accelerometer} yang dapat terpengaruhi oleh lingkungan sekitar seperti gravitasi dan percepatan lainnya, sensor ini hanya akan merekam perputaran yang terjadi pada perangkat saja. Hal ini sangat menguntungkan dalam mendeteksi suatu gerakan karena tidak harus memperdulikan kasus dari pengaruh luar. Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk-depan} menunjukkan nilai-nilai sensor \textit{gyroscope} ketika pengguna sedang mengangguk dan menghadap ke depan.
+Perekaman menggunakan sensor \textit{gyroscope} akan mendapatkan percepatan angular yang terjadi setiap waktunya. Berbeda dengan sensor \textit{accelerometer} yang dapat terpengaruhi oleh lingkungan sekitar seperti gravitasi dan percepatan lainnya, sensor ini hanya akan merekam perputaran yang terjadi pada perangkat saja. Hal ini sangat menguntungkan dalam mendeteksi suatu gerakan karena tidak harus memperdulikan kasus dari pengaruh luar. 
 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-gyroscope-mengangguk-depan.png}
-\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna mengangguk dan sedang menghadap ke depan.} 
-\label{fig:grafik-sensor-gyroscope-mengangguk-depan}
+\includegraphics[scale=0.6]{Gambar/grafik-sensor-gyroscope-mengangguk.png}
+\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna mengangguk dengan posisi muka awal (a) menghadap ke depan, (b) menghadap ke atas, (c) menghadap ke kiri atas.}
+\label{fig:grafik-sensor-gyroscope-mengangguk}
 \end{figure}
-
-Grafik pada Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk-depan} terbentuk 1 buah bukit dan lembah pada nilai y. Bukit yang terjadi disini menunjukkan ketika pengguna menggerakan kepalanya kebawah, dan ketika kepala pengguna kembali ke posisi semula percepatan angularnya berbalik arah sehingga menimbulkan lembah. Nilai x dengan z cenderung bernilai 0. Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk-atas} menunjukkan nilai-nilai sensor \textit{gyroscope} ketika pengguna sedang mengangguk dan menghadap ke atas.
+Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk} menunjukkan nilai-nilai sensor \textit{gyroscope} ketika pengguna sedang mengangguk. Grafik (a) membentuk sebuah bukit dan lembah pada nilai y. Bukit yang terjadi disini menunjukkan ketika pengguna menggerakan kepalanya kebawah, dan ketika kepala pengguna kembali ke posisi semula percepatan angularnya berbalik arah sehingga menimbulkan lembah. Nilai x dengan z cenderung bernilai 0. Grafik (b) mirip seperti grafik pada Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk}. Begitu pula pada grafik (c) yang memiliki pola yang serupa dengan yang grafik-grafik sebelumnya.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-gyroscope-mengangguk-atas.png}
-\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna mengangguk dan sedang menghadap ke atas.} 
-\label{fig:grafik-sensor-gyroscope-mengangguk-atas}
+\includegraphics[scale=0.6]{Gambar/grafik-sensor-gyroscope-menggeleng.png}
+\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna menggeleng dengan posisi muka awal (a) menghadap ke depan, (b) menghadap ke atas, (c) menghadap ke kiri atas.} 
+\label{fig:grafik-sensor-gyroscope-menggeleng}
 \end{figure}
 
-Grafik pada Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk-depan} mirip seperti grafik pada Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk-atas}. Begitu pula pada grafik di Gambar \ref{fig:grafik-sensor-gyroscope-mengangguk-kiri-atas} yang memiliki pola yang serupa dengan yang grafik-grafik sebelumnya.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-gyroscope-mengangguk-kiri-atas.png}
-\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna mengangguk dan sedang menghadap ke kiri atas.} 
-\label{fig:grafik-sensor-gyroscope-mengangguk-kiri-atas}
-\end{figure}
-
-Pada grafik di Gambar \ref{fig:grafik-sensor-gyroscope-menggeleng-depan} nilai yang mengalami kenaikan dan penurunan adalah nilai x dan nilai-nilai lainnya cenderung berada pada nilai 0. Nilai x membentuk 2 buah bukit dan 1 buah lembah. Bukit pertama terjadi ketika pengguna menggerakan kepalanya ke kiri. Lembah pertama terjadi ketika pengguna menggerakan kepalanya ke kanan. Bukit kedua terjadi ketika pengguna menggerakan kepalanya kembali ke posisi semula.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-gyroscope-menggeleng-depan.png}
-\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna menggeleng dan sedang menghadap ke depan.} 
-\label{fig:grafik-sensor-gyroscope-menggeleng-depan}
-\end{figure}
-
-Pada grafik di Gambar \ref{fig:grafik-sensor-gyroscope-menggeleng-atas} dengan grafik di Gambar \ref{fig:grafik-sensor-gyroscope-menggeleng-kiri-atas} menunjukkan pola grafik yang serupa dengan grafik pada Gambar \ref{fig:grafik-sensor-gyroscope-menggeleng-depan}.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-gyroscope-menggeleng-atas.png}
-\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna menggeleng dan sedang menghadap ke atas.} 
-\label{fig:grafik-sensor-gyroscope-menggeleng-atas}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[scale=1]{Gambar/grafik-sensor-gyroscope-menggeleng-depan.png}
-\caption{Gambar grafik nilai sensor \textit{gyroscope} ketika pengguna menggeleng dan sedang menghadap ke kiri atas.} 
-\label{fig:grafik-sensor-gyroscope-menggeleng-kiri-atas}
-\end{figure}
+Gambar \ref{fig:grafik-sensor-gyroscope-menggeleng} menunjukkan nilai-nilai sensor \textit{gyroscope} ketika pengguna sedang menggeleng. Pada grafik (a) nilai yang mengalami kenaikan dan penurunan adalah nilai x dan nilai-nilai lainnya cenderung berada pada nilai 0. Nilai x membentuk 2 buah bukit dan 1 buah lembah. Bukit pertama terjadi ketika pengguna menggerakan kepalanya ke kiri. Lembah pertama terjadi ketika pengguna menggerakan kepalanya ke kanan. Bukit kedua terjadi ketika pengguna menggerakan kepalanya kembali ke posisi semula. Pada grafik (b) dengan grafik (c) menunjukkan pola grafik yang serupa dengan grafik pada Gambar (a).
 
 Dari hasil-hasil tersebut dapat disimpulkan bahwa arah pandang pengguna tidak mempengaruhi sensor \textit{gyroscope} dalam mendeteksi gerakan kepala. Nilai-nilai yang dikembalikan oleh sensor \textit{gyroscope} memiliki  pola grafik yang jauh lebih rapih dibandingkan grafik-grafik yang dihasilkan oleh sensor \textit{accelerometer}. Selain itu sensor gyroscope hanya menggunakan 1 jenis nilai yang dipengaruhi oleh pergerakan kepala, sedangkan accelerometer ada 2 jenis nilai yang di pengaruhi gerakan kepala pada saat mengangguk. Oleh karena itu sensor gryoscope lebih baik dalam mendeteksi gerakan yang terjadi pada perangkat android.
 
-\subsection{Analisis Grafik Sensor \textit{Rotation Vector}}
+\subsection{Perekaman Grafik Sensor \textit{Rotation Vector}}
 \label{sec:analisis_grafik_sensor_rotation_vector}
 
 Perekaman menggunakan sensor \textit{rotation vector} akan mendapatkan sebuah kuaternion yang merepresentasikan perputaran yang terjadi pada perangkat Android. Perputaran ini akan dideskripsikan dengan suatu vektor sebagai sumbu putarnya dan sudut perputarannya. Berbeda dengan sensor \textit{gyroscope} yang merekam kecepatan perputaran yang terjadi pada suatu waktu, sensor \textit{rotation vector} akan mengembalikan nilai kuaternion untuk mendefinisikan suatu kondisi putaran pada saat itu. 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.7]{Gambar/grafik-sensor-rot-vector-mengangguk.png}
+\includegraphics[scale=0.6]{Gambar/grafik-sensor-rot-vector-mengangguk.png}
 \caption{Grafik nilai kuaternion dari sensor \textit{rotation vector} ketika pengguna mengangguk dengan posisi muka awal (a) menghadap ke depan, (b) menghadap ke atas, (c) menghadap ke kiri atas.} 
 \label{fig:grafik-sensor-rot-vector-mengangguk}
 \end{figure}
 
-Gambar \ref{fig:grafik-sensor-rot-vector-mengangguk} menunjukkan nilai-nilai sensor \textit{rotation vector} ketika pengguna sedang mengangguk. Bagian (a) pada Gambar \ref{fig:grafik-sensor-rot-vector-mengangguk} menunjukkan grafik nilai-nilai kuaternion dengan posisi muka awal menghadap ke depan. Pada grafik ini terlihat terbentuk sebuah bukit pada garis berwarna jingga dengan kuning, dan lembah pada garis berwarna biru. Garis yang berwarna abu cenderung stabil di angka 0.3. Bagian (b) pada Gambar \ref{fig:grafik-sensor-rot-vector-mengangguk} menunjukkan grafik nilai-nilai kuaternion dengan posisi muka awal menghadap ke atas. Grafik ini menunjukkan pola yang mirip pada bagian (a) namun berbeda nilainya saja. Pada bagian (a) garis berwarna kuning dimulai pada angka sekitar 0.7, sedangkan pada bagian (b) garis berwarna jingga dimulai pada angka sekitar 0.4. Garis biru pada grafik ini tidak membentuk sebuat lembah seperti  pada grafik pada bagian (a). Garis berwarna abu cenderung konstan pada nilai -0.2, sedangkan pada bagian (a) cenderung konstan di sekitar 0.3. Garis berwarna jingga memiliki pola yang sama dengan garis berwarna kuning, hanya berbeda pada nilainya saja. Bagian (c) pada Gambar \ref{fig:grafik-sensor-rot-vector-mengangguk} menunjukkan grafik nilai-nilai kuaternion dengan posisi muka awal menghadak ke kiri atas. Seperti pada grafik-grafik sebelumnya, grafik pada bagian (c) ini memiliki pola yang sama dengan grafik lainnya. Grafik ini juga hanya nilainya saja yang berbeda dengan grafik lainnya. Kemiripan pola ini memungkinkan mempermudah pendeteksian gerakan kepala. 
+Gambar \ref{fig:grafik-sensor-rot-vector-mengangguk} menunjukkan nilai-nilai sensor \textit{rotation vector} ketika pengguna sedang mengangguk. Pada grafik (a) terbentuk sebuah bukit pada garis berwarna jingga dengan kuning, dan lembah pada garis berwarna biru. Garis yang berwarna abu cenderung stabil di angka 0.3. Grafik (b) menunjukkan pola yang mirip pada bagian (a) namun berbeda nilainya saja. Pada grafik (a) garis berwarna kuning dimulai pada angka sekitar 0.7, sedangkan pada grafik (b) garis berwarna jingga dimulai pada angka sekitar 0.4. Garis biru pada grafik ini tidak membentuk sebuat lembah seperti  pada grafik pada grafik (a). Garis berwarna abu cenderung konstan pada nilai -0.2, sedangkan pada grafik (a) cenderung konstan di sekitar 0.3. Garis berwarna jingga memiliki pola yang sama dengan garis berwarna kuning, hanya berbeda pada nilainya saja. Seperti pada grafik-grafik sebelumnya, grafik (c) ini memiliki pola yang sama dengan grafik lainnya. Grafik ini juga hanya nilainya saja yang berbeda dengan grafik lainnya. Kemiripan pola ini memungkinkan mempermudah pendeteksian gerakan kepala. 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.7]{Gambar/grafik-sensor-rot-vector-menggeleng.png}
+\includegraphics[scale=0.6]{Gambar/grafik-sensor-rot-vector-menggeleng.png}
 \caption{Grafik nilai kuaternion dari sensor \textit{rotation vector} ketika pengguna menggeleng dengan posisi muka awal (a) menghadap ke depan, (b) menghadap ke atas, (c) menghadap ke kiri atas.} 
 \label{fig:grafik-sensor-rot-vector-menggeleng}
 \end{figure}
 
-Gambar \ref{fig:grafik-sensor-rot-vector-menggeleng} menunjukkan nilai-nilai sensor \textit{rotation vector} ketika pengguna sedang menggeleng. Bagian (a) menunjukkan nilai-nilai kuaternion ketika posisi muka awal menghadap ke depan. Pada grafik ini terjadi bukit yang diikuti dengan lembah pada garis berwarna biru dengan abu-abu. Garis berwarna kuning membentuk suatu lembah yang setelahnya cenderung konstan. Berbeda pada garis kuning yang membentuk bukit kemudian setelahnya cenderung konstan. Grafik bagian (b) menunjukkan nilai-nilai kuaternion ketika posisi muka awal menghadap ke atas. Mirip dengan grafik pada bagian (a), garis biru dengan garis abu-abu memiliki pola yang sama yaitu membentuk bukit dengan lembah ketika pengguna menggelengkan kepala. Garis kuning dengan jingga cenderung konstan, berbeda dengan grafik pada bagian (a) yang membentuk bukit atau lembah. Pada bagian (c) garis-garis membentuk suatu pola yang tidak normal. Garis kuning membentuk sebuah lembah, tetapi membentuk suatu bukit kecil ketika nilainya mencapai nilai 0 pada milidetik ke 1000. Garis jingga memiliki pola yang berlawanan dengan garis kuning. Pada saat garis kuning dengan garis jingga mencapai angka 0 perubahan drastis pun terjadi pada garis biru dengan abu-abu. Pada milidetik ke 1000 garis biru dengan abu mengalami perubahan nilai yang sangat drastis. Kedua nilai tersebut berubah dari nilai yang berkisar diantara 0.6 sampai 0.7 menjadi berkisar diantara -0.7 sampai -0.8. Kasus ini tidak berarti sensor sedang mengalami kegagalan akurasi (\textit{accuracy fail}), tetapi memang seperti itulah karakteristik dari perputaran menggunakan kuaternion pada android. Perputaran yang terjadi pada batas mendekati sebelum terjadinya dengan setelah perubahan nilai yang drastis memiliki hasil perputaran yang sama. Hal ini disebabkan karena melakukan perputaran dengan vektor sebagai sumbu dapat memiliki 2 buah nilai yang sejenis. Dua buah nilai tersebut akan menghasilkan perputaran yang sama ketika arah vektor dengan arah putarnya di balikkan seperti yang ditunjukkan pada Gambar \ref{fig:penjelasan-perputaran-quaternion-android-sensor}. Sepertinya pada sistem android nilai $\cos (theta/2)$ didesain agar tidak bernilai negatif, sehingga nilai-nilai yang lainnya akan mengalami perubahan nilai yang drastis ketika nilai $\cos (theta/2)$ mencapai angka 0.
+Gambar \ref{fig:grafik-sensor-rot-vector-menggeleng} menunjukkan nilai-nilai sensor \textit{rotation vector} ketika pengguna sedang menggeleng. Pada grafik (a) terbentuk sebuh bukit yang diikuti dengan lembah pada garis berwarna biru dengan abu-abu. Garis berwarna kuning membentuk suatu lembah yang setelahnya cenderung konstan. Berbeda pada garis kuning yang membentuk bukit kemudian setelahnya cenderung konstan. Grafik (b) memiliki kemiripan dengan grafik (a), garis biru dengan garis abu-abu memiliki pola yang sama yaitu membentuk bukit dengan lembah ketika pengguna menggelengkan kepala. Garis kuning dengan jingga cenderung konstan, berbeda dengan grafik (a) yang membentuk bukit atau lembah. Pada grafik (c) garis-garis membentuk suatu pola yang tidak normal. Garis kuning membentuk sebuah lembah, tetapi membentuk suatu bukit kecil ketika nilainya mencapai nilai 0 pada milidetik ke 1000. Garis jingga memiliki pola yang berlawanan dengan garis kuning. Pada saat garis kuning dengan garis jingga mencapai angka 0 perubahan drastis pun terjadi pada garis biru dengan abu-abu. Pada milidetik ke 1000 garis biru dengan abu mengalami perubahan nilai yang sangat drastis. Kedua nilai tersebut berubah dari nilai yang berkisar diantara 0.6 sampai 0.7 menjadi berkisar diantara -0.7 sampai -0.8. Kasus ini tidak berarti sensor sedang mengalami kegagalan akurasi (\textit{accuracy fail}), tetapi memang seperti itulah karakteristik dari perputaran menggunakan kuaternion pada android. Perputaran yang terjadi pada batas mendekati sebelum terjadinya dengan setelah perubahan nilai yang drastis memiliki hasil perputaran yang sama. Hal ini disebabkan karena melakukan perputaran dengan vektor sebagai sumbu dapat memiliki 2 buah nilai yang sejenis. Dua buah nilai tersebut akan menghasilkan perputaran yang sama ketika arah vektor dengan arah putarnya di balikkan seperti yang ditunjukkan pada Gambar \ref{fig:penjelasan-perputaran-quaternion-android-sensor}. Sepertinya pada sistem android nilai $\cos (theta/2)$ didesain agar tidak bernilai negatif, sehingga nilai-nilai yang lainnya akan mengalami perubahan nilai yang drastis ketika nilai $\cos (theta/2)$ mencapai angka 0.
 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.7]{Gambar/penjelasan-perputaran-quaternion-android-sensor.png}
+\includegraphics[scale=0.6]{Gambar/penjelasan-perputaran-quaternion-android-sensor.png}
 \caption{Dua buah rotasi yang identik dengan nilai kuaternion yang berbeda.} 
 \label{fig:penjelasan-perputaran-quaternion-android-sensor}
 \end{figure}
@@ -169,7 +101,7 @@ Gambar \ref{fig:grafik-sensor-rot-vector-menggeleng} menunjukkan nilai-nilai sen
 \section{Analisis Data Sensor untuk Mendeteksi Gerakan Kepala}
 
 Dari ketiga hasil pecobaan pada sensor-sensor pada bab \ref{sec:perekaman_data_sensor} dapat disimpulkan bahwa sensor \textit{gyroscope} adalah sensor yang terbaik untuk mendeteksi gerakan kepala. Data dari sensor \textit{accelerometer} akan susah untuk digunakan dalam mendeteksi gerakan kepala karena terganggu dengan aktivitas-aktivitas diluar gerakan pengguna yang juga ikut terekam oleh sensor \textit{accelerometer}. Data dari sensor \textit{rotation vector} juga akan lebih rumit dibandingkan sensor \textit{gyroscope}. Hal ini karena perputaran yang di rekam oleh sensor \textit{rotation vector} merekam kondisi putar pada suatu saat. Hasil rekaman ini akan mempersulit pada saat pendeteksian gerakan kepala karena harus melakukan proses untuk menghitung kecepatan kepala bergerak, agar dapat membedakan gerakan mengangguk atau menggeleng atau sekedar menoleh biasa. 
-Dalam mendeteksi gerakan mengangguk dengan menggeleng banyak batas-batas yang perlu diperhatikan. Batas-batas tersebut untuk mengetahui apakah pengguna benar-benar mengangguk atau menggeleng atau sekedar menoleh biasa. Menurut pengamatan saya, berikut adalah batas-batas yang perlu diperhatikan :
+Dalam mendeteksi gerakan mengangguk dengan menggeleng banyak batas-batas yang perlu diperhatikan. Batas-batas tersebut untuk mengetahui apakah pengguna benar-benar mengangguk atau menggeleng atau sekedar menoleh biasa. Batas-batas yang perlu diperhatikan adalah:
 
 \begin{itemize}
 	\item Kecepatan pengguna menoleh.
@@ -183,9 +115,100 @@ Gerakan menggeleng atau mengangguk biasanya memiliki selang waktu yang sangat se
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.7]{Gambar/grafik-penjelasan-jarak-waktu-melawan-gerakan.png}
+\includegraphics[scale=0.6]{Gambar/grafik-penjelasan-jarak-waktu-melawan-gerakan.png}
 \caption{Deskripsi grafik pada saat pengguna menggeleng. Yang ditunjuk oleh panah berwarna hitam adalah selang waktu yang terjadi saat pengguna melawan arah gerakan kepala.} 
 \label{fig:grafik-penjelasan-jarak-waktu-melawan-gerakan}
 \end{figure}
 
 Simpangan terbesar ini juga penting untuk dijadikan batasan-batasan dalam mendeteksi gerakan mengangguk ataupun menggeleng. Simpangan kepala yang sangat kecil dapat diragukan untuk dianggap sebagai gerakan mengangguk atau menggeleng. Simpangan ini dapat diperoleh dengan menghitung luas yang dibentuk dari bukit atau lembah yang terbentuk pada grafik. Contoh pada Gambar \ref{fig:grafik-penjelasan-jarak-waktu-melawan-gerakan} simpangan terbesar yang terjadi ketika pengguna menggerakkan kepalanya pertama kali ke kiri adalah luas pada bidang yang diarsir merah. Simpangan terbesar yang terjadi ketika pengguna menggerakaan kepalanya ke kanan adalah luas bidang yang diarsir berwarna hijau dikurangi dengan luas pada bidang yang diarsir merah. Pengurangan ini dilakukan karena luas bidang yang diarsir berwarna hijau merupakan simpangan yang terjadi setelah kepala sudah menghadap ke kiri. Begitu pula dengan luas bidang yang diarsir berwarna jingga yang akan dikurangi dengan hasil pengurangan luas sebelumnya.
+
+\section{Analisis Metode Pendeteksi Gerakan Kepala}
+
+Seperti yang sudah dijelaskan pada bab \ref{sec:android_sensor_framework}, data akan didapatkan setiap ada perubahan nilai pada sensor dengan rentang waktu tertentu, bergantung dengan konfigurasinya. Pendeteksian ini membutuhkan data yang \textit{real-time}, sehingga akan lebih baik jika menggunakan konfigurasi kecepatan pengambilan data setiap 20.000 mikrodetik. Penggunaan konfigurasi dengan kecepatan 0.000 mikrodetik tidak terlalu baik, karena akan menggunakan kemampuan processor yang sangat tinggi.
+
+\subsection{Algoritma Mendeteksi Anggukan}
+
+Algoritma akan dipanggil setiap kali ada perubahan nilai dari sensor. Algoritma ini akan menyimpan nilai-nilai batas-batas yang telah didefinisikan, puncak dari lembah dan bukit yang terjadi terakhir, luas yang terbentuk dari lembah dan bukit terakhir, waktu yang antara terjadinya lembah, dan data rekamannya. Algoritma ini akan di panggil secara berulang-ulang hingga menghasilkan hasil yang benar. Data akan disimpan pada attribut, agar setiap pemanggilan dapat mendapatkan data dari pemanggilan sebelumnya. 
+
+\begin{algorithm}
+	\caption{Algoritma Pendeteksi Anggukkan}
+	\label{alg:algoritma-pendeteksi-anggukkan}
+	\begin{algorithmic}[1]
+	\Function{deteksiAnggukkan}{$kecepatanSudutYSekarang$}
+		\State $waktuDeteksiSekarang \gets currentTime$, waktuTerdeteksinya
+		\If {$kecepatanSudutYSekarang > batasKecepatanPutar$}
+			\State $passLimitUp \gets true$
+			\State $currentlyPassLimitUp \gets true$
+		\ElsIf {$kecepatanSudutYSekarang < batasKecepatanPutar * -1$}
+			\State $passLimitDown \gets true$
+			\State $currentlyPassLimitDown \gets true$
+		\EndIf
+		\If {$kecepatanSudutYSekarang > 0$ \textbf{AND} $kecepatanSudutYSebelumnya < 0$ \textbf{OR} $kecepatanSudutYSekarang < 0$ \textbf{AND} $kecepatanSudutYSebelumnya > 0$}
+			\State $xTitikPotong \gets ((-kecepatanSudutYSebelumnya / (kecepatanSudutYSekarang - kecepatanSudutYSebelumnya)) * (waktuDeteksiSekarang - waktuDeteksiSebelumnya))$
+			\State $waktuAkhirGerakanSekarang \gets xTitikPotong$
+			\State $luasSebelumTitikPotong \gets ((xTitikPotong - waktuDeteksiSebelumnya) / 1000) * kecepatanSudutYSebelumnya / 2$
+			\State $calculateLuas \gets calculateLuas + luasSebelumTitikPotong$
+			\If {$currentlyPassLimitDown$}
+				\State $waktuMulaiLembah \gets waktuMulaiGerakanSekarang$
+				\State $waktuAkhirLembah \gets waktuAkhirGerakanSekarang$
+				\State $simpanganGerakanTurun \gets calculateLuas$
+				\If {$simpanganGerakanTurun < batasSimpangan * -1$}
+					\State $passLimitSimpanganBawah \gets true$
+				\EndIf
+			\ElsIf {$currentlyPassLimitUp$}
+				\State $waktuMulaiBukit \gets waktuMulaiGerakanSekarang$
+				\State $waktuAkhirBukit \gets waktuAkhirGerakanSekarang$
+				\State $simpanganGerakanNaik = calculateLuas$
+				\If {$simpanganGerakanNaik > batasSimpangan$}
+					\State $passLimitSimpanganAtas \gets true$
+				\EndIf
+			\EndIf
+			\State $calculateLuas \gets 0$
+			\State $double luasSesudahTitikPotong \gets ((waktuDeteksiSekarang - xTitikPotong) / 1000) * kecepatanSudutYSekarang / 2$ 
+			\State $calculateLuas \gets calculateLuas + luasSesudahTitikPotong$ 
+			\State $waktuMulaiGerakanSekarang \gets xTitikPotong$ 
+			\State $currentlyPassLimitDown \gets false$ 
+			\State $currentlyPassLimitUp \gets false$ 
+		\Else 
+			\State $calculateLuas \gets calculateLuas + ((kecepatanSudutYSebelumnya + kecepatanSudutYSekarang) / 1000) * (waktuDeteksiSekarang - waktuDeteksiSebelumnya) / 2$
+		\EndIf
+		\State $kecepatanSudutYSebelumnya \gets kecepatanSudutYSekarang$
+		\State $waktuDeteksiSebelumnya \gets waktuDeteksiSekarang$
+		\If {$waktuMulaiBukit > 0$ \textbf{AND} $waktuAkhirBukit > 0$ \textbf{AND} $waktuMulaiLembah > 0$ \textbf{AND} $waktuAkhirLembah > 0$}
+			\State $passLimitjarakAntaraBukitLembah \gets (long) (waktuMulaiBukit - waktuAkhirLembah) == 0 || (long) (waktuMulaiLembah - waktuAkhirBukit) == 0$
+			\Return $passLimitSimpanganAtas$ \textbf{AND} $passLimitSimpanganBawah$ \textbf{AND} $passLimitUp$ \textbf{AND} $passLimitDown$ \textbf{AND} $passLimitjarakAntaraBukitLembah$
+		\EndIf
+		\Return $false$
+	\EndFunction  
+	\end{algorithmic}
+\end{algorithm}
+
+Algoritma \ref{alg:algoritma-pendeteksi-anggukkan} akan mengembalikan nilai true jika pengguna sedang mengangguk. Baris ke-2 hingga baris ke-8 adalah untuk mengecek kecepatan putar sekarang, apakah sudah melampaui batas yang ditentukan atau belum. Operasi If pada baris ke-9 adalah untuk mengecek apakah nilai rotasinya memotong sumbu x atau tidak. Untuk mengetahui titik potongnya dapat menggunakan rumus persamaan garis dari dua buah titik yang dinotasikan dengan Notasi \ref{eq:persamaan-garis-dua-titik}.   
+
+\begin{equation}
+		\frac{y-y_1}{y_2-y_1} = \frac{x-x_1}{x_2-x_1} \\
+\label{eq:persamaan-garis-dua-titik}
+\end{equation}
+dengan,
+\[
+	\begin{split}
+		y_1 = & kecepatanSudutYSebelumnya\\
+		y_2 = & kecepatanSudutYSekarang\\
+		x_1 = & waktuDeteksiSebelumnya\\
+		x_2 = & waktuDeteksiSekarang
+	\end{split}
+\]
+
+Notasi \ref{eq:persamaan-garis-dua-titik} dijabarkan sesuai dengan penjabaran \ref{eq:aljabar-pencarian-titik-potong} sehingga menjadi rumus yang berada pada algoritma \ref{alg:algoritma-pendeteksi-anggukkan} baris ke-10. Nilai titik potong x ini juga menjadi indikator waktu untuk rentang waktu dari suatu bukit atau lembah, yang akan digunakan untuk mendapatkan jarak waktu pada saat pengguna melawan arah gerakan. Baris ke-14 hingga ke-25 pada algoritma \ref{alg:algoritma-pendeteksi-anggukkan} adalah untk mengecek apakah simpangan yang terjadinya sudah melewati batas yang ditetapkan atau belum. Pada baris ke-26 hingga ke-28 untuk memulai menghitung luas yang baru. Baris ke-32 dan baris ke-33 untuk menghitung luas ketika tidak berpotongan dengan sumbu x. Baris ke-37 untuk mengecek jarak waktu pengguna melawan arah gerakan. Baris ke-36 hingga terakhir untuk mengecek apakah sudah memenuhi seluruh syarat-syarat batas-batasnya. 
+
+\begin{equation}
+	\begin{split}
+		y = & 0\\		
+		\frac{0-y_1}{y_2-y_1} = & \frac{x-x_1}{} \\
+		\frac{-y_1}{y_2-y_1} x_2-x_1 = & x-x_1 \\
+		x = & (\frac{-y_1}{y_2-y_1} x_2-x_1) +x_1
+	\end{split}
+\label{eq:aljabar-pencarian-titik-potong}
+\end{equation}
+
+
