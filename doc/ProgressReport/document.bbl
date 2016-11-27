@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{developers2011android}
 A.~Developers, ``What is android,'' 2011.
@@ -19,5 +19,32 @@ J.~B. Kuipers, {\em Quaternions and Rotation Sequences : A Primer with
 \bibitem{aldin_dynamics}
 ``Aldin dynamics.'' \url{http://www.aldindynamics.com/}.
 \newblock [Online; diakses 22-November-2016].
+
+\bibitem{parisi_2015}
+T.~Parisi, {\em Learning virtual reality: developing immersive experiences and
+  applications for desktop, web, and mobile}.
+\newblock O'Reilly Media, 1~ed., 2015.
+
+\bibitem{kim_2005}
+G.~J. Kim, {\em Designing virtual reality systems: the structured approach}.
+\newblock Springer, 2005.
+
+\bibitem{vince_2004}
+J.~Vince, {\em Introduction to virtual reality}.
+\newblock Springer, 2004.
+
+\bibitem{googlevr}
+``Google cardboard.'' \url{https://vr.google.com/cardboard/}.
+\newblock [Online; diakses 10-September-2016].
+
+\bibitem{android_open_source_project}
+``Sensor types.''
+  \url{https://source.android.com/devices/sensors/sensor-types.html}.
+\newblock [Online; diakses 10-September-2016].
+
+\bibitem{bleser2009advanced}
+G.~Bleser and D.~Stricker, ``Advanced tracking through efficient image
+  processing and visual--inertial sensor fusion,'' {\em Computers \& Graphics},
+  vol.~33, no.~1, pp.~59--72, 2009.
 
 \end{thebibliography}

@@ -1098,8 +1098,63 @@ Untuk pengecekan jarak waktu antara lembah dengan bukit akan dilakukan sebanyak 
 		\item Menulis dokumen skripsi\\
 		{\bf status :} Ada sejak rencana kerja skripsi.\\
 		{\bf hasil :} 
-		Dokumen skripsi telah terisi hingga bab 3 dikurangi analisis aplikasi sejenis dan algoritma pendeteksi mengangguk.
+
+\textit{Virtual Reality}(VR) adalah teknologi yang mampu membuat penggunanya dapat berinteraksi dengan lingkungan buatan oleh komputer, suatu lingkungan yang sebenarnya ditiru atau hanya ada di dalam imajinasi.\cite{parisi_2015} VR membuat pengalaman sensorik, di antaranya penglihatan, pendengaran, perabaan, dan penciuman secara buatan.\cite{kim_2005} Gawai VR terbaru sekarang yaitu dengan menggunakan \textit{head-mounted display}, Google Cardboard salah satunya. \textit{Head-mounted display} adalah menempatkan layar di kepala, sehingga pengguna hanya dapat melihat tampilan yang ditampilkan oleh layar.\cite{vince_2004}
+
+Google Cardboard\cite{googlevr} adalah gawai murah yang terbuat dari kardus untuk dapat merasakan pengalaman VR dengan \textit{smartphone} Android atau iOS. Kita dapat membuat Google Cardboard kita sendiri secara gratis dengan mengunduh templatenya di situs web Google Cardboard. \cite{googlevr}Template tersebut membantu dalam merakit kardus dengan dibentuk, dilipat dan digunting sedemikian rupa sehingga berbentuk kacamata. Bahan-bahan untuk merakit Google Cardboard hanyalah kardus, lem, dan lensa dengan spesifikasi tertentu.
+
+Pada Gawai Google Cardboard cara pengguna memberikan \textit{input} kepada program sangatlah terbatas. Cara tersebut hanyalah dengan gerakan kepala dan tombol magnet. Tombol magnet ini pun terkadang tidak berfungsi dengan baik, karena bergantung pada medan magnet yang di deteksi oleh \textit{smartphone} yang digunakan. Cara lainnya agar dapat memberikan \textit{input} kepada program adalah dengan menghubungkan \textit{smartphone} yang digunakan dengan \textit{bluetooth controller}. 
+
+Skripsi ini akan membuat aplikasi untuk menambahkan cara baru  memberikan \textit{input} pada Google Cardboard. Pada skripsi ini, akan dibuat dua buah perangkat lunak. Perangkat lunak pertama akan digunakan untuk menganalisis data yang didapat dari sensor-sensor pada Android. Perangkat lunak kedua akan dapat mendeteksi gerakan kepala penggunanya ketika sedang menggeleng atau mengangguk. Pada perangkat lunak kedua ini akan memberikan \textit{input} baru kepada program VR. Jenis \textit{input} yang diberikan kepada komputer hanya ya(mengangguk) atau tidak(menggeleng).
+
+Agar VR yang menggunakan Google Cardboard dapat berjalan dengan sempurna, dibutuhkan \textit{smartphone} yang memiliki 3 jenis sensor. Ketiga sensor itu adalah \textit{Magnetometer}, \textit{Accelerometer}, dan \textit{Gyroscope}.\cite{android_open_source_project} Jika salah satu sensor itu tidak ada, tampilan gambar pada VR akan tidak akurat atau lambat. \textit{Magnetometer} digunakan untuk mengetahui arah pandang pengguna. \textit{Accelerometer} digunakan untuk mengetahui arah gaya gravitasi.\cite{bleser2009advanced} \textit{Gyroscope} digunakan untuk mengetahui percepatan perputaran sudut kepala pengguna. Ketiga sensor ini juga harus menggunakan sensor 3 sumbu. Ketiga sensor tersebut tidak hanya berfungsi agar dapat menjalankan VR dengan Google Cardboard dan \textit{smartphone}, tetapi juga dapat berfungsi sebagai pendeteksi gerakan kepala.
+
+\textbf{Rumusan Masalah}
+
+\begin{itemize}
+	\item Bagaimana cara menampilkan grafik data yang diambil dari sensor-sensor pada \textit{smartphone}?
+	\item Bagaimana cara mendeteksi gerakan kepala dari data yang didapat dari sensor-sensor pada \textit{smartphone}?
+\end{itemize}
+
+\textbf{Tujuan}
+
+\begin{itemize}
+	\item Mengetahui cara untuk menampilkan grafik data dari sensor-sensor pada \textit{smartphone}.
+	\item Mengetahui cara mendeteksi gerakan kepala dari data yang didapat dari sensor-sensor pada \textit{smartphone}.
+\end{itemize}
+
+\textbf{Batasan Masalah}
+
+Penelitian ini dibuat berdasarkan batasan-batasan sebagai berikut: 
+\begin{enumerate}
+	\item Program pertama yang akan dibuat dalam skripsi ini hanya akan digunakan untuk membantu dalam menganalisis sensor.
+	\item Program kedua yang akan dibuat hanya dapat melakukan pendeteksi gerakan kepala khusus untuk mengangguk dan menggeleng saja.
+\end{enumerate}
+
+\textbf{Metode Penelitian}
+
+Berikut adalah metode penelitian yang digunakan dalam penelitian ini:
+	\begin{enumerate}
+		\item Melakukan studi literatur tentang Android SDK, Google VR SDK, Quaternion, \textit{Sensor Fusion}, dan algoritma \textit{Head Motion Detection}.
+		\item Merancang dan membuat aplikasi untuk menampilkan grafik sensor-sensor pada \textit{smartphone} Android.
+		\item Menganalisis aplikasi-aplikasi sejenis.
+		\item Merekam dan menganalisis grafik dari sensor-sensor pada \textit{smartphone} ketika mengangguk dan menggeleng.
+		\item Menganalisis metode pendeteksi gerakan kepala.
+		\item Merancang aplikasi untuk mendeteksi gerakan kepala
+		\item Mengimplementasi algoritma pendeteksi gerakan kepala ke aplikasi \textit{virtual reality}.
 	\end{enumerate}
+Setiap bab dalam penelitian ini memiliki sistematika penulisan yang dijelaskan ke dalam poin-poin sebagai berikut:
+\begin{enumerate}
+	\item Bab 1: Pendahuluan, yaitu membahas mengenai gambaran umum penelitian ini. Berisi tenang latar belakang, rumusan masalah, tujuan, batasan masalah, metode penelitian, dan sistematika penulisan.
+	\item Bab 2: Dasar Teori, yaitu membahas teori-teori yang mendukung berjalannya penelitian ini. Berisi tentang Android SDK, Google VR SDK, Quaternion.
+	\item Bab 3: Analisis, yaitu membahas mengenai analisa masalah. Berisi tentang analisis aplikasi-aplikasi sejenis, perekaman data sensor, analisis grafik dari sensor-sensor pada \textit{smartphone} ketika mengangguk dan menggeleng, analisis metode pendeteksi gerakan kepala. 
+	\item Bab 4: Perancangan, yaitu membahas mengenai perancangan aplikasi VR yang dapat mendeteksi gerakan menggeleng dan mengangguk.
+	\item Bab 5: Implementasi dan Pengujian, yaitu membahas mengenai implementasi dan pengujian aplikasi yang telah dilakukan. Berisi tentang implementasi dan hasil pengujian aplikasi.
+	\item Bab 6: Kesimpulan, yaitu membahas kesimpulan dari keseluruhan penelitian ini.
+\end{enumerate}
+		Dokumen skripsi telah terisi hingga Bab 3. 
+		
+\end{enumerate}
 
 \bibliographystyle{ieeetr}
 \bibliography{pustaka}
