@@ -39,7 +39,7 @@
 %ISILAH DATA DATA BERIKUT INI:
 \newcommand{\nama}{Ega Prianto}
 \newcommand{\@npm}{2013730047}
-\newcommand{\tanggal}{01/01/1900} %Tanggal pembuatan dokumen
+\newcommand{\tanggal}{24/11/2016} %Tanggal pembuatan dokumen
 \newcommand{\@judultopik}{Deteksi Gerakan Kepala dengan Google Cardboard} % Judul/topik anda
 \newcommand{\kodetopik}{PAS4102}
 \newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
@@ -743,7 +743,7 @@ Aplikasi sejenis pada perangkat \textit{Virtual Reality} Google Cardboard hanyal
 
 InMind VR merupakan permainan \textit{Virtual Reality} yang seakan-akan pengguna berada dalam sel-sel otak seorang manusia. Permainan ini dimainkan dengan mengarahkan arah pandang kepala ke arah sel-sel neuron yang dapat menyebabkan gangguan mental (Gambar \ref{fig:screenshot_inmind_task}). Akan ada 50 sel neuron yang dapat menyebabkan gangguan mental. Sel-sel yang dapat menyebabkan gangguan mental adalah sel-sel yang berwarna merah seperti pada Gambar \ref{fig:screenshot_inmind_gameplay}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{Gambar/screenshot-inmind-task.png}
 \caption{\textit{Screenshot} task yang diberikan aplikasi InMind VR.}
@@ -752,7 +752,7 @@ InMind VR merupakan permainan \textit{Virtual Reality} yang seakan-akan pengguna
 
 Pada permulaan permainan pengguna diberi pertanyaan apakah pengguna sudah siap untuk melakukan permainan tersebut seperti yang ditunjukkan pada Gambar \ref{fig:screenshot_inmind_nod}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{Gambar/screenshot-inmind-gameplay.jpg}
 \caption{\textit{Screenshot} aplikasi InMind VR ketika permainan berlangsung.}
@@ -771,7 +771,7 @@ Dari keempat percobaan mengangguk yang dilakukan, hanya percobaan pertama dengan
 
 Ketika dilakukan percobaan menggeleng, tidak ada respon apapun dari aplikasi ini. Aplikasi ini akan tetap melanjutkan ke permainan setelah beberapa detik telah berlalu. Hal tersebut menyimpulkan bahwa aplikasi ini tidak dapat mendeteksi gerakan menggeleng. Oleh karena itu hal yang dilakukan oleh aplikasi ini hanyalah melihat apakah pengguna sudah melihat kebawah atau belum saja.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{Gambar/screenshot-inmind-nod.png}
 \caption{\textit{Screenshot} aplikasi InMind VR ketika meminta pengguna untuk mengangguk jika telah siap.}
@@ -915,68 +915,87 @@ Simpangan terbesar ini juga penting untuk dijadikan batasan-batasan dalam mendet
 		{\bf status :} Ada sejak rencana kerja skripsi.\\
 		{\bf hasil :}
 		
-Seperti yang sudah dijelaskan pada bab \ref{sec:android_sensor_framework}, data akan didapatkan setiap ada perubahan nilai pada sensor dengan rentang waktu tertentu, bergantung dengan konfigurasinya. Pendeteksian ini membutuhkan data yang \textit{real-time}, sehingga akan lebih baik jika menggunakan konfigurasi kecepatan pengambilan data setiap 20.000 mikrodetik. Penggunaan konfigurasi dengan kecepatan 0.000 mikrodetik tidak terlalu baik, karena akan menggunakan kemampuan processor yang sangat tinggi.
+
+Seperti yang sudah dijelaskan pada bagian Android Sensor Framework, data akan didapatkan setiap ada perubahan nilai pada sensor dengan rentang waktu tertentu, bergantung dengan konfigurasinya. Pendeteksian ini membutuhkan data yang \textit{real-time}, sehingga akan lebih baik jika menggunakan konfigurasi kecepatan pengambilan data setiap 20.000 mikrodetik. Penggunaan konfigurasi dengan kecepatan 0.000 mikrodetik tidak terlalu baik, karena akan menggunakan kemampuan processor yang sangat tinggi.
+
+\textbf{Algoritma Mendeteksi Gerakan Mengangguk}
+\label{ssec:algoritma_mendeteksi_gerakan_mengangguk}
+
+Algoritma akan dipanggil setiap kali ada perubahan nilai dari sensor. Algoritma ini akan menyimpan nilai-nilai batas-batas yang telah didefinisikan, luas yang terbentuk dari lembah dan bukit terakhir, waktu mulai dan berakhirnya suatu bukit atau lembah. Algoritma ini akan di panggil secara berulang-ulang hingga menghasilkan hasil yang benar. Data akan disimpan pada attribut, agar setiap pemanggilan dapat mendapatkan data dari pemanggilan sebelumnya. 
+
+Berikut adalah keterangan dari data-data yang disimpan pada attribut:
 \begin{itemize}
-	\item \textbf{Algoritma Mendeteksi Anggukan}
+	\item \texttt{passLimitUp}, attribut ini akan mencatat apakah pengguna sudah melewati batas kecepatan sudut ketika kepala pengguna bergerak ke atas.
+	\item \texttt{passLimitDown}, attribut ini akan mencatat apakah pengguna sudah melewati batas kecepatan sudut ketika kepala pengguna bergerak ke bawah.
+	\item \texttt{currentlyLimitUp}, attribut ini akan menunjukkan bahwa pada saat ini gerakan pengguna sedang bergerak ke atas dan melebihi batas kecepatan sudutnya.
+	\item \texttt{currentlyLimitDown}, attribut ini akan menunjukkan bahwa pada saat ini gerakan pengguna sedang bergerak ke bawah dan melebihi batas kecepatan sudutnya.
+	\item \texttt{angSpeedLimit}, attribut ini akan menyimpan batas kecepatan sudut.
+	\item \texttt{lastYAngSpeed}, attribut ini akan memiliki kecepatan sudut Y pada pemanggillan method sebelumnya. 
+	\item \texttt{lastT}, attribut ini akan memiliki waktu dipanggilnya method sebelumnya. 
+	\item \texttt{calcArea}, attribut ini akan menyimpan besar luas bukit atau, lembah yang terjadi. Luas bukit akan bernilai positif, dan nilai lembah akan bernilai negatif. 
+	\item \texttt{startTValley}, attribut ini akan menyimpan waktu mulai lembah yang memenuhi syarat kecepatan sudut minimal. 
+	\item \texttt{endTValley}, attribut ini akan menyimpan waktu akhir lembah yang memenuhi syarat kecepatan sudut minimal.
+	\item \texttt{startTCurrMotion}, attribut ini akan menyimpan waktu mulai suatu gerakan(bukit atau lembah) yang sedang berlangsung sekarang.
+	\item \texttt{endTCurrMotion}, attribut ini akan menyimpan waktu akhir suatu gerakan(bukit atau lembah) yang sedang berlangsung sekarang.
+	\item \texttt{deviationLimit} adalah batas simpangan untuk melakukan gerakan mengangguk.
+	\item \texttt{deviationMotionDown}, attribut ini akan menyimpan simpangan yang terjadi ketika pengguna menggeraka kepalanya ke bawah. 
+	\item \texttt{deviationMotioUp}, attribut ini akan menyimpan simpangan yang terjadi ketika pengguna menggeraka kepalanya ke atas. 
 \end{itemize}
-
-
-Algoritma akan dipanggil setiap kali ada perubahan nilai dari sensor. Algoritma ini akan menyimpan nilai-nilai batas-batas yang telah didefinisikan, puncak dari lembah dan bukit yang terjadi terakhir, luas yang terbentuk dari lembah dan bukit terakhir, waktu yang antara terjadinya lembah, dan data rekamannya. Algoritma ini akan di panggil secara berulang-ulang hingga menghasilkan hasil yang benar. Data akan disimpan pada attribut, agar setiap pemanggilan dapat mendapatkan data dari pemanggilan sebelumnya. 
-
 \begin{algorithm}
-	\caption{Algoritma Pendeteksi Anggukkan}
-	\label{alg:algoritma-pendeteksi-anggukkan}
+	\caption{Nod Detection Algoritm}
+	\label{alg:algoritma-pendeteksi-gerakan-mengangguk}
 	\begin{algorithmic}[1]
-	\Function{deteksiAnggukkan}{$kecepatanSudutYSekarang$}
-		\State $waktuDeteksiSekarang \gets currentTime$, waktuTerdeteksinya
-		\If {$kecepatanSudutYSekarang > batasKecepatanPutar$}
+	\Function{detectNod}{$yAngSpeed$}
+		\State $currT \gets $current Time 
+		\If {$yAngSpeed > angSpeedLimit$}
 			\State $passLimitUp \gets true$
-			\State $currentlyPassLimitUp \gets true$
-		\ElsIf {$kecepatanSudutYSekarang < batasKecepatanPutar * -1$}
+			\State $currPassLimitUp \gets true$
+		\ElsIf {$yAngSpeed < angSpeedLimit * -1$}
 			\State $passLimitDown \gets true$
-			\State $currentlyPassLimitDown \gets true$
+			\State $currPassLimitDown \gets true$
 		\EndIf
-		\If {$kecepatanSudutYSekarang > 0$ \textbf{AND} $kecepatanSudutYSebelumnya < 0$ \textbf{OR} $kecepatanSudutYSekarang < 0$ \textbf{AND} $kecepatanSudutYSebelumnya > 0$}
-			\State $xTitikPotong \gets ((-kecepatanSudutYSebelumnya / (kecepatanSudutYSekarang - kecepatanSudutYSebelumnya)) * (waktuDeteksiSekarang - waktuDeteksiSebelumnya))$
-			\State $waktuAkhirGerakanSekarang \gets xTitikPotong$
-			\State $luasSebelumTitikPotong \gets ((xTitikPotong - waktuDeteksiSebelumnya) / 1000) * kecepatanSudutYSebelumnya / 2$
-			\State $calculateLuas \gets calculateLuas + luasSebelumTitikPotong$
-			\If {$currentlyPassLimitDown$}
-				\State $waktuMulaiLembah \gets waktuMulaiGerakanSekarang$
-				\State $waktuAkhirLembah \gets waktuAkhirGerakanSekarang$
-				\State $simpanganGerakanTurun \gets calculateLuas$
-				\If {$simpanganGerakanTurun < batasSimpangan * -1$}
-					\State $passLimitSimpanganBawah \gets true$
+		\If {X values intersect with x(time) axis}
+			\State $xIntersect \gets ((-lastYAngSpeed / (yAngSpeed - lastYAngSpeed)) * (currT - lastT))+lastT$
+			\State $endTCurrMotion \gets xIntersect$
+			\State $areaBeforeIntersect \gets ((xIntersect - lastT) / 1000) * lastYAngSpeed / 2$
+			\State $calcArea \gets calcArea + areaBeforeIntersect$
+			\If {$currPassLimitDown$}
+				\State $startTValley \gets startTCurrMotion$
+				\State $endTValley \gets endTCurrMotion$
+				\State $deviationMotionDown \gets calcArea$
+				\If {$deviationMotionDown < deviationLimit * -1$}
+					\State $passLimitDownDeviation \gets true$
 				\EndIf
-			\ElsIf {$currentlyPassLimitUp$}
-				\State $waktuMulaiBukit \gets waktuMulaiGerakanSekarang$
-				\State $waktuAkhirBukit \gets waktuAkhirGerakanSekarang$
-				\State $simpanganGerakanNaik = calculateLuas$
-				\If {$simpanganGerakanNaik > batasSimpangan$}
-					\State $passLimitSimpanganAtas \gets true$
+			\ElsIf {$currPassLimitUp$}
+				\State $waktuMulaiBukit \gets startTCurrMotion$
+				\State $waktuAkhirBukit \gets endTCurrMotion$
+				\State $deviationMotionUp = calcArea$
+				\If {$deviationMotionUp > deviationLimit$}
+					\State $passLimitUpDeviation \gets true$
 				\EndIf
 			\EndIf
-			\State $calculateLuas \gets 0$
-			\State $double luasSesudahTitikPotong \gets ((waktuDeteksiSekarang - xTitikPotong) / 1000) * kecepatanSudutYSekarang / 2$ 
-			\State $calculateLuas \gets calculateLuas + luasSesudahTitikPotong$ 
-			\State $waktuMulaiGerakanSekarang \gets xTitikPotong$ 
-			\State $currentlyPassLimitDown \gets false$ 
-			\State $currentlyPassLimitUp \gets false$ 
+			\State $calcArea \gets 0$
+			\State $areaAfterIntersect \gets ((currT - xIntersect) / 1000) * yAngSpeed / 2$ 
+			\State $calcArea \gets calcArea + areaAfterIntersect$ 
+			\State $startTCurrMotion \gets xIntersect$ 
+			\State $currPassLimitDown \gets false$ 
+			\State $currPassLimitUp \gets false$ 
 		\Else 
-			\State $calculateLuas \gets calculateLuas + ((kecepatanSudutYSebelumnya + kecepatanSudutYSekarang) / 1000) * (waktuDeteksiSekarang - waktuDeteksiSebelumnya) / 2$
+			\State $calcArea \gets calcArea + ((lastYAngSpeed + yAngSpeed) / 1000) * (currT - lastT) / 2$
 		\EndIf
-		\State $kecepatanSudutYSebelumnya \gets kecepatanSudutYSekarang$
-		\State $waktuDeteksiSebelumnya \gets waktuDeteksiSekarang$
-		\If {$waktuMulaiBukit > 0$ \textbf{AND} $waktuAkhirBukit > 0$ \textbf{AND} $waktuMulaiLembah > 0$ \textbf{AND} $waktuAkhirLembah > 0$}
-			\State $passLimitjarakAntaraBukitLembah \gets (long) (waktuMulaiBukit - waktuAkhirLembah) == 0 || (long) (waktuMulaiLembah - waktuAkhirBukit) == 0$
-			\Return $passLimitSimpanganAtas$ \textbf{AND} $passLimitSimpanganBawah$ \textbf{AND} $passLimitUp$ \textbf{AND} $passLimitDown$ \textbf{AND} $passLimitjarakAntaraBukitLembah$
+		\State $lastYAngSpeed \gets yAngSpeed$
+		\State $lastT \gets currT$
+		
+		\If {hill and valley time values has been set \textbf{AND} all condition have been met}
+			\Return $true$
+		\Else
+			\Return $false$
 		\EndIf
-		\Return $false$
 	\EndFunction  
 	\end{algorithmic}
 \end{algorithm}
 
-Algoritma \ref{alg:algoritma-pendeteksi-anggukkan} akan mengembalikan nilai true jika pengguna sedang mengangguk. Baris ke-2 hingga baris ke-8 adalah untuk mengecek kecepatan putar sekarang, apakah sudah melampaui batas yang ditentukan atau belum. Operasi If pada baris ke-9 adalah untuk mengecek apakah nilai rotasinya memotong sumbu x atau tidak. Untuk mengetahui titik potongnya dapat menggunakan rumus persamaan garis dari dua buah titik yang dinotasikan dengan Notasi \ref{eq:persamaan-garis-dua-titik}.   
+Algoritma \ref{alg:algoritma-pendeteksi-gerakan-mengangguk} akan mengembalikan nilai true jika pengguna sedang mengangguk. Baris ke-2 hingga baris ke-8 adalah untuk mengecek kecepatan putar sekarang, apakah sudah melampaui batas yang ditentukan atau belum. Untuk mengetahui titik potong secara akurat dapat menggunakan rumus persamaan garis dari dua buah titik yang dinotasikan dengan Notasi \ref{eq:persamaan-garis-dua-titik}.   
 
 \begin{equation}
 		\frac{y-y_1}{y_2-y_1} = \frac{x-x_1}{x_2-x_1} \\
@@ -985,14 +1004,14 @@ Algoritma \ref{alg:algoritma-pendeteksi-anggukkan} akan mengembalikan nilai true
 dengan,
 \[
 	\begin{split}
-		y_1 = & kecepatanSudutYSebelumnya\\
-		y_2 = & kecepatanSudutYSekarang\\
-		x_1 = & waktuDeteksiSebelumnya\\
-		x_2 = & waktuDeteksiSekarang
+		y_1 = & lastYAngSpeed\\
+		y_2 = & yAngSpeed\\
+		x_1 = & lastT\\
+		x_2 = & currT
 	\end{split}
 \]
 
-Notasi \ref{eq:persamaan-garis-dua-titik} dijabarkan sesuai dengan penjabaran \ref{eq:aljabar-pencarian-titik-potong} sehingga menjadi rumus yang berada pada algoritma \ref{alg:algoritma-pendeteksi-anggukkan} baris ke-10. Nilai titik potong x ini juga menjadi indikator waktu untuk rentang waktu dari suatu bukit atau lembah, yang akan digunakan untuk mendapatkan jarak waktu pada saat pengguna melawan arah gerakan. Baris ke-14 hingga ke-25 pada algoritma \ref{alg:algoritma-pendeteksi-anggukkan} adalah untk mengecek apakah simpangan yang terjadinya sudah melewati batas yang ditetapkan atau belum. Pada baris ke-26 hingga ke-28 untuk memulai menghitung luas yang baru. Baris ke-32 dan baris ke-33 untuk menghitung luas ketika tidak berpotongan dengan sumbu x. Baris ke-37 untuk mengecek jarak waktu pengguna melawan arah gerakan. Baris ke-36 hingga terakhir untuk mengecek apakah sudah memenuhi seluruh syarat-syarat batas-batasnya. 
+Notasi \ref{eq:persamaan-garis-dua-titik} dijabarkan sesuai dengan penjabaran \ref{eq:aljabar-pencarian-titik-potong} sehingga menjadi rumus yang berada pada algoritma \ref{alg:algoritma-pendeteksi-gerakan-mengangguk} baris ke-10. Nilai titik potong x ini juga menjadi indikator waktu untuk rentang waktu dari suatu bukit atau lembah, yang akan digunakan untuk mendapatkan jarak waktu pada saat pengguna melawan arah gerakan. Baris ke-14 hingga ke-25 pada algoritma \ref{alg:algoritma-pendeteksi-gerakan-mengangguk} adalah untk mengecek apakah simpangan yang terjadinya sudah melewati batas yang ditetapkan atau belum dan mencatatnya ke dalam attribut \texttt{passLimitDownDeviation} atau \texttt{passLimitUpDeviation}. Pada baris ke-26 hingga ke-28 untuk memulai menghitung luas yang baru. Baris ke-32 dan baris ke-33 untuk menghitung luas ketika tidak berpotongan dengan sumbu x. Baris ke-36 untuk pengecekan jarak antara bukit dengan lembah dapat diselesaikan dengan mengurangi waktu mulai bukit dengan waktu akhir lembah. Sehingga hasil untuk mengecek apakah semua batas sudah terpenuhi dapat di selesaikan dengan operasi (AND) biasa. 
 
 \begin{equation}
 	\begin{split}
@@ -1005,6 +1024,72 @@ Notasi \ref{eq:persamaan-garis-dua-titik} dijabarkan sesuai dengan penjabaran \r
 \end{equation}
 
 
+\textbf{Algoritma Mendeteksi Gerakan Menggeleng}
+\label{ssec:algoritme_mendeteksi_gerakan_menggeleng}
+
+Sama seperti pada pendeteksian gerakan mengangguk, algoritma ini akan dipanggil setiap kali ada perubahan nilai sensor, menyimpan batas-batas, waktu mulai dan berakhirnya suatu bukit atau lembah, di panggil secara berulang-ulang hingga menghasilkan hasil yang benar, dan data disimpan pada attribut.
+
+Sebagian attribut memiliki kegunaan yang sama dengan algoritma pendeteksi gerakan mengangguk. Berikut adalah keterangan dari data-data yang disimpan pada attribut yang belum dijelaskan pada algoritma pendeteksi gerakan mengangguk:
+\begin{itemize}
+	\item \texttt{currentlyLimitLeft}, attribut ini akan menunjukkan bahwa pada saat ini gerakan pengguna sedang bergerak ke kiri dan melebihi batas kecepatan sudutnya.
+	\item \texttt{currentlyLimitRight}, attribut ini akan menunjukkan bahwa pada saat ini gerakan pengguna sedang bergerak ke kanan dan melebihi batas kecepatan sudutnya.
+	\item \texttt{lastXAngSpeed}, attribut ini akan memiliki kecepatan sudut X pada pemanggillan method sebelumnya. 
+	\item \texttt{deviationMotionLeft}, attribut ini akan menyimpan simpangan yang terjadi ketika pengguna menggeraka kepalanya ke kiri. 
+	\item \texttt{deviationMotioRight}, attribut ini akan menyimpan simpangan yang terjadi ketika pengguna menggeraka kepalanya ke kanan. 
+\end{itemize}
+
+
+\begin{algorithm}
+	\caption{Shook Detection Algoritm}
+	\label{alg:algoritma-pendeteksi-gerakan-menggeleng}
+	\begin{algorithmic}[1]
+	\Function{detectShook}{$xAngSpeed$}
+		\State $currT \gets $current Time
+		\If {$xAngSpeed > angSpeedLimit$}
+			\State $currPassLimitLeft \gets true$
+		\ElsIf {$xAngSpeed < angSpeedLimit * -1$}
+			\State $currPassLimitRight \gets true$
+		\EndIf
+		\If {X values intersect with x(time) axis}
+			\State $xIntersect \gets ((-lastXAngSpeed / (xAngSpeed - lastXAngSpeed)) * (currT - lastT))+lastT$
+			\State $endTCurrMotion \gets xIntersect$
+			\State $areaBeforeIntersect \gets ((xIntersect - lastT) / 1000) * lastXAngSpeed / 2$
+			\State $calcArea \gets calcArea + areaBeforeIntersect$
+			\If {$currPassLimitRight$}
+				\State $deviationMotionRight \gets calcArea$
+				\If {$deviationMotionRight < deviationLimit$}
+					\State $valleyTimes.add($start and end time valley$)$
+				\EndIf
+			\ElsIf {$currPassLimitLeft$}
+				\State $deviationMotionUp = calcArea$
+				\If {$deviationMotionUp > deviationLimit * -1$}
+					\State $hillTimes.add($start and end time hill$)$
+				\EndIf
+			\EndIf
+			\State $calcArea \gets 0$
+			\State $areaAfterIntersect \gets ((currT - xIntersect) / 1000) * xAngSpeed / 2$ 
+			\State $calcArea \gets calcArea + areaAfterIntersect$ 
+			\State $startTCurrMotion \gets xIntersect$ 
+			\State $currPassLimitRight \gets false$ 
+			\State $currPassLimitLeft \gets false$ 
+		\Else 
+			\State $calcArea \gets calcArea + ((lastXAngSpeed + xAngSpeed) / 1000) * (currT - lastT) / 2$
+		\EndIf
+		\State $lastXAngSpeed \gets xAngSpeed$
+		\State $lastT \gets currT$
+		\If {head moves right first \textbf{AND} time range between hill and valley no exceed the limit.}
+			\Return $true$ 
+		\ElsIf {head moves left first \textbf{AND} time range between hill and valley no exceed the limit.}
+			\Return $true$
+		\Else 
+			\Return $false$
+		\EndIf
+	\EndFunction  
+	\end{algorithmic}
+\end{algorithm} 
+
+Sebagian besar algoritma untuk mendeteksi gerakan menggeleng memiliki kemiripan dengan algoritma untuk mendeteksi gerakan mengangguk. Pada algoritma menggeleng data waktu mulai dan berakhirnya suatu bukit atau lembah disimpan pada attribut dengan tipe data \textit{List}. Attribut-attribut yang menggunakan tipe data \textit{List} ini adalah \texttt{valleyTimes} dan \texttt{hillTimes}. Data-data waktu terjadinya bukti atau lembah yang dimasukkan ke dalam \textit{List} ini diartikan sudah memenuhi syarat dari batas-batas simpangan dan kecepatan sudutnya. \texttt{List} ini akan di kosongkan kembali jika salah satu \textit{List}-nya sudah lebih dari dua atau kedua \textit{List} tersebut sudah memiliki isi sebanyak dua, atau lebih. 
+Untuk pengecekan jarak waktu antara lembah dengan bukit akan dilakukan sebanyak dua kali. Pengecekan pertama yaitu untuk pengecekan jarak waktu antara lembah atau bukit pertama dengan kedua. Pengecekan kedua yaitu untuk pengecekan jarak waktu antara lembah atau bukit kedua dengan ketiga. Penghitungan jarak waktu antara lembah atau bukit pertama dengan kedua dapat dilakukan dengan mengurangi waktu dimulainya lembah atau bukit kedua dengan waktu berakhirnya lembah atau bukit pertama. Begitu pula dengan penghitungan jarak waktu antara lembah atau bukit kedua dengan ketiga.
 
 
 		\item Merancang aplikasi untuk mendeteksi gerakan kepala\\
@@ -1032,19 +1117,19 @@ Notasi \ref{eq:persamaan-garis-dua-titik} dijabarkan sesuai dengan penjabaran \r
 Persentase penyelesaian skripsi sampai dengan dokumen ini dibuat dapat dilihat pada tabel berikut :
 
 \begin{center}
-  \begin{tabular}{ | c | c | c | c | l |}
+  \begin{tabular}{ | c | c | c | c | l | c |}
     \hline
-    1*  & 2*(\%) & 3*(\%) & 4*(\%) &5*\\ \hline \hline
-    1   & 5  & 10  &  &  \\ \hline
-    2   & 5 & 5  &   & \\ \hline
-    3   & 10  & 5  &  & \\ \hline
-    4   & 10  & 10  &  & \\ \hline
-    5   & 10  & 10  &  & \\ \hline
-    6   & 10 &   & 10  & \\ \hline
-    7   & 20  &   & 20 & \\ \hline
-    8   & 10  &   &  10  & \\ \hline
-    9   & 20  & 10  & 10  & {\footnotesize menulis dokumen skripsi hingga bab 3 pada S1}\\ \hline
-    Total  & 100  & 50  & 50 &  \\ \hline
+    1*  & 2*(\%) & 3*(\%) & 4*(\%) &5* &6*(\%)\\ \hline \hline
+    1   & 10 & 10 & & & 10\\ \hline
+    2   & 5 & 5 & & & 5 \\ \hline
+    3   & 5 & 5 & & & 5 \\ \hline
+    4   & 10 & 10 & & & 10 \\ \hline
+    5   & 10 & 10 & & & 10 \\ \hline
+    6   & 10 & & 10 & &\\ \hline
+    7   & 20 & & 20 & &\\ \hline
+    8   & 10 & & 10 & &\\ \hline
+    9   & 20 & 10 & 10 &{\footnotesize menulis dokumen skripsi hingga bab 3 pada S1} &10\\ \hline
+    Total  & 100  & 50  & 50 &  & 50\\ \hline
                           \end{tabular}
 \end{center}
 
