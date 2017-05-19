@@ -1,19 +1,17 @@
 \chapter{Dasar Teori}
 \label{chap:dasar_teori}
-Pada bab ini akan dijelaskan dasar-dasar teori mengenai Android SDK, Google VR SDK,Kuaternion, \textit{Sensor Fusion}, dan algoritma \textit{Head Motion Detection}.
+Pada bab ini akan dijelaskan dasar-dasar teori mengenai Android SDK, Google VR SDK,Kuaternion, \textit{Sensor Fusion}, dan algoritme \textit{Head Motion Detection}.
 
 % 2.1 Android SDK
 \section{Android SDK}
 \label{sec:android_sdk}
 
-Android SDK(\textit{software development kit}) adalah kumpulan \textit{source code, development tools, emulator,}\cite{developers2011android} dan semua \textit{libraries} untuk membuat suatu aplikasi untuk \textit{platform} Android. IDE (\textit{integrated development environment} yang resmi untuk Android SDK adalah Android Studio. Android Studio dapat di download di halaman situs web Google Developer\cite{developers2011android}, sekaligus dengan Android SDKnya.  
+Android SDK(\textit{software development kit}) adalah kumpulan \textit{source code, development tools, emulator,} dan semua \textit{libraries} untuk membuat suatu aplikasi untuk \textit{platform} Android.\cite{developers2011android} IDE (\textit{integrated development environment}) yang resmi untuk Android SDK adalah Android Studio. Android Studio dapat di download di halaman situs Google Developer,\footnote{https://developer.android.com/studio/archive.html} sekaligus dengan Android SDKnya.  
 
 % 2.1.1 Struktur File Android Studio Project
 \subsection{Struktur File Android Studio Project}
-\cite{android_developers}
-		Dalam membuat aplikasi pada perangkat Android, dibutuhkan Android SDK. Android SDK(\textit{software development kit}) adalah kumpulan \textit{source code, development tools, emulator,}\cite{developers2011android} dan semua \textit{libraries} untuk membuat suatu aplikasi untuk \textit{platform} Android. IDE (\textit{integrated development environment} yang resmi untuk Android SDK adalah Android Studio. Android Studio dapat di download di halaman situs web Google Developer\cite{developers2011android}, sekaligus dengan Android SDKnya.  
-				 textbf{Struktur File Android Studio Project} \\
-				Pada saat \textbf{project} baru telah dibuat, Android Studio akan membuatkan folder-folder standar seperti pada Gambar \ref{fig:android-studio-structure}.
+
+				Pada saat membuat \textit{project} baru, Android Studio akan membuatkan \textit{folder-folder} standar secara otomatis. \textit{Folder-folder} tersebut akan memiliki tujuannya masing-masing. Penjelasan \textit{folder-folder} tersebut akan dijelaskan pada Gambar  \ref{fig:android-studio-structure}.
 				\begin{figure}[htbp]
 				\dirtree{%
 					.1 {module}.
@@ -27,7 +25,7 @@ Android SDK(\textit{software development kit}) adalah kumpulan \textit{source co
 					.4 {jni} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung kode-kode yang menggunakan Java Native Interface (JNI){.}\end{minipage}.
 					.4 {gen} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file-file java yang dihasilkan oleh Android Studio{.}\end{minipage}.
 					.4 {res} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file-file sumber untuk aplikasi, seperti file drawable, layout, dan UI String{.}\end{minipage}.
-					.4 {assets} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung file yang akan di kompile menjadi file .apk{.}\end{minipage}.
+					.4 {assets} \ldots{} \begin{minipage}[t]{5cm}Folder yang mengandung aset-aset untuk pembuatan aplikasi seperti texture dan data{.}\end{minipage}.
 					.2 {build.gradle} \ldots{} \begin{minipage}[t]{5cm}File yang mendefinisikan konfigurasi modul untuk proses build{.}\end{minipage}.
 					.1 {build.gradle} \ldots{} \begin{minipage}[t]{5cm}File yang mendefinisikan konfigurasi proses build untuk project yang berlaku untuk semua modul{.}\end{minipage}.
 				}
@@ -36,35 +34,34 @@ Android SDK(\textit{software development kit}) adalah kumpulan \textit{source co
 				\end{figure}
 % 2.1.2 Membuat User Interface
 \subsection{Membuat User Interface}
-\cite{android_developers}
-Pada subbab ini akan dijelaskan bagaimana membuat layout di XML termasuk \textit{text field} dan \textit{button}
+
+Pada subbab ini akan dijelaskan bagaimana membuat \textit{layout} di XML termasuk \textit{text field} dan \textit{button}\cite{android_developers}
 
 % Sub 2.1.2 Hierarki (GUI) untuk Aplikasi Android
 \subsubsection{Hierarki \textit{Graphical User Interface} (GUI) untuk Aplikasi Android}
 \label{sssec:hierarki_gui_untuk_aplikasi_android}
-GUI untuk aplikasi Android dibuat dengan hierarki dari objek View dan ViewGroup (Gambar \ref{fig:viewgroup}). Objek-objek dari View biasanya adalah \textit{UI(User Interface) Widgets} seperti \textit{button} atau \textit{text field}. Objek-objek dari ViewGroup tidak terlihat oleh \textit{view containers} yang mendefinisikan bagaimana \textit{child views} ditata seperti \textit{grid} atau \textit{vertical list}.
+GUI untuk aplikasi Android dibuat dengan hierarki dari objek View dan ViewGroup (Gambar \ref{fig:viewgroup}). Objek-objek dari View biasanya adalah \textit{UI (User Interface) Widgets} seperti Button atau TextField. Objek-objek dari ViewGroup tidak terlihat oleh \textit{view containers} yang mendefinisikan bagaimana \textit{child views} ditata seperti \textit{grid} atau \textit{vertical list}.
 
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[scale=1]{Gambar/viewgroup.png}
-	\caption{Illustrasi bagaimana percabangan objek ViewGroup pada \textit{layout} dan mengandung objek View lainnya.}
+	\caption{Ilustrasi bagaimana percabangan objek ViewGroup pada \textit{layout} dan mengandung objek View lainnya.}
 	\label{fig:viewgroup}
 \end{figure}
 
-Android menggunakan file XML yang berkorespondesi kepada \textit{subclasses} dari View dan ViewGroup, sehingga UI dapat didefinisikan dalam XML menggunakan hierarki dari elemen UI.
+Android menggunakan \textit{file} XML yang berkorespondesi kepada \textit{subclasses} dari View dan ViewGroup, sehingga UI dapat buat dalam XML menggunakan hierarki dari elemen UI.
 
-\subsubsection{Attribut-attribut Objek View}
-\label{sssec:attribut_attribut_objek_view}
-Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dalam membuat GUI pada file activity\_main.xml
+\subsubsection{Atribut-atribut Objek View}
+\label{sssec:atribut_atribut_objek_view}
+Pada subbab ini akan dijelaskan atribut-atribut object View yang digunakan dalam membuat GUI pada file activity\_main.xml
 \begin{itemize}
 	\item \textbf{android:id}
-	Attribut ini merupakan pengidentifikasi dari suatu view. Attribut ini dapat digunakan untuk menjadi referrensi object dari kode aplikasi seperti membaca dan memanipulasi objek tersebut (Akan dijelaskan lebih lanjut pada subbab \ref{sec:activity}). Tanda '@' dibutuhkan ketika mereferensi object dari suatu XML. Tanda '@' tersebut diikuti dengan tipe (id pada kasus ini), \textit{slash}, dan nama (edit\_message pada Listing \ref{lst:attribute-view}). Tanda tambah (+) sebelum tipe hanya dibutuhkan jika ingin mendefinisikan \textit{resource ID} untuk pertama kalinya.
+	Atribut ini merupakan identifikasi dari suatu view. Atribut ini dapat digunakan untuk menjadi referensi \textit{object} dari kode aplikasi seperti membaca dan manipulasi objek tersebut (Akan dijelaskan lebih lanjut pada subbab \ref{sec:activity}). Tanda '@' dibutuhkan ketika melakukan referensi object dari suatu XML. Tanda '@' tersebut diikuti dengan tipe (id pada kasus ini), \textit{slash}, dan nama (edit\_message pada Listing \ref{lst:atribute-view}). Tanda tambah (+) sebelum tipe hanya dibutuhkan jika ingin mendefinisikan \textit{resource ID} untuk pertama kalinya.
 	\item \textbf{android:layout\_width} dan \textbf{android:layout\_height}
-	Attribut ini digunakan untuk mendefinisikan panjang dan lebar dari suatu objek View. Daripada menggunakan besar spesifik untuk panjang dan lebarnya, lebih baik menggunakan "wrap\_content" yang menspesifikasi viewnya hanya akan sebesar yang dibutuhkan untuk memuat konten-konten dari View. Jika menggunakan "match\_parent" pada kasus Listing \ref{lst:attribute-view} View akan memenuhi layar, karena besarnya akan mengikuti besar dari paretnya LinearLayout.
-
+	Atribut ini digunakan untuk mendefinisikan panjang dan lebar dari suatu objek View. Daripada menggunakan besar yang spesifik untuk panjang dan lebarnya, lebih baik menggunakan "wrap\_content". Nilai "wrap\_content" ini akan memberikan spesifikasi viewnya hanya akan sebesar yang dibutuhkan untuk memuat seluruh isi dari View. Jika menggunakan "match\_parent" pada kasus Listing \ref{lst:atribute-view} View akan memenuhi layar, karena besarnya akan mengikuti besar dari \textit{parent}-nya LinearLayout.
 
 	\item \textbf{android:hint}
-	Attribut ini merupakan \textit{default string} untuk di tampilkan ketika objek View kosong. Daripada menggunakan \textit{hard-coded string} sebagai \textit{nilai} untuk ditampilkan, \textit{value} "@string/edit\_message" mereferensi ke sumber string pada file yang berbeda. Karena mereferensi ke sumber konkrit, maka tidak dibutuhkan tanda tambah (+). Nilai string ini akan di simpan pada file Strings.xml yang ditunjukkan pada Listing \ref{lst:string-xml}.
+	Atribut ini merupakan \textit{default string} untuk di tampilkan ketika objek View kosong. Daripada menggunakan \textit{hard-coded string} sebagai \textit{nilai} untuk ditampilkan, nilai "@string/edit\_message" mengacu ke sumber string pada \textit{file} yang berbeda. Karena mengacu ke sumber konkret, maka tidak dibutuhkan tanda tambah (+). Nilai string ini akan di simpan pada file Strings.xml yang ditunjukkan pada Listing \ref{lst:string-xml}.
 	\begin{lstlisting}[caption={Contoh kode pada string.xml},label={lst:string-xml},language=xml]
 	<resources>
     <string name="app_name">MyFirstAndroidApp</string>
@@ -76,13 +73,13 @@ Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dal
 
 
 	\item \textbf{android:onClick}
-	Attribut ini akan memberitahu \textit{system} untuk memanggil method yang sesuai namanya (contoh pada Listing \ref{lst:attribute-view} adalah \textbf{sendMessage()}) di Activity ketika pengguna melakukan klik pada \textit{button} tersebut. Agar \textit{system} dapat memanggil method yang tepat, method tersebut harus memenuhi kriteria berikut.
+	Atribut ini akan memberitahu sistem untuk memanggil \textit{method} yang sesuai namanya (contoh pada Listing \ref{lst:atribute-view} adalah \textbf{sendMessage()}) di Activity ketika pengguna melakukan klik pada \textit{button} tersebut. Agar \textit{system} dapat memanggil \textit{method} yang tepat, \textit{method} tersebut harus memenuhi kriteria berikut.
 	\begin{itemize}
 		\item \textit{Access Modifier} haruslah \textit{public}.
 		\item Harus \textit{void return value}nya.
 		\item Mempunyai View sebagai parameter satu-satunya. View ini akan diisi dengan View yang di klik.
 	\end{itemize}
-\begin{lstlisting}[caption={Contoh kode file XML pada folder layout},label={lst:attribute-view},language=xml]
+\begin{lstlisting}[caption={Contoh kode file XML pada folder layout},label={lst:atribute-view},language=xml]
 	<LinearLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools"
@@ -106,8 +103,8 @@ Pada subbab ini akan dijelaskan attribut-attribut object View yang digunakan dal
 
 \subsection{Activity}
 \label{sec:activity}
-\cite{android_developers}
-Activity adalah suatu hal yang terfokuskan dengan apa yang bisa pengguna lakukan. Hampir semua \textit{Activity} berinteraksi dengan pengguna, jadi kelas Activity akan membuat suatu halaman baru yang bisa ditambahkan dengan konten-konten View. Selain dapat direpresentasikan kepada pengguna dengan halaman \textit{full-screen}, Activity juga dapat direpresentasikan dengan cara lain: seperti halaman \textit{floating} atau tertanam di Activity lain.
+Activity adalah suatu hal yang fokus pada apa yang bisa pengguna lakukan.
+\cite{android_developers} Hampir semua Activity berinteraksi dengan pengguna, jadi kelas Activity akan membuat suatu halaman baru yang bisa ditambahkan dengan View. Selain dapat ditampilkan kepada pengguna dengan halaman \textit{full-screen}, Activity juga dapat ditampilkan dengan cara lain: seperti halaman \textit{floating} atau tertanam di Activity lain.
 
 \subsubsection{Activity Lifecycle}
 \label{sssec:activity_lifecycle}
@@ -123,32 +120,32 @@ Aktivitas dalam sistem android di atur sebagai \textit{activity stack}. Ketika a
 Activity didasari dari empat kondisi:
 \begin{itemize}
 	\item Jika Activity berada di latar depan pada layar, Activity tersebut sedang aktif.
-	\item Jika Activity sudah tidak terfokuskan tetapi masih dapat terlihat, Activity tersebut sedang berhenti sementara. Pada kondisi ini Activity tersebut masih berjalan, tapi bisa diberhentikan ketika system berada dalam situasi kekurangan memori.
-	\item Jika suatu Activity benar-benar dihalangi oleh Activity lain, Activity tersebut telah berhenti. Activity tersebut akan tetap mengingat seluruh keadaan dan infomasi anggota tetapi, Activity tersebut tidak lagi terlihat oleh pengguna jadi tampilan jendelanya akan tersembunyi dan seringkali akan diberhentikan Activitynya ketika system membutuhkan memori.
-	\item Jika suatu Activity sedang berhenti sementara atau berhenti total, sistem dapat membuang Activity dari memory dengan cara menanyakan kepada pengguna untuk memberhentikannya atau langsung diberhentikan oleh sistem. Jika Activity tersebut ditampilkan lagi kepada pengguna, Activity tersebut harus memulai dari awal dan kembali ke keadaan sebelumnya.
+	\item Jika Activity sudah tidak menjadi fokus tetapi masih dapat terlihat, Activity tersebut sedang berhenti sementara. Pada kondisi ini Activity tersebut masih berjalan, tapi bisa diberhentikan ketika sistem berada dalam situasi kekurangan memori.
+	\item Jika suatu Activity benar-benar dihalangi oleh Activity lain, Activity tersebut telah berhenti. Activity tersebut akan tetap mengingat seluruh keadaan dan informasi anggota tetapi, Activity tersebut tidak lagi terlihat oleh pengguna jadi tampilan halamannya akan tersembunyi dan seringkali akan diberhentikan Activity-nya ketika sistem membutuhkan memori.
+	\item Jika suatu Activity sedang berhenti sementara atau berhenti total, sistem dapat membuang Activity dari memori dengan cara menanyakan kepada pengguna untuk menghentikannya atau langsung diberhentikan oleh sistem. Jika Activity tersebut ditampilkan lagi kepada pengguna, Activity tersebut harus memulai dari awal dan kembali ke keadaan sebelumnya.
 \end{itemize}
-Gambar \ref{fig:activity-lifecycle} menunjukkan pentingnya alur keadaan dari suatu Activity. Gambar segi empat merepresentasikan \textit{callback methods} yang dapat diimplementasikan untuk melakukan operasi ketika Activity berubah kondisi. Oval berwarna merupakan kondisi-kondisi utama dari suatu Activity.
+Gambar \ref{fig:activity-lifecycle} menunjukkan pentingnya alur keadaan dari suatu Activity. Gambar segi empat menggambarkan \textit{callback \textit{method}s} yang dapat ditambahkan suatu implementasi untuk melakukan operasi ketika Activity berubah kondisi. Oval berwarna merupakan kondisi-kondisi utama dari suatu Activity.
 Ada 3 \textit{key loops} untuk memantau suatu Activity:
 \begin{itemize}
-	\item \textit{Entire lifetime} terjadi diantara pemanggilan pertama pada onCreate(Bundle) sampai ke satu pemanggilan akhir onDestroy(). Suatu Activity akan melakukan semua persiapan pada kondisi umum pada method onCreate(), dan melepaskan seluruh sisa pemrosesan pada method onDestroy().
-	\item \textit{Visible lifetime} terjadi antara pemanggilan onStart() sampai pemanggilan yang sesuai pada onStop(). Pada tahap ini pengguna dapat melihat Activity pada layar meskipun tidak berada pada \textit{foreground} dan berinteraksi dengan pengguna.
-	\item \textit{Foreground lifetime} terjadi antara pemanggilan method onResume() sampai ke satu pemanggilan akhir onDestroy(). Pada tahap ini Activity berada di depan semua Activity lainnya dan sedang berinteraksi dengan user.
+	\item \textit{Entire lifetime} terjadi diantara pemanggilan pertama pada onCreate(Bundle) sampai ke suatu pemanggilan terakhir onDestroy(). Suatu Activity akan melakukan semua persiapan pada kondisi umum pada \textit{method} onCreate(), dan melepaskan seluruh sisa pemrosesan pada \textit{method} onDestroy().
+	\item \textit{Visible lifetime} terjadi antara pemanggilan onStart() sampai pemanggilan yang sesuai pada onStop(). Pada tahap ini pengguna dapat melihat Activity pada layar meski pun tidak berada pada \textit{foreground} dan berinteraksi dengan pengguna.
+	\item \textit{Foreground lifetime} terjadi antara pemanggilan \textit{method} onResume() sampai ke satu pemanggilan akhir onDestroy(). Pada tahap ini Activity berada di depan semua Activity lainnya dan sedang berinteraksi dengan pengguna.
 \end{itemize}
 
 
 \subsection{Android Sensor Framework}
 \label{sec:android_sensor_framework}
-\cite{android_developers}Sebagian besar dari perangkat android sudah memiliki sensor yang mengukur gerakan, orientasi, dan berbagai keadaan lingkungan. Sensor-sensor ini dapat memberikan data mentah dengan tingkat akurasi yang tinggi. Sensor ini juga berguna untuk memantau pergerakan tiga dimensi atau posisi perangkat. Sensor ini juga dapat memantau perubahan keadaan lingkungan yang dekat dengan perangkat. 
+Sebagian besar dari perangkat android sudah memiliki sensor yang mengukur gerakan, orientasi, dan berbagai keadaan lingkungan.\cite{android_developers} Sensor-sensor ini dapat memberikan data mentah dengan tingkat akurasi yang tinggi. Sensor ini juga berguna untuk memantau pergerakan tiga dimensi atau posisi perangkat. Sensor ini juga dapat memantau perubahan keadaan lingkungan yang dekat dengan perangkat. 
 Android mendukung tiga kategori sensor:
 \begin{itemize}
 	\item \textbf{Sensor gerak}
-	Sensor-sensor ini mengukur akselerasi dan rotasi pada tiga sumbu. Kategori sensor ini meliputi \textit{accelerometers}, sensor gravitasi, \textit{gyroscope}, dan \textit{rotation vector}. 
+	Sensor-sensor ini mengukur akselerasi dan rotasi pada tiga sumbu. Kategori sensor ini meliputi \textit{accelerometer}, sensor gravitasi, \textit{gyroscope}, dan \textit{rotation vector}. 
 	\item \textbf{Sensor keadaan lingkungan}
-	Sensor-sensor ini mengukur berbagai keadaan lingkungan seperti suhu udara, tekanan, pencahayaan, dan kelembaban. Kateori sensor ini termasuk barimeter, fotometer dan termometer.
+	Sensor-sensor ini mengukur berbagai keadaan lingkungan seperti suhu udara, tekanan, pencahayaan, dan kelembapan. Kategori sensor ini termasuk barimeter, fotometer dan termometer.
 	\item \textbf{Sensor posisi}
 	Sensor-sensor ini mengukur posisi perangkat. Kategori sensor ini meliputi sensor orientasi dan magnetometer.
 \end{itemize}
-Android Sensor Framework membantu developers untuk mengakses berbagai jenis sensor. Beberapa sensor berbasis perangkat keras dan beberapa sensor berbasis perangkat lunak. Sensor berbasis perangkat keras mendapatkan data dengan langsung mengukur sifat lingkungan tertentu, seperti percepatan, kekuatan medan geomagnetik, atau perubahan sudut. Sensor berbasis perangkat lunak mendapatkan data dari satu atau lebih sensor berbasis perangkat keras. Sensor berbasis perangkat lunak ini juga terkadang disebut sensor virtual atau sensor sintetis. Pada tabel berikut akan dirincikan tipe-tipe setiap sensor posisi dan gerak, deskripsi, dan penggunaan umumnya.
+Android Sensor Framework membantu \textit{developers} untuk mengakses berbagai jenis sensor. Beberapa sensor berbasis perangkat keras dan beberapa sensor berbasis perangkat lunak. Sensor berbasis perangkat keras mendapatkan data dengan langsung mengukur sifat lingkungan tertentu, seperti percepatan, kekuatan medan geomagnetik, atau perubahan sudut. Sensor berbasis perangkat lunak mendapatkan data dari satu atau lebih sensor berbasis perangkat keras. Sensor berbasis perangkat lunak ini juga terkadang disebut sensor virtual atau sensor sintetis. Pada tabel berikut akan dirincikan tipe-tipe setiap sensor posisi dan gerak, deskripsi, dan penggunaan umumnya.
 
 \begin{table}[htbp]
 	\centering
@@ -162,12 +159,12 @@ TYPE\_GYROSCOPE & Perangkat Keras & Mengukur rata-rata rotasi sudut dalam \(rad/
 TYPE\_LINEAR\_ACCELERATION & Perangkat Lunak atau Perangkat Keras & Mengukur percepatan dalam \(m/s^2\) yang terjadi pada perangkat di semua tiga sumbu fisik (x,y,z), tidak termasuk percepatan gravitasi. & Memantau percepatan pada suatu sumbu.\\ \hline
 TYPE\_MAGNETIC\_FIELD & Perangkat Keras & Mengukur medan magnet sekitar untuk semua tiga sumbu fisik (x,y, dan z) di satuan \(\mu T\). & Membuat Kompas.\\ \hline
 TYPE\_ORIENTATION & Perangkat Lunak & Mengukur derajat rotasi yang terjadi pada perangkat pada semua tiga sumbu fisik (x,y, dan z). & Menentukan posisi perangkat \\ \hline
-TYPE\_ROTATION\_VECTOR & Perangkat Lunak dan Perangkat Keras & Mengukur orisentasi dari suatu perangkat dengan menyediakan tiga element dari vektor rotasi perangkat. & Deteksi gerak dan deteksi rotasi.\\ \hline
+TYPE\_ROTATION\_VECTOR & Perangkat Lunak dan Perangkat Keras & Mengukur orientasi dari suatu perangkat dengan menyediakan tiga elemen dari vektor rotasi perangkat. & Deteksi gerak dan deteksi rotasi.\\ \hline
 \end{tabular}
 \end{table}
 \subsubsection{Sistem Koordinat Sensor}
 \label{sssec:sistem_koordinat_sensor}
-Pada umumnya, sensor framework menggunakan sistem tiga sumbu koordinat standar untuk mengekspresikan nilai data. Sebagian besar sensor sistem koordinat didefinisikan relatif terhadap layar perangkat bila perangkat dibuat dalam orientasi standar (lihat Gambar \ref{fig:axis-device})
+Pada umumnya, sensor framework menggunakan sistem tiga sumbu koordinat standar untuk mengekspresikan nilai data. Sebagian besar sensor sistem koordinat akan relatif terhadap layar perangkat bila perangkat dibuat dalam orientasi standar (lihat Gambar \ref{fig:axis-device})
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[scale=1]{Gambar/axis-device.png}
@@ -182,11 +179,11 @@ Sensor-sensor yang menggunakan sistem tiga sumbu seperti Gambar \ref{fig:axis-de
 	\item Sensor Percepatan Linear
 	\item Sensor Medan Geomagnetik
 \end{itemize}
-Koordinat sistem yang sumbunya tidak tertukar ketika orientasi perangkat berubah. Sistem koordinat sensor tidak pernah berubah seiring perangkatnya bergerak. Dalam aplikasi android tidak dapat diassumsikan bahwa standar orientasi perangkat android adalah \textit{portrait}. Kebanyakan perangkat \textit{Tablet} standar orientasinya adalah \textit{landscape}. Sistem koordinat sensor selalu di dasarkan pada orientasi dasar dari suatu perangkat android.
-\subsubsection{Mengidentifikasi Sensor dan Kapabilitas Sensor}
+Koordinat sistem yang sumbu-nya tidak tertukar ketika orientasi perangkat berubah. Sistem koordinat sensor tidak pernah berubah seiring perangkatnya bergerak. Dalam aplikasi Android tidak dapat diberikan asumsi bahwa standar orientasi perangkat Android adalah \textit{portrait}. Kebanyakan perangkat \textit{Tablet} standar orientasi-nya adalah \textit{landscape}. Sistem koordinat sensor selalu di dasarkan pada orientasi dasar dari suatu perangkat Android.
+\subsubsection{Mengidentifikasi Sensor dan Kemampuan Sensor}
 \label{sssec:mengidentifikasi_sensor_dan_kapabilitas_sensor}
-Android Sensor Framework menyediakan beberapa method yang dapat membuat developer mudah untuk menentukan sensor mana yang akan digunakan. APInya juga dapat menyediakan method yang memungkinkan penggunanya menentukan kapabilitas masing-masing sensor, seperti jangkauan maksimum, resolusi, dan kebutuhan dayanya.
-Untuk mengidentifikasi sensor-sensor yang ada pada perangkat, hal pertama yang perlu dilakukan adalah mendapatkan referensi sensor tersebut. Untuk mendapatkan referensi tersebut, dapat dilakukan dengan membuat instansiasi dari kelas SensorManager dan memanggul method getSystemService() dan memasukkan isi Parameternya dengan SENSOR\_SERVICE. Contohnya pada Listing \ref{lst:init-sensor-manager}.
+Android Sensor Framework menyediakan beberapa \textit{method} yang dapat membuat developer mudah untuk menentukan sensor mana yang akan digunakan. API-nya juga dapat menyediakan \textit{method} yang memungkinkan penggunanya menentukan kemampuan masing-masing sensor, seperti jangkauan maksimum, resolusi, dan kebutuhan dayanya.
+Untuk mengidentifikasi sensor-sensor yang ada pada perangkat, hal pertama yang perlu dilakukan adalah mendapatkan referensi sensor tersebut. Untuk mendapatkan referensi tersebut, dapat dilakukan dengan membuat instansi dari kelas SensorManager dan memanggul \textit{method} getSystemService() dan memasukkan isi parameter-nya dengan SENSOR\_SERVICE. Contohnya pada Listing \ref{lst:init-sensor-manager}.
  
 \begin{lstlisting}[caption={Contoh inisialisasi kelas SensorManager},label={lst:init-sensor-manager},language=java]
 private SensorManager mSensorManager;
@@ -194,7 +191,7 @@ private SensorManager mSensorManager;
 mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 \end{lstlisting}
 
-Kemudian untuk mendapatkan daftar dari setiap sensor pada suatu perangkat dapat dilakukan dengan cara memanggil method getSensorList() dan menggunakan konstanta TYPE\_ALL pada kelas Sensor. Contohnya pada Listing \ref{lst:get-sensor-lists}
+Kemudian untuk mendapatkan daftar dari setiap sensor pada suatu perangkat dapat dilakukan dengan cara memanggil \textit{method} getSensorList() dan menggunakan konstanta TYPE\_ALL pada kelas Sensor. Contohnya pada Listing \ref{lst:get-sensor-lists}
 
 \begin{lstlisting}[caption={Contoh untuk mendapatkan daftar dari setiap sensor yang ada},label={lst:get-sensor-lists},language=java]
 List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
@@ -202,7 +199,7 @@ List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
 Namun jika ingin mendapatkan sensor-sensor yang sesuai dengan tipe sensor yang diberikan, dapat menggunakan TYPE\_GYROSCOPE, TYPE\_LINEAR\_ACCELERATION, TYPE\_GRAVITY, atau TYPE\_GRAVITY.
 
-Untuk menentukan jenis tertentu dari sensor yang ada pada perangkat dapat didapatkan dengan method getDefaultSensor() dengan dimasukkan dengan konstanta yang berada pada kelas Sensor. Jika perangkatnya memiliki lebih dari satu sensor dari tipe sensor yang diberikan, salah satu dari sensor tersebut akan dianggap sebagai sensor dasar. Jika sensor dasanya tidak ada untuk sensor tersebut, perangkat tersebut berarti tidak memiliki sensor dengan jenis yang diberikan. Listing \ref{lst:check-sensor} adalah contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan.
+Untuk menentukan jenis tertentu dari sensor yang ada pada perangkat dapat didapatkan dengan \textit{method} getDefaultSensor() dengan dimasukkan dengan konstanta yang berada pada kelas Sensor. Jika perangkatnya memiliki lebih dari satu sensor dari tipe sensor yang diberikan, salah satu dari sensor tersebut akan dianggap sebagai sensor dasar. Jika sensor dasarnya tidak ada untuk sensor tersebut, perangkat tersebut berarti tidak memiliki sensor dengan jenis yang diberikan. Listing \ref{lst:check-sensor} adalah contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan.
 
 \begin{lstlisting}[caption={Contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan},label={lst:check-sensor},language=java]
 private SensorManager mSensorManager;
@@ -216,7 +213,7 @@ else {
   }
 \end{lstlisting}
 
-Jika ingin membatasi versi atau vendor dari sensor yang akan digunakan, dapat menggunakan method getVendor() dan getVersion(). Seperti pada Listing \ref{lst:check-sensor-version} yang mengharuskan sensor gravitasi bervendor "Google Inc." dan memiliki versi 3. Jika sensor tersebut tidak tersedia pada perangkat, sensor accelerometerlah yang digunakan.
+Jika ingin membatasi versi atau vendor dari sensor yang akan digunakan, dapat menggunakan \textit{method} getVendor() dan getVersion(). Seperti pada Listing \ref{lst:check-sensor-version} yang mengharuskan sensor gravitasi ber-\textit{vendor} "Google Inc." dan memiliki versi 3. Jika sensor tersebut tidak tersedia pada perangkat, sensor accelerometer yang digunakan.
 
 \begin{lstlisting}[caption={Contoh untuk mengecek apakah perangkat yang digunakan memiliki sensor dengan jenis yang diberikan},label={lst:check-sensor-version},language=java]
 private SensorManager mSensorManager;
@@ -248,25 +245,26 @@ if (mSensor == null){
 }
 \end{lstlisting}
 
-Salah satu method yang sangat berguna lagi adalah, getMinDelay(). Method ini digunakan untuk mengetahui minimum interval waktu suatu sensor dapat menerima data dalam mikrodetik. Jika method getMinDelay() mengembalikan nilai nol, hal ini berarti sensor ini akan mengembalikan data setiap kali ada perubahan nilai pada sensor tersebut. 
+Salah satu \textit{method} yang sangat berguna lagi adalah, getMinDelay(). Method ini digunakan untuk mengetahui minimum interval waktu suatu sensor dapat menerima data dalam mikro detik. Jika \textit{method} getMinDelay() mengembalikan nilai nol, hal ini berarti sensor ini akan mengembalikan data setiap kali ada perubahan nilai pada sensor tersebut. 
 
 \subsubsection{Memonitor Nilai Sensor}
 \label{sssec:memonitor_nilai_sensor}
 
-Untuk memonitor data mentah dari sensor, dibutuhkan untuk mengimplement dua buah method callback yang berada pada interface SensorEventListener. Kedua method tersebut adalah onAccuracyChanged(Sensor sensor, int accuracy) dan onSensorChanged(SensorEvent event). Sistem android akan memanggil kedua method ini ketika terjadi salah satu kondisi ini:
+Untuk memonitor data mentah dari sensor, dibutuhkan untuk melakukan implementasi dua buah \textit{method callback} yang berada pada interface SensorEventListener. Kedua \textit{method} tersebut adalah onAccuracyChanged(Sensor sensor, int accuracy) dan onSensorChanged(SensorEvent event). Sistem android akan memanggil kedua \textit{method} ini ketika terjadi salah satu kondisi ini:
 
 \begin{itemize}
 	\item \textbf{Perubahan akurasi sensor.}\\
-Dalam kasus ini sistem memanggil method onAccuracyChanged(Sensor sensor, int accuracy). Parameter sensor akan diberikan objek Sensor yang telah berubah akurasinya, dan parameter accuracy adalah nilai akurasi sensor yang baru.
+Dalam kasus ini sistem memanggil \textit{method} onAccuracyChanged(Sensor sensor, int accuracy). Parameter sensor akan diberikan objek Sensor yang telah berubah akurasi-nya, dan parameter accuracy adalah nilai akurasi sensor yang baru.
 	\item \textbf{Sensor memberitahu adanya nilai baru.}\\
-Dalam kasus ini sistem memanggil method onSensorChanged(SensorEvent event), dengan parameter event akan diisi dengan objek SensorEvent untuk mendapatkan nilai barunya. Objek SensorEvent Mengandung semua infromasi tentang data sensor yang baru, termasuk: akurasi dari data, sensor yang mendapatkan data, dan catatan waktu data tersebut didapatkan, dan data yang baru yang telah didapatkan.
+Dalam kasus ini sistem memanggil \textit{method} onSensorChanged(SensorEvent event), dengan parameter event akan diisi dengan objek SensorEvent untuk mendapatkan nilai barunya. Objek SensorEvent Mengandung semua informasi tentang data sensor yang baru, termasuk: akurasi dari data, sensor yang mendapatkan data, dan catatan waktu data tersebut didapatkan, dan data yang baru yang telah didapatkan.
 \end{itemize}
 
-Pada Listing \ref{lst:monitoring-light-sensor} akan ditunjukkan bagaimana menggunakan method onSensorChanged(SensorEvent event) untuk memonitor data dari sensor cahaya. Pada Listing \ref{lst:monitoring-light-sensor} akan menampilkan data mentah dari sensor ke TextView yang telah didefinisikan pada file main.xml sebagai sensor\_data.
+Pada Listing \ref{lst:monitoring-light-sensor} akan ditunjukkan bagaimana menggunakan \textit{method} onSensorChanged(SensorEvent event) untuk memonitor data dari sensor cahaya. Pada Listing \ref{lst:monitoring-light-sensor} akan menampilkan data mentah dari sensor ke TextView yang telah dibuat pada file main.xml sebagai sensor\_data.
 \begin{lstlisting}[caption={Contoh memonitor data mentah pada sensor cahaya},label={lst:monitoring-light-sensor},language=java]
 public class SensorActivity extends Activity implements SensorEventListener {
   private SensorManager mSensorManager;
   private Sensor mLight;
+  private TextView textView;
 
   @Override
   public final void onCreate(Bundle savedInstanceState) {
@@ -303,11 +301,11 @@ public class SensorActivity extends Activity implements SensorEventListener {
   }
 }
 \end{lstlisting}
-Pada method onSensorChanged(SensorEvent event), struktur nilai-nilai yang dikembalikan akan dijelaskan pada subbab \ref{sssec:struktur_nilai_yang_dikembalikan_oleh_sensor}. Pada method onResume(), ada pemanggilan method registerListener(). Method registerListener() ini berguna untuk menspesifikasikan waktu delay pada pemanggilan onSensorChanged(). Untuk menspesifikasikan delaynya dapat menggunakan konstanta yang ada pada kelas SensorManager. Konstanta-konstanta tersebut adalah SENSOR\_DELAY\_NORMAL (200.000 mikrodetik),SENSOR\_DELAY\_GAME (20.000 mikrodetik),SENSOR\_DELAY\_UI (60.000 mikrodetik), atau SENSOR\_DELAY\_FASTEST (0 mikrodetik). Pengaturan dasar untuk waktu delay ini menggunakan konstanta SENSOR\_DELAY\_NORMAL.
-Perlu diperhatikan juga pemesanan sensor ketika activity sedang di berhentikan sementara maupun dilanjutkan kembali. Sistem tidak boleh tetap merekam sensor ketika activity tidak aktif. Hal ini diperlukan karena pada saat perangkat android menggunakan sensor, perangkat akan menggunakan tenanga yang banyak. Akan lebih baik jika penggunaan sensor diberhentikan ketika activitynya sudah tidak lagi digunakan. 
+Pada \textit{method} onSensorChanged(SensorEvent event), struktur nilai-nilai yang dikembalikan akan dijelaskan pada subbab \ref{sssec:struktur_nilai_yang_dikembalikan_oleh_sensor}. Pada \textit{method} onResume(), ada pemanggilan \textit{method} registerListener(). Method registerListener() ini berguna untuk menetapkan waktu \textit{delay} pada pemanggilan onSensorChanged(). Untuk menetapkan \textit{delay}-nya dapat menggunakan konstanta yang ada pada kelas SensorManager. Konstanta-konstanta tersebut adalah SENSOR\_DELAY\_NORMAL (200.000 mikro detik),SENSOR\_DELAY\_GAME (20.000 mikro detik),SENSOR\_DELAY\_UI (60.000 mikro detik), atau SENSOR\_DELAY\_FASTEST (0 mikro detik). Pengaturan dasar untuk waktu \textit{delay} ini menggunakan konstanta SENSOR\_DELAY\_NORMAL.
+Perlu diperhatikan juga pemesanan sensor ketika activity sedang dihentikan sementara maupun dilanjutkan kembali. Sistem tidak boleh tetap merekam sensor ketika activity tidak aktif. Hal ini diperlukan karena pada saat perangkat android menggunakan sensor, perangkat akan menggunakan tenaga yang banyak. Akan lebih baik jika penggunaan sensor diberhentikan ketika activity-nya sudah tidak lagi digunakan. 
 \subsubsection{Struktur Nilai yang Dikembalikan oleh Sensor}
 \label{sssec:struktur_nilai_yang_dikembalikan_oleh_sensor}
-Setiap sensor android akan mengembalikan nilai-nilainya dengan struktur-struktur tertentu. Pada bab ini akan dijelaskan secara detil struktur nilai sistem android dalam mengembalikan nilai-nilai yang diperoleh dari sensor. Nilai ini akan didapatkan dengan tipe data array of float. Besar dan isi dari array tergantung pada sensor yang sedang di pantau. Berikut ini adalah struktur-struktur nilai dari setiap sensor pada sistem android :\\
+Setiap sensor android akan mengembalikan nilai-nilainya dengan struktur-struktur tertentu. Pada bab ini akan dijelaskan secara detail struktur nilai sistem android dalam mengembalikan nilai-nilai yang diperoleh dari sensor. Nilai ini akan didapatkan dengan tipe data \textit{array of float}. Besar dan isi dari array tergantung pada sensor yang sedang di pantau. Berikut ini adalah struktur-struktur nilai dari setiap sensor pada sistem android :\\
 \begin{itemize}
 	\item \textbf{TYPE\_ACCELEROMETER}\\
 Semua nilai didefinisikan sebagai satuan \(m/s^2\)
@@ -320,7 +318,7 @@ Sensor ini mengukur percepatan(\(Ad\)) yang diterapkan pada perangkat. Sensor te
 \[
 	Ad = -\Sigma Fs / mass
 \]
-Secara khusus, gravitasi selalu mempengaruhi percepatan yang diukur :
+Secara khusus, gravitasi selalu memberikan pengaruh pada percepatan yang diukur :
 \[
 	Ad =  -g -\Sigma F / mass
 \]
@@ -345,17 +343,17 @@ Suatu saat akan di butuhkan untuk mengukur percepatan asli yang terjadi pada per
           linear_acceleration[2] = event.values[2] - gravity[2];
      }
 \end{lstlisting}
-\textit{Low-pass} filter dapat diimplementasikan pada Listing \ref{lst:low-pass-filter}\\
+Implementasi \textit{low-pass} filter ditunjukkan pada Listing \ref{lst:low-pass-filter}\\
 \item \textbf{TYPE\_MAGNETIC\_FIELD}\\
-Sensor ini mengukur medan magnet sekitar perangkat pada sumbu X,Y, dan Z dalam satuan micro-Tesla.\\
+Sensor ini mengukur medan magnet sekitar perangkat pada sumbu X,Y, dan Z dalam satuan micro-tesla.\\
 \item \textbf{TYPE\_GYROSCOPE}\\
-Sensor ini mengukur rata-rata perputaran pada perangkat yang berputar di sumbu X,Y, dan Z dalam satuan radians/second. Sistem koordinat yang digunakan sama dengan sistem koordinat pada sensor percepatan(Accelerometer). Jika perangkat berputar berlawanan arah jarum jam pada sumbu tertentu, maka rotasi yang terjadi akan bernilai positif. Perhatikan bahwa standar perputaran ini adalah definisi matematika standar pada rotasi positif.
+Sensor ini mengukur rata-rata perputaran pada perangkat yang berputar di sumbu X,Y, dan Z dalam satuan radian per detik ($\frac{rad}{s}$). Sistem koordinat yang digunakan sama dengan sistem koordinat pada sensor percepatan(Accelerometer). Jika perangkat berputar berlawanan arah jarum jam pada sumbu tertentu, maka rotasi yang terjadi akan bernilai positif. Perhatikan bahwa standar perputaran ini adalah definisi matematika standar pada rotasi positif.
 \begin{itemize}
 	\item values[0]: Percepatan angular pada sumbu X.
 	\item values[1]: Percepatan angular pada sumbu Y.
 	\item values[2]: Percepatan angular pada sumbu Z.
 \end{itemize}
-Biasanya keluaran dari gyroscope terintegrasi dari waktu ke waktu untuk menghitung rotasi yang menggambarkan perubahan sudut atas langkah waktu, misalnya pada Listing \ref{lst:gryoscope-example}
+Biasanya keluaran dari gyroscope akan muncul dari waktu ke waktu untuk menghitung rotasi yang menggambarkan perubahan sudut atas langkah waktu, misalnya pada Listing \ref{lst:gryoscope-example}
 \begin{lstlisting}[caption=contoh implementasi gyroscope,label={lst:gryoscope-example},language=java]
 	  private static final float NS2S = 1.0f / 1000000000.0f;
      private final float[] deltaRotationVector = new float[4]();
@@ -381,10 +379,10 @@ Biasanya keluaran dari gyroscope terintegrasi dari waktu ke waktu untuk menghitu
                   axisZ /= omegaMagnitude;
               }
 
-              // Integrate around this axis with the angular speed by the time step
-              // in order to get a delta rotation from this sample over the time step
-              // We will convert this axis-angle representation of the delta rotation
-              // into a kuaternion before turning it into the rotation matrix.
+              // Integrasi di setiap sumbu dengan setiap kecepatan sudut di setiap waktunya 
+              // untuk mendapatkan delta rotasi dari waktu sebelumnya hingga waktu sekarang.
+              // Hasil representasi delta rotasi dari sudut ini akan diubah 
+              // menjadi kuaternion sebelum merubahnya kembali menjadi rotasi matriks.
               float thetaOverTwo = omegaMagnitude * dT / 2.0f;
               float sinThetaOverTwo = sin(thetaOverTwo);
               float cosThetaOverTwo = cos(thetaOverTwo);
@@ -402,7 +400,7 @@ Biasanya keluaran dari gyroscope terintegrasi dari waktu ke waktu untuk menghitu
      }
      }
 \end{lstlisting}
-Dalam prakteknya, gyroscope \textit{noise} dan \textit{offset} akan menyebabkan beberapa kesalahan yang harus dikompensasi. Cara untuk mengkompensasinya biasanya dilakukan dengan menggunakan informasi dari sensor lain.\\
+Dalam prakteknya, gyroscope \textit{noise} dan \textit{offset} akan menyebabkan beberapa kesalahan yang harus diberikan kompensasi. Cara untuk memberikan kompensasi biasanya dilakukan dengan menggunakan informasi dari sensor lain.\\
 \item \textbf{TYPE\_GRAVITY}\\
 Sensor ini menunjukkan arah dan besarnya vektor gaya gravitasi. Sensor ini mengembalikan nilai dengan satuan \(m/s^2\). Sistem koordinat sama seperti sistem koordinat yang umum digunakan sensor percepatan. 
 
@@ -419,17 +417,17 @@ Semua nilai adalah sudut dalam derajat.
 \begin{itemize}
 	\item values[0]: Azimuth, sudut diantara arah magnetik utara dengan sumbu y, sekitar sumbu z (0 sampai 359). 0 = Utara, 90 = Timur, 180 = Selatan, 270 = Barat
 	\item values[1]: Pitch, rotasi sekitar sumbu x (-180 sampai 180), dengan nilai positif ketika sumbu x bergerak menuju sumbu y.
-	\item values[2]: Roll, perputaran sekitar sumbu y (-90 sampai 90) pada kondisi potrait, sensor akan bernilai 0. Pada kondisi landscape ke kanan sensor akan bernilai 90 dan sebaliknya yaitu kondisi landscape ke kiri sensor akan bernilai -90.
+	\item values[2]: Roll, perputaran sekitar sumbu y (-90 sampai 90) pada kondisi \textit{potrait}, sensor akan bernilai 0. Pada kondisi \textit{landscape} ke kanan sensor akan bernilai 90 dan sebaliknya yaitu kondisi \textit{landscape} ke kiri sensor akan bernilai -90.
 \end{itemize}
 
-Catatan: Definisi ini berbeda dengan definisi yaw, pitch, dan roll yang digunakan pada aviasi yang sumbu X adalah sepanjang sisi bidang.
+Catatan: Definisi ini berbeda dengan definisi \textit{yaw, pitch,} dan \textit{roll} yang digunakan pada aviasi yang sumbu X adalah sepanjang sisi bidang.
 
 Catatan: Sensor ini sudah tidak digunakan lagi(deprecated), yang digunakan sekarang adalah sensor rotasi vector.\\
 \item \textbf{TYPE\_ROTATION\_VECTOR}\\
-Sensor ini merepresentasikan orientasi perangkat dengan kombinasi dari sumbu dan sudut. Perangkat akan di putar sebesar sudut \(\theta\) mengelilingi sumbu \(x,y,z\). Tiga elemen dari vektor rotasi adalah (\(x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)), sehingga besarnya vektor rotasi sama dengan \(\sin (\frac{\theta}{2})\), dan arah vektor rotasi sama dengan sumbu rotasi. Tiga elemen dari vektor rotasi sama dengan tiga komponen terakhir pada unit kuaternion(\(\cos (\frac{\theta}{2}),x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)) yang dijelaskan pada subbab \ref{sec:teori_quaternion}. Elemen dari vektor rotasi tak memiliki satuan. Sistem koordinat yang digunakan sama dengan sistem koordinat yang digunakan pada sensor percepatan. Referensi koordinat didefinisikan sebagai basis orthonormal, yaitu:
+Sensor ini menunjukkan orientasi perangkat dengan kombinasi dari sumbu dan sudut. Perangkat akan di putar sebesar sudut \(\theta\) mengelilingi sumbu \(x,y,z\). Tiga elemen dari vektor rotasi adalah (\(x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)), sehingga besarnya vektor rotasi sama dengan \(\sin (\frac{\theta}{2})\), dan arah vektor rotasi sama dengan sumbu rotasi. Tiga elemen dari vektor rotasi sama dengan tiga komponen terakhir pada unit kuaternion (\(\cos (\frac{\theta}{2}),x \sin (\frac{\theta}{2}), y \sin (\frac{\theta}{2}), z \sin (\frac{\theta}{2})\)) yang dijelaskan pada subbab \ref{sec:teori_quaternion}. Elemen dari vektor rotasi tak memiliki satuan. Sistem koordinat yang digunakan sama dengan sistem koordinat yang digunakan pada sensor percepatan. Referensi koordinat diartikan sebagai basis orthonormal, yaitu:
 \begin{itemize}
-	\item X didefinisikan sebagai perkalian dot product \textbf{Y.Z}
-	\item Y merupakan tangensial ke tanan pada lokasi perangkat saat ini dan menunjuk ke arah utara. 
+	\item X diartikan sebagai perkalian dot product \textbf{Y.Z}
+	\item Y merupakan tangensial ke tanah pada lokasi perangkat saat ini dan menunjuk ke arah utara. 
 	\item Z menghadap ke langit dan tegak lurus dengan tanah. Untuk lebih jelasnya dapat dilihat pada Gambar \ref{fig:axis-globe}
 	\begin{figure}[htbp]
 	\centering
@@ -441,23 +439,22 @@ Sensor ini merepresentasikan orientasi perangkat dengan kombinasi dari sumbu dan
 	\item values[1]: \(y \sin (\frac{\theta}{2})\)
 	\item values[2]: \(z \sin (\frac{\theta}{2})\)
 	\item values[3]: \(\cos (\frac{\theta}{2})\)
-	\item values[4]: Perkiraan akurasi (dalam radians) (-1 jika tidak tersedia) 
+	\item values[4]: Perkiraan akurasi (dalam radian) (-1 jika tidak tersedia) 
 \end{itemize}
 
 
 
 \end{itemize}
-
 
 
 \section{Google VR SDK}
 \label{sec:google_vr_sdk}
-Google VR SDK\cite{google_vr_developers} digunakan untuk membantu dalam pembuatan aplikasi Virtual Reality pada \textit{smartphone}. Google VR SDK memberikan beberapa fitur sebagai berikut :
+Google VR SDK digunakan untuk membantu dalam pembuatan aplikasi Virtual Reality pada \textit{smartphone}.\cite{google_vr_developers} Google VR SDK memberikan beberapa fitur sebagai berikut :
 \begin{itemize}
 	\item \textbf{Binocular rendering}: Fitur untuk tampilan layar terpisah untuk masing-masing dalam pandangan VR.
 	\item \textbf{Spatial audio}: Fitur untuk mengeluarkan suara yang datang dari daerah-daerah tertentu dari dunia VR.
-	\item \textbf{Head movement tracking}: Fitur untuk mendapatkan memperbaharui pengelihatan dunia VR yang sesuai dengan gerakan kepala pengguna.
-	\item \textbf{Trigger input}: Fitur untuk memberikan input pada dunia VR dengan menekan tombol.
+	\item \textbf{Head movement tracking}: Fitur untuk mendapatkan memperbaharui penglihatan dunia VR yang sesuai dengan gerakan kepala pengguna.
+	\item \textbf{Trigger input}: Fitur untuk memberikan masukan pada dunia VR dengan menekan tombol.
 \end{itemize}
 
 Ada beberapa persyaratan untuk menggunakan Google VR SDK, persyaratan tersebut adalah:
@@ -470,82 +467,82 @@ Ada beberapa persyaratan untuk menggunakan Google VR SDK, persyaratan tersebut a
 
 Dalam membuat aplikasi Google Cardboard VR membutuhkan beberapa API(Application Program Interface) dari Google VR SDK. API-API umum yang akan digunakan adalah sebagai berikut. 
 \begin{itemize}
-	\item API audio: API untuk mengimplementasikan \textbf{\textit{Spatial Audio}} (Metode untuk menspasialisasikan sumber suara dalam ruang tiga dimensi).
+	\item API audio: API untuk membuat implementasi dari \textbf{\textit{Spatial Audio}} (Metode untuk memberikan sumber suara yang sesuai dengan tempatnya dalam ruang tiga dimensi).
 	\item API base: API untuk fondasi dari suatu aplikasi Google VR.
 \end{itemize}
 
 \subsection{API Audio}
 \label{sec:api_audio}
-\cite{google_vr_developers}
-API ini membantu developer untuk menspasialisasikan sumber suara dalam tiga dimensi, termasuk jarak dengan tinggi isyarat sumber suara. Pada API ini hanya terdapat satu class utama yaitu \textbf{GvrAudioEngine}. \textbf{GvrAudioEngine} mampu memutarkan suara secara spasial dalam dua cara yang berbeda :
+
+API ini membantu developer untuk memberikan sumber suara secara spasial dalam tiga dimensi, termasuk jarak dengan tinggi isyarat sumber suara.\cite{google_vr_developers} Pada API ini hanya terdapat satu class utama yaitu \textbf{GvrAudioEngine}. \textbf{GvrAudioEngine} mampu memutarkan suara secara spasial dalam dua cara yang berbeda :
 \begin{itemize}
 	\item Metode pertama dikenal sebagai \textit{Sound Object rendering}. Metode ini memungkinkan pengguna membuat sumber suara virtual dalam ruang tiga dimensi.
-	\item Metode kedua memungkinkan pengguna untuk memutar kembali rekaman \textit{Ambisonic soundfield}. Rekaman \textit{Ambisonic soundfield} adalah file audio \textit{multi-channel} yang telah terspasialisasi.
+	\item Metode kedua memungkinkan pengguna untuk memutar kembali rekaman \textit{Ambisonic soundfield}. Rekaman \textit{Ambisonic soundfield} adalah file audio spasial \textit{multi-channel}.
 \end{itemize}
 API ini juga dapat memutarkan suara secara \textit{stereo}. Kelas \textbf{GvrAudioEngine} memiliki tiga buah \textit{nested class} yaitu:
 \begin{itemize}
-	\item GvrAudioEngine.DistanceRolloffModel: Kelas ini mendefinisikan konstanta-konstanta yang merepresentasikan perbedaan jarak dari efek model-model rolloff. 
-	\item GvrAudioEngine.MaterialName: Kelas ini mendefinisikan konstanta-konstanta yang merepresentasikan bahan permukaan ruangan untuk disesuaikan dengan efek suara pada suatu ruangan.
-	\item GvrAudioEngine.RenderingMode: Kelas ini mendefinisikan konstanta-konstanta untuk menyesuaikan dengan mode rendering. Semakin baik kualitas renderin akan semakin besar penggunaan CPU(Central Processing Unit).
+	\item GvrAudioEngine.DistanceRolloffModel: Kelas ini mendefinisikan konstanta-konstanta yang mewakili perbedaan jarak dari efek model-model \textit{rolloff}. 
+	\item GvrAudioEngine.MaterialName: Kelas ini mendefinisikan konstanta-konstanta yang mewakili bahan permukaan ruangan untuk disesuaikan dengan efek suara pada suatu ruangan.
+	\item GvrAudioEngine.RenderingMode: Kelas ini mendefinisikan konstanta-konstanta untuk menyesuaikan dengan mode \textit{rendering}. Semakin baik kualitas \textit{rendering} akan semakin besar penggunaan CPU(Central Processing Unit).
 \end{itemize}
 
 \subsection{API Base}
 \label{sec:api_base}
-\cite{google_vr_developers}
-API ini digunakan sebagai fondasi dari suatu aplikasi Google VR. Fitur-fitur Binocular rendering, Head movement tracking, dan Trigger input diimplementasikan pada API ini. Kelas-kelas penting yang ada di API ini adalah AndroidCompat, Eye, GvrActivity, GvrView, HeadTransform, Viewport.
+
+API ini digunakan sebagai fondasi dari suatu aplikasi Google VR.\cite{google_vr_developers} Fitur-fitur \textit{Binocular rendering, Head movement tracking,} dan \textit{Trigger input} diberikan pada API ini. Kelas-kelas penting yang ada di API ini adalah AndroidCompat, Eye, GvrActivity, GvrView, HeadTransform, Viewport.
 \begin{itemize}
 	\item AndroidCompat\\
-Kelas ini merupakan kelas utilitas untuk menggunakan fitur VR. Fitur-fitur ini mungkin tidak tersedia pada semua versi android. Kelas ini memiliki method-method sebagai berikut:
+Kelas ini merupakan kelas utilitas untuk menggunakan fitur VR. Fitur-fitur ini mungkin tidak tersedia pada semua versi android. Kelas ini memiliki \textit{method}-\textit{method} sebagai berikut:
 \begin{itemize}
 	\item setSustainedPerformanceMode(Activity activity, boolean enabled): \\
 	Method ini digunakan untuk mengubah window android ke mode performa secara berkelanjutan.
 	\item public static void setVrModeEnabled (Activity activity, boolean enabled): \\
 	Mengatur pengaturan yang tepat untuk "mode VR" pada suatu Activity. Method ini tidak digunakan karena hanya dapat digunakan pada Android N+.
 	\item public static boolean trySetVrModeEnabled (Activity activity, boolean enabled): 
-	Method ini kegunaanya sama dengan method \textbf{setVrModeEnabled (Activity activity, boolean enabled)}, namun mengembalikan boolean true jika berhasil dan sebaliknya.
+	Method ini kegunaanya sama dengan \textit{method} \textbf{setVrModeEnabled (Activity activity, boolean enabled)}, namun mengembalikan boolean true jika berhasil dan sebaliknya.
 \end{itemize}
 	\item Eye\\
-Kelas ini mendefinisikan detil perenderan stereoskopik mata. Method penting yang dimiliki kelas ini adalah \textbf{public float[] getEyeView ()}. Method ini mengembalikan matriks yang mentransformasikan camera virtual ke mata. Transformasi yang diberikan termasuk melacak rotasi kepala, perubahan posisi dan perubahan IPD(interpupillary distance).
+Kelas ini mendefinisikan detail pe-\textit{render}-an stereoskopik mata. Stereoskopik adalah sebuah teknik untuk membuat atau menampilkan ilusi mendalam pada sebuah gambar untuk penglihatan binokular. Method penting yang dimiliki kelas ini adalah \textbf{public float[] getEyeView ()}. Method ini mengembalikan matriks yang mengubah kamera virtual ke mata. Transformasi yang diberikan termasuk melacak rotasi kepala, perubahan posisi dan perubahan IPD(interpupillary distance).
 	\item GvrActivity\\
-Kelas ini merupakan Activity dasar yang menyediakan integrasi yang mudah dengan headset Google VR. Kelas ini mengekspos kejadian untuk berinteraksi dengan headset Google VR dan menangani detil-detil yang biasa diperlukan saat membuat suatu Activity untuk perenderan VR. Activity ini membuat layar tetap menyala selama perangkat android bergerak. Jika tidak ada pergerakan dari perangkat android maka layar reguler (\textit{wakeclock}) akan ditampilkan. Pada kelas ini terdapat method \textbf{onCardboardTrigger ()} untuk mendeteksi ketika Cardboard Trigger sedang ditarik dan dilepaskan (Magnet yang berada pada sisi Google Cardboard).
+Kelas ini merupakan Activity dasar yang menyediakan integrasi yang mudah dengan headset Google VR. Kelas ini mengekspos kejadian untuk berinteraksi dengan headset Google VR dan menangani detail-detail yang biasa diperlukan saat membuat suatu Activity untuk pe-\textit{render}-an VR. Activity ini membuat layar tetap menyala selama perangkat android bergerak. Jika tidak ada pergerakan dari perangkat android maka layar reguler (\textit{wakeclock}) akan ditampilkan. Pada kelas ini terdapat \textit{method} \textbf{onCardboardTrigger ()} untuk mendeteksi ketika Cardboard Trigger sedang ditarik dan dilepaskan (Magnet yang berada pada sisi Google Cardboard).
 	\item GvrView\\
-	Kelas ini merupakan kelas View yang menyediakan perenderan VR. Kelas ini didesain untuk berkerja pada mode layar penuh dengan orientasi \textit{landscape} atau \textit{reverse landscape}. Kelas View ini dapat digunakan dengan mengimplements salah satu Interface perenderan. Interface-interface tersebut adalah:
+	Kelas ini merupakan kelas View yang menyediakan pe-\textit{render}-an VR. Kelas ini didesain untuk berkerja pada mode layar penuh dengan orientasi \textit{landscape} atau \textit{reverse landscape}. Kelas View ini dapat digunakan dengan mengimplements salah satu Interface pe-\textit{render}-an. Interface-interface tersebut adalah:
 	\begin{itemize}
-		\item GvrView.StereoRenderer: Interface untuk perenderan detil stereoskopik secara abstrak oleh perender.
-		\item GvrView.Renderer: Interface untuk mesin yang kompleks yang membutuhkan untuk menangai semua detil perenderan.
+		\item GvrView.StereoRenderer: Interface untuk pe-\textit{render}-an detail stereoskopik secara abstrak oleh pe-\textit{render}-an.
+		\item GvrView.Renderer: Interface untuk mesin yang kompleks yang membutuhkan untuk menangai semua detail pe-\textit{render}-an.
 	\end{itemize}
 Kelas GvrView.Renderer jarang digunakan dan sebaiknya tidak digunakan jika tidak sangat dibutuhkan.
-Ketika suatu kelas mengimplement Kelas GvrView.StereoRenderer, kelas tersebut harus mengimplementasikan method-method berikut ini:
+Ketika suatu kelas mengimplement Kelas GvrView.StereoRenderer, kelas tersebut harus melakukan implementasi \textit{method}-\textit{method} berikut ini:
 \begin{itemize}
 	\item \textbf{public void onNewFrame(HeadTransform headTransform)}\\
-	method ini terpanggil ketika Framebaru akan digambar. Method ini memungkinkan untuk membedakan antara perenderan pandangan mata dan frame-frame yang berbeda. Setiap operasi per-frame harus tidak spesifik pada satu tampilan saja.
+	\textit{method} ini terpanggil ketika Framebaru akan digambar. Method ini memungkinkan untuk membedakan antara pe-\textit{render}-an pandangan mata dan frame-frame yang berbeda. Setiap operasi per-frame harus tidak spesifik pada satu tampilan saja.
 	\item \textbf{public abstract void onDrawEye (Eye eye)}\\
 	Method ini meminta untuk menggambar suatu konten dari sudut pandang mata.
 	\item \textbf{public abstract void onFinishFrame (Viewport viewport)}\\
-	Method ini dipanggil ketika suatu frame telah selesai. Dengan pemanggilan ini, konten frame telah di gambar dan jika koreksi distorsi diaktifkan, koreksi distrosi akan diterapkan. Setiap perendereran pada tahap ini relatif terhadap seluruh permukana, tidak terhadap satu pandangan mata tunggal. 
+	Method ini dipanggil ketika suatu frame telah selesai. Dengan pemanggilan ini, konten frame telah di gambar dan jika koreksi distorsi diaktifkan, koreksi \textit{}distrosi akan diterapkan. Setiap pe-\textit{render}-an pada tahap ini relatif terhadap seluruh permukaan, tidak terhadap satu pandangan mata tunggal. 
 	\item \textbf{public abstract void onRendererShutdown ()}\\
-	Method ini dipanggil ketika thread perender sedang menutup. Melepaskan sumber GL(Graphics Library) dan sedang melakukan penutupan operasi pada thread perender. Dipanggil hanya jika sebelumnya ada pemanggilan method onSurfaceCreated.
+	Method ini dipanggil ketika thread pe-\textit{render}-an sedang menutup. Melepaskan sumber GL(Graphics Library) dan sedang melakukan penutupan operasi pada thread pe-\textit{render}-an. Dipanggil hanya jika sebelumnya ada pemanggilan \textit{method} onSurfaceCreated.
 	\item \textbf{public abstract void onSurfaceChanged (int width, int height)}\\
-	Dipanggil ketika ada perubahan dimensi permukaan. Semua nilai adalah relatif ke ukuran yang dibutuhkan untuk merender sebuah mata.
+	Dipanggil ketika ada perubahan dimensi permukaan. Semua nilai adalah relatif ke ukuran yang dibutuhkan untuk me-\textit{render} sebuah mata.
 	\item \textbf{public abstract void onSurfaceCreated (EGLConfig config)}\\
 	Method ini dipanggil ketika suatu permukaan dibangun atau dibangun ulang.
 \end{itemize}
 \item HeadTransform\\
-	Method ini mendeskripsikan transformasi kepala secara independen dari setiap parameter mata. Kelas ini digunakan di kelas GvrView.StereoRenderer sebagai parameter pada method \textbf{onNewFrame}. Method-method yang perlu diperhatikan pada kelas ini adalah:
+	Method ini mendeskripsikan transformasi kepala secara \textit{independent} dari setiap parameter mata. Kelas ini digunakan di kelas GvrView.StereoRenderer sebagai parameter pada \textit{method} \textbf{onNewFrame}. Method-method yang perlu diperhatikan pada kelas ini adalah:
 	\begin{itemize}
 		\item \textbf{public void getHeadView (float[] headView, int offset)}\\
-		Method ini digunakan untuk mendapatkan matriks transformasi dari camera virtual ke kepala. Kepala disini didefinisikan sebagai titik tengah diantara kedua mata. Matriks yang didapatkan akan disimpan pada parameter \textbf{headView}.
+		Method ini digunakan untuk mendapatkan matriks transformasi dari kamera virtual ke kepala. Kepala di sini diartikan sebagai titik tengah diantara kedua mata. Matriks yang didapatkan akan disimpan pada parameter \textbf{headView}.
 		\item \textbf{public void getQuaternion (float[] quaternion, int offset)}\\
-		Method ini digunakan untuk mendapatkan kuaternion yang merepresentasikan rotasi kepala.
+		Method ini digunakan untuk mendapatkan kuaternion yang menjadi representasi dari rotasi kepala.
 	\end{itemize}
 	\item Viewport\\
-	Kelas ini didefinisikan sebagai \textit{viewport}(area pandang) berbentuk persegi.
+	Kelas ini diartikan sebagai \textit{viewport}(area pandang) berbentuk persegi.
 \end{itemize}
 \section{Teori Kuaternion}
 \label{sec:teori_quaternion}
 
-Pada Android SDK \textbf{SensorEvent.values} \cite{android_developers} tipe sensor \textbf{Sensor.TYPE\_ROTATION\_VECTOR}, yaitu tipe sensor yang mendeteksi vektor perputaran pada \textit{smartphone}. Tipe sensor ini dijelaskan akan mengembalikan nilai-nilai dari komponen kuaternion. 
-Kuaternion\cite{kuipers:1999} adalah objek penggabungan dari suatu skalar dengan suatu vektor, sesuatu yang tidak dapat didefinisikan dalam aljabar linear biasa. Kuaternion ditemukan oleh William Rowan Hamilton dengan memperpanjang notasi dari bilangan kompleks menjadi Kuaternion. 
+Pada Android SDK \textbf{SensorEvent.values}  tipe sensor \textbf{Sensor.TYPE\_ROTATION\_VECTOR}, yaitu tipe sensor yang mendeteksi vektor perputaran pada \textit{smartphone}.\cite{android_developers} Tipe sensor ini dijelaskan akan mengembalikan nilai-nilai dari komponen kuaternion. 
+Kuaternion adalah objek penggabungan dari suatu skalar dengan suatu vektor, sesuatu yang tidak dapat diartikan dalam aljabar linear biasa.\cite{kuipers:1999} Kuaternion ditemukan oleh William Rowan Hamilton dengan memperpanjang notasi dari bilangan kompleks menjadi Kuaternion. 
 \subsection{Struktur Ajabar}
 Karena Kuaternion merupakan bilangan kompleks yang diperpanjang notasinya, struktur aljabar Kuaternion hampir mirip dengan bilangan kompleks. Untuk mengerti struktur-struktur aljabar kuaternion, diperlukan untuk mengerti  bilangan kompleks terlebih dahulu. Berikut adalah penjelasan singkat tentang bilangan kompleks. 
 
@@ -578,7 +575,7 @@ Pada notasi \ref{eq:notasi_umum_bilangan_kompleks} bilangan \(a\) dengan \(b\) m
 	 \frac{(a + bi)}{(c + di)} = \frac{(ac+bd)}{c^2+d^2} + i \frac{bc-ad}{c^2+d^2}
 	\]
 \end{itemize}
-Pada operasi penjumlahan dan perkalian untuk kedua bilangan kompleks tersebut memiliki hukum assosiatif dan komutatif. Notasi \ref{eq:penjumlahan_hukum} menunjukkan bagaimana bagaimana kedua hukum tersebut berlaku pada penjumlahan.
+Pada operasi jumlah dan kali untuk kedua bilangan kompleks tersebut memiliki hukum assosiatif dan komutatif. Notasi \ref{eq:penjumlahan_hukum} menunjukkan bagaimana bagaimana kedua hukum tersebut berlaku pada operasi jumlah.
 \begin{equation}
 	\begin{split}
 	(a+ib) + (c+id) = (a+c) + i(b+d)=\\
@@ -602,7 +599,7 @@ Sebuah vektor $v = 3 + i3$ akan diputar $90^{\circ}$ berlawanan arah jarum jam d
 \end{equation}
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=1]{Gambar/diagram-rotasi-kompleks.png}
+\includegraphics[scale=1]{Gambar/diagram-rotasi-kompleks.PNG}
 \caption{Contoh perputaran dengan bilangan kompleks} 
 \label{fig:diagram-rotasi-kompleks}
 \end{figure}
@@ -622,17 +619,17 @@ dengan $\theta$ adalah besar sudut perputaran. Jika vektor $v = 3 + i3$ diputar 
 \label{eq:rotasi_kompleks_tiga_puluh_derajat}
 \end{equation}
 
-Dari persamaan tersebut dapat divisualisasikan pada Gambar \ref{fig:diagram-rotasi-kompleks1}.
+Dari persamaan tersebut dapat digambarkan pada Gambar \ref{fig:diagram-rotasi-kompleks1}.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=1]{Gambar/diagram-rotasi-kompleks1.png}
+\includegraphics[scale=1]{Gambar/diagram-rotasi-kompleks1.PNG}
 \caption{Contoh perputaran tiga puluh derajat dengan bilangan kompleks} 
 \label{fig:diagram-rotasi-kompleks1}
 \end{figure}
 \subsection{\textit{Aljabar Kuaternion} dan Operasi-operasi pada Kuaternion}
-\cite{kuipers:1999}
-Kuaternion ditemukan oleh ahli matematika dan astronomi Inggris, William Rowan Hamilton, dengan memperpanjang aritmatika dari bilangan kompleks. Dari penemuan tersebut William Rowan Hamilton menemukan bahwa dia tidak hanya membutuhkan bilangan imajiner \(i\) saja untuk melakukan rotasi pada ruang tiga dimensi. Dia menemukan bahwa dia juga membutuhkan tiga komponen imajiner lainnya yaitu \(i,j\) dan \(k\). Persamaan umum Kuaternion memiliki empat bilangan riil atau skalar. Persamaan tersebut adalah 
+
+Kuaternion ditemukan oleh ahli matematika dan astronomi Inggris, William Rowan Hamilton, dengan memperpanjang aritmetika dari bilangan kompleks.\cite{kuipers:1999} Dari penemuan tersebut William Rowan Hamilton menemukan bahwa dia tidak hanya membutuhkan bilangan imajiner \(i\) saja untuk melakukan rotasi pada ruang tiga dimensi. Dia menemukan bahwa dia juga membutuhkan tiga komponen imajiner lainnya yaitu \(i,j\) dan \(k\). Persamaan umum Kuaternion memiliki empat bilangan riil atau skalar. Persamaan tersebut adalah 
 
 \begin{equation}
 	q = q_0 + i q_1 + j q_2 + k q_3	
@@ -652,7 +649,7 @@ Hasil dari perkalian dua \textit{kuaternion} memiliki aturan yang lebih rumit, s
 	\end{split}
 \label{eq:persamaan_khusus_aturan_quaternion}
 \end{equation}\\
-Ketiga persamaan diatas mirip dengan aturan tangan kanan (\textit{right-hand rule})pada perkalian cross product dari suatu vector. Pada Gambar \ref{fig:right-hand-rule}, \(A\) berperan sebagai \(i\), \(B\) berperan sebagai \(j\), dan \(C\) berperan sebagai \(k\).\\
+Ketiga persamaan di atas mirip dengan aturan tangan kanan (\textit{right-hand rule})pada perkalian cross product dari suatu vektor. Pada Gambar \ref{fig:right-hand-rule}, \(A\) berperan sebagai \(i\), \(B\) berperan sebagai \(j\), dan \(C\) berperan sebagai \(k\).\\
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=1]{Gambar/right-hand-rule}
@@ -660,7 +657,7 @@ Ketiga persamaan diatas mirip dengan aturan tangan kanan (\textit{right-hand rul
 \label{fig:right-hand-rule}
 \end{figure}\\
 
-Seperti pada bilangan kompleks, kuaternion juga memiliki konjugasinya. Konjugasi kuaternion ini akan digunakan untuk melakukan operasi rotasi tiga dimensi(Akan dijelaskan pada subsubbab berikut). Sama dengan konjugasi pada bilangan kompleks, kuaternion yang bilangan riilnya sama, dan bilangan imajinernya berlawanan dengan kuaternionnya disebut dengan konjugasi kuaternion. Oleh karena itu konjugasi kuaternion dari notasi kuaternion \ref{eq:notasi_kuaternion} adalah: 
+Seperti pada bilangan kompleks, kuaternion juga memiliki konjugasinya. Konjugasi kuaternion ini akan digunakan untuk melakukan operasi rotasi tiga dimensi(Akan dijelaskan pada subbab Operasi pada Kuaternion). Sama dengan konjugasi pada bilangan kompleks, kuaternion yang bilangan riilnya sama, dan bilangan imajinernya berlawanan dengan kuaternionnya disebut dengan konjugasi kuaternion. Oleh karena itu konjugasi kuaternion dari notasi kuaternion \ref{eq:notasi_kuaternion} adalah: 
 \[
 	q = q_0 - i q_1 - j q_2 - k q_3
 \]
@@ -683,11 +680,11 @@ maka p = q jika dan hanya jika
 	p_3=q_3\\
 	\end{split}
 \end{equation}
-Penjumlahan dari kedua kuaternion diatas dapat didefinisikan sebagai komponen penjumlahan yaitu:
+Penjumlahan dari kedua kuaternion di atas dapat diartikan sebagai komponen penjumlahan yaitu:
 \[
 	(p+q)=(p_0+q_0)+i(p_1+q_1)+j(p_2+q_2)+k(p_3+q_3)
 \]
-Perkalian dari kedua kuaternion diatas dapat didefinisikan sebagai komponen perkalian yaitu:
+Peralihan dari kedua kuaternion di atas dapat diartikan sebagai komponen perkalian yaitu:
 \[
 	pq = (p_0 +ip_1+jp_2+kp_3)(q_0 + i q_1 + j q_2 + k q_3)
 \]
@@ -713,3 +710,165 @@ Seperti pada bilangan kompleks, bilangan $q_0 ,i q_1,j q_2,k q_3$ akan memiliki 
 	\end{split}
 \end{equation}
 dengan vektor f ($x_f,y_f,z_f$) merupakan sumbu perputaran dan $\theta$ merupakan besar sudut putar berlawanan arah dengan jarum jam.
+
+\section{Unity Game Engine}
+\label{sec:unity_game_engine}
+
+Unity merupakan salah satu \textit{Game Engine} dalam pembuatan permainan dua dimensi atau tiga dimensi.\cite{unity} Unity merupakan \textit{Game Engine} \textit{multi-platform} sehingga permainan yang dibuat menggunakan Unity akan dapat berjalan di berbagai macam perangkat seperti \textit{smartphone}, komputer, \textit{console}, dan lain-lain.  \textit{Game Engine} ini menggunakan bahasa C\# atau Javascript.
+
+Game Engine ini dapat diperoleh secara gratis, yaitu dengan menggunakan Unity Personal Edition. Game Engine edisi Personal ini tidak akan berlaku jika penggunaan unity mendapatkan pendapatan kotor tahunan sebesar USD 100.000. Jika pendapatan kotor tahunan sudah melebihi USD 100.000, pengguna unity personal harus segera mengganti edisi Unity menjadi Unity Plus, Unity Pro, atau Unity Enterprise. Jika menggunakan Unity Personal, \textit{splashscreen} dan logo \textit{icon} pada permainan yang dibuat tidak diganti maupun dihapus. 
+
+
+ \subsection{Struktur Hierarki GameObject}
+ \label{ssec:struktur_hierarki_gameobject}
+ 
+ Hierarki pada unity merupakan kumpulan dari GameObject. \cite{unity_manual} GameObject akan dijelaskan lebih lanjut pada subbab \ref{ssec:gameobject}. Beberapa dari GameObject pada hierarki ini merupakan instansi dari file \textit{assets}. Setiap \textit{scene} akan memiliki hierarki masing-masing. Setiap objek yang di tambahkan pada suatu \textit{scene}(dijelaskan pada subbab \ref{ssec:scene}) akan muncul pada hierarki juga.
+ 
+ Pada hierarki ini juga ada konsep \textit{parent-child} objects. Konsep ini digunakan untuk setiap kumpulan object. Setiap objek yang berada paling luar dinamakan "parent object", dan objek-objek  yang berada didalamnya dinamakan "child object". Suatu parent object juga dapat memiliki parent objek(biasa disebut juka "nested parent object". Contoh dari konsep \textit{parent-child} ada pada Gambar \ref{fig:contoh-hierarchy-parenting}.
+ 
+ 
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.7]{Gambar/hierarchy-parenting.png}
+\caption{Contoh Hierarchy Parenting.} 
+\label{fig:contoh-hierarchy-parenting}
+\end{figure}
+
+\subsection{Prefabs}
+\label{ssec:prefabs}
+
+Unity memiliki suatu jenis assets yang dinamakan Prefab. Prefab ini adalah suatu GameObject yang disimpan menjadi assets. Prefab berperan sebagai contoh/\textit{blueprint} dari suatu GameObject. Prefab ini juga dapat dibentuk dari GameObject yang telah dibuat dan menjadi assets, sehingga dapat digunakan pada proyek lain. Prefab juga data di ubah dan dimodif sehingga menjadi sesuai dengan yang diinginkan. 
+
+Dalam membuat Prefab dapat dengan mudah me-\textit{drag and drop} suatu GameObject pada tab Scene ke tab Assets. Begitupula dengan sebaliknya, untuk menggunakan suatu prefab, dapat dengan mudah me-\textit{drag and drop} dari tab Assets ke tab Scene. 
+
+\subsection{Scene}
+\label{ssec:scene}
+
+\textit{Scene} menyimpan seluruh objek pada game yang akan dibuat. \textit{Scene} dapat digunakan untuk membuat \textit{main menu, game level}, dan lain sebagainya. Untuk setiap \textit{scene}, akan ditempatkan barang, bangunan, dekorasi, dan lain sebagainya untuk merancang dan membangun suatu permainan bagian per bagian.  
+
+Pada saat pembuatan proyek pertama, unity akan membuatkan suatu \textit{scene} baru. \textit{Scene} tersebut merupakan \textit{scene default}. \textit{Scene} tersebut hanya akan diberikan objek-objek \textit{default} saja seperti kamera dan cahaya. Kamera yang akan diberikan antara dua buah jenis yaitu \textit{orthographic camera} atau \textit{perspective camera}, proyek 2D akan diberikan \textit{orthographic camera} dan proyek 3D akan diberikan \textit{perspective camera}. Contoh dari \textit{scene} default pada proyek 3D ditunjukkan pada Gambar \ref{fig:contoh-scene-kosong}.
+ 
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{Gambar/new-empty-scene.png}
+\caption{Contoh \textit{scene} kosong.} 
+\label{fig:contoh-scene-kosong}
+\end{figure}
+
+
+\subsection{GameObject}
+\label{ssec:gameobject}
+GameObject pada unity yang merupakan representasi karakter, barang, dan pemandangan. GameObject tidak dapat melakukan apa pun dengan sendirinya, tetapi GameObject melakukan sesuatu sesuai dengan komponen yang ada pada GameObject. Komponen menjalankan fungsi-fungsi nyata pada GameObject. Contohnya objek cahaya dapat terbuat dengan menambahkan komponen Light kepada suatu GameObject (Gambar \ref{fig:contoh-component-pada-game-object}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.7]{Gambar/contoh-component-pada-game-object.png}
+\caption{Contoh penggunaan komponen pada GameObject.} 
+\label{fig:contoh-component-pada-game-object}
+\end{figure}
+ 
+Selain itu ada pula contoh GameObject Kubus. GameObject ini memiliki komponen Cube(Mesh Filter) dan Mesh Renderer. Kedua komponen tersebut berguna untuk menggambar permukaan dari kubus tersebut. Selain itu ada juga komponen Box Collider yang digunakan untuk menggambarkan \textit{GameObject} tersebut dalam hal-hal fisika seperti gravitasi, gaya, dan lain sebagainya(Gambar \ref{fig:contoh-component-pada-game-object2}).
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.7]{Gambar/contoh-component-pada-game-object2.png}
+\caption{Contoh komponen pada GameObject kubus.} 
+\label{fig:contoh-component-pada-game-object2}
+\end{figure}
+ 
+\subsection{Scripting}
+
+Pembuatan permainan pada Game Engine Unity membutuhkan \textit{script} untuk memberikan logika permainan (\textit{Game Logic}). Pembuatan \textit{script} dapat dilakukan dengan membuat suatu kelas yang merupakan turunan kelas MonoBehavior agar dapat berjalan sesuai dengan sistem internal Unity. \textit{Script} pada Unity bersifat seperti blueprint, sehingga \textit{script} tidak akan dijalankan hingga \textit{script} tersebut dihubungkan dengan suatu GameObject. Menghubungkan \textit{script} dengan GameObject dapat dilakukan dengan menambahkan sebuah Component \textit{Scripts} seperti yang ditunjukkan pada Gambar \ref{fig:contoh-component-scripts}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=1]{Gambar/ScriptInInspector.png}
+\caption{Contoh Component \textit{script}.} 
+\label{fig:contoh-component-scripts}
+\end{figure}
+
+Dalam \textit{scripting} pada Unity, ada sejumlah \textit{method} yang akan dieksekusi dalam urutan yang telah ditentukan. Pada skripsi ini hanya akan dijelaskan fungsi-fungsi yang penting saja, untuk penjelasan lebih detail dijelaskan pada alamat web "Unity - Manual" \footnote{https://docs.unity3d.com/Manual/class-ScriptExecution.html}. Perintah-perintah eksekusi ini dijelaskan di bawah ini:
+\begin{itemize}
+    \item \textbf{Ketika Pertama Kali Scene Dimuat}\\
+    \begin{itemize}
+        \item Awake:\\
+        Fungsi ini selalu dipanggil sebelum fungsi Start dan juga tepat setelah prefab di instansiasikan. (Jika GameObject tidak aktif saat aplikasi baru dimulai, fungsi Awake tidak dipanggil, sampai GameObject diaktifkan).
+        \item OnEnable:\\
+        Fungsi ini dipanggil sesaat setelah objek diaktifkan. Hal ini terjadi ketika contoh MonoBehaviour dibuat, seperti saat level/scene dimuat atau GameObject dengan komponen \textit{script} di instansiasikan.
+    \end{itemize}
+    \item \textbf{Sebelum Frame Pertama Dimuat}
+    \begin{itemize}
+        \item Start:\\
+        Fungsi ini  dipanggil sebelum frame pertama dimuat. Untuk setiap objek yang ditambahkan ke \textit{scene}, fungsi Start akan dipanggil pada semua \textit{script} sebelum fungsi Update dipanggil.
+    \end{itemize}
+    \item \textbf{Urutan Pemanggilan Update}\\
+    \begin{itemize}
+        \item FixedUpdate:\\
+        FixedUpdate akan lebih sering dipanggil dibandingkan dengan fungsi Update. Fungsi ini dapat terpanggil beberapa kali pada suatu \textit{frame} jika \textit{frame rate} rendah. Pada saat \textit{frame rate} tinggi fungsi ini akan selalu terpanggil minimal satu kali setiap frame. Fungsi ini biasanya digunakan untuk melakukan implementasi perhitungan-perhitungan fisika pada permainan. 
+        \item Update:\\
+        Fungsi Update akan dipanggil di setiap \textit{frame}. Fungsi ini merupakan fungsi inti untuk pergantian pada frame.
+        \item LateUpdate:\\
+        LateUpdate dipanggil di setiap \textit{frame}, setelah pemanggilan fungsi Update. Semua perhitungan pada Update dipastikan telah dieksekusi pada saat fungsi ini dipanggil. Fungsi ini biasanya digunakan ketika mengimplementasi \textit{third-person camera}, karena \textit{third-person camera} perlu memastikan kalkulasi pergerakan pemain sudah dieksekusi sebelum menggerakkan kamera tersebut.
+    \end{itemize}
+    \item \textbf{Ketika Aplikasi Berhenti}
+    \begin{itemize}
+        \item OnApplicationQuit:\\
+        Fungsi ini akan dipanggil ketika Aplikasi berhenti.
+        \item OnDisable:\\
+        Fungsi ini akan dipanggil ketika suatu tingkah laku(\textit{script}) di non-aktifkan.
+    \end{itemize}
+    \item Flowchart Siklus Script
+    Gambar \ref{fig:flowchart_pemanggilan_fungsi} merupakan flowchart urutan pemanggilan fungsi-fungsi script.
+    
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6]{Gambar/unity-script-flowchart.png}
+    \caption{Flowchart urutan pemanggilan fungsi-fungsi.} 
+    \label{fig:flowchart_pemanggilan_fungsi}
+    \end{figure}
+    
+\end{itemize}
+ 
+ 
+\subsection{Transformasi Rotasi dan Orientasi}
+\label{ssec:transformasi_rotasi_dan_orientasi}
+
+ Setiap GameObject selalu mempunyai komponen Transform untuk memberikan representasi posisi, orientasi, dan skala GameObject tersebut. Komponen ini tidak dapat dihapus. Komponen Transform ini nilainya relatif terhadap nilai komponen Transform pada \textit{parent}-nya. Jika Transform ini tidak memiliki \textit{parent}, nilainya akan relatif pada dunianya (\textit{world space}). 
+ 
+ Komponen Transform memiliki beberapa atribut. Atribut-atribut yang penting pada komponen ini adalah position, lossyScale, dan rotation. Atribut position menyimpan positi dari suatu GameObject. Atribut ini disimpan dengan menggunakan kelas Vector3. Atribut lossyScale menyimpan besar penskalaan suatu GameObject. Atribut lossyScale ini pun disimpan dengan menggunakan kelas Vector3. Atribut rotation digunakan untuk menyimpan orientasi dari suatu GameObject. Atribut rotation berbeda dengan atribut position dan lossyScale. Atribut rotation disimpan dengan menggunakan kelas Quaternion. 
+ 
+ Rotasi pada aplikasi tiga dimensi biasanya menggunakan antara metode Quaternion atau Euler Angles. Masing-masing memiliki kelebihan dan kekurangan. Seperti yang tadi sudah dijelaskan, Unity menggunakan Quaternion dalam memberikan representasi rotasi dan orientasi. Pada kelas Quaternion terdapat atribut yang menyimpan nilai-nilai orientasi pada Euler Angles, sehingga juga unity dapat memberikan representasi rotasi dan orientasi dengan menggunakan Euler Angles.
+ 
+ Kelebihan menggunakan representasi Euler Angles.
+ \begin{itemize}
+     \item Euler Angles lebih mudah untuk di pahami dalam format tiga sudut pada sumbu-sumbu tiga dimensi.
+     \item Euler Angles dapat memberikan representasi rotasi dari satu orientasi ke orientasi dengan sumbu yang lebih besar dari 180 derajat. 
+ \end{itemize}
+ Kekurangan menggunakan representasi Euler Angles.
+ \begin{itemize}
+     \item Euler Angles dapat mengalami Gimbal Lock. Gimbal Lock adalah kejadian ketika dua sumbu dari sudut perputaran pada Euler Angles berputar pada poros yang sama.
+ \end{itemize}
+ 
+ Kelebihan menggunakan representasi Quaternion.
+ \begin{itemize}
+     \item Kuaternion tidak mengalami Gimbal Lock.
+ \end{itemize}
+ Kekurangan menggunakan representasi Quaternion.
+ \begin{itemize}
+     \item suatu kuaternion tidak dapat memberikan representasi rotasi yang melebihi 180 derajat pada arah mana pun.
+     \item Representasi angka-angka pada Quaternion lebih susah untuk dimengerti.
+ \end{itemize}
+ 
+ Pada Unity, meski pun semua orientasi disimpan dengan menggunakan Quaternion, tetapi pada \textit{Transform Inspector} (Gambar \ref{}) Unity menampilkan nilai-nilai orientasi pada Euler Angles. Hal ini bertujuan untuk mempermudah mengubah orientasi bagi pengguna, karena nilai-nilainya lebih mudah untuk dimengerti. Representasi pada \textit{Transform Inspector} tersebut menyebabkan masukan yang diberikan oleh pengguna terkadang berbeda dengan data yang disimpan. Contohnya ketika berada pada sudut 365 derajat, maka data yang akan disimpan akan menunjukkan perputaran sebesar 5 derajat saja.
+ 
+ \section{Google VR SDK for Unity}
+ \label{sec:google_vr_sdk_for_unity}
+ 
+ Google juga menyediakan SDK untuk \textit{Game Engine} Unity. Berbeda dengan Google Cardboard API, Google VR SDK for Unity tidak hanya berfungsi untuk membuat aplikasi untuk Google Cardboard. Google VR SDK juga berfungsi untuk membuat aplikasi untuk Google Daydream, yaitu Aplikasi VR dari Google sebagai pembaruan Google Cardboard. Google daydream memiliki kelebihan memiliki \textit{remote controller} yang dapat merekam gerakan tangan pengguna. Jadi jika menggunakan Google VR SDK for Unity, pembuat permainan juga dapat membuat pengaturan untuk \textit{remote controller} pada Google Daydream.
+ 
+ Untuk mendapatkan Google VR SDK for Unity, SDK tersebut dapat di download pada halaman situs web Google VR Developers.\cite{google_vr_developers} Pada situs tersebut akan diberikan assets package dengan ekstensi file ".unitypackage". Assets package tersebut akan memasukkan seluruh kebutuhan untuk membuat Google VR pada proyek permainan yang sedang dikerjakan. 
+ 
+ Untuk dapat me-\textit{render} permainan dengan tampilan \textit{stereo rendering} (tampilan layar yang di bagi menjadi dua bagian sesuai dengan mata manusia), hierarki GameObject pada scene yang sedang dikerjakan harus memiliki GvrViewerMain dengan komponen script GvrViewer. GameObject ini dapat diperoleh dengan menggunakan \textit{prefabs} yang telah di-\textit{import}. Selain untuk me-\textit{render}, permainan object tersebut juga melakukan implementasi orientasi pada \textit{smartphone} secara langsung.
+ 
+ Seperti yang sudah dijelaskan Google Cardboard memberikan masukan dengan menarik/menekan pelatuk pada Google Cardboard tersebut. Untuk mendapatkan masukan tersebut, dapat dilakukan dengan cara menggunakan \textit{prefab} GvrEventSystem. Kemudian menambahkan komponen Event Trigger pada GameObject yang akan merespons masukan tersebut. Respons dapat dilakukan dengan menambahkan Script baru pada GameObject tersebut.

@@ -1,0 +1,22 @@
+\chapter{Kesimpulan dan Saran}
+\label{chap:kesimpulan_dan_saran}
+
+\section{Kesimpulan}
+\label{sec:kesimpulan}
+Berdasarkan hasil penelitian yang dilakukan, diperoleh kesimpulan-kesimpulan sebagai berikut:
+
+\begin{enumerate}
+    \item Dalam pembuatan Grafik dapat diselesaikan menggunakan Android API pada Android Studio. API ini digunakan untuk merekam seluruh data sensor-sensor pada perangkat Android ketika pengguna mengangguk dan menggeleng. Data kemudian disimpan pada \textit{file} ber-\textit{format} ".csv" dan dibuatkan grafiknya menggunakan Aplikasi Microsoft Excel
+    \item Untuk dapat mendeteksi gerakan kepala khususnya mengangguk dan menggeleng, hanya diperlukan sensor gyroscope saja. Sensor-sensor lainnya tidak diperlukan untuk membantu mendeteksian gerakan kepala. Selain dapat menggunakan gyroscope, berdasarkan pengujian fungsional sensor gabungan accelerometer dan magnetometer dapat juga digunakan sebagai pengganti sensor gyroscope (sensor gyroscope software) pada perangkat-perangkat tertentu. 
+    \item Aplikasi telah dapat membaca gerakan kepala dengan baik. Hal ini ditunjukkan dengan tidak adanya kesalahan masukan pada pengujian eksperimental. 
+    \item Berdasarkan hasil pengujian eksperimental, algoritma pada aplikasi ini dapat berjalan dengan baik. Kelemahan pada algoritma ini berada pada simpangan anggukan dengan gelengan yang dilakukan, karena setiap orang mengangguk dan menggeleng dengan besar simpangan yang berbeda-beda.
+\end{enumerate}
+
+\section{Saran}
+\label{sec:saran}
+Berdasarkan hasil penelitian yang dilakukan, berikut adalah beberapa saran untuk pengembangan:
+\begin{enumerate}
+    \item Mengimplementasikan fungsi kalibrasi anggukan dan gelenggan, sehingga sesuai dengan kriteria pengguna.
+    \item Mengimplementasikan fungsi pendeteksian gerakan kepala menggunakan sensor-sensor selain gyroscope, jika perangkat tidak memiliki sensor gyroscope. Sensor-sensor tersebut seperti accelerometer, compass, dan lain-lain. Jika hasilnya kurang memuaskan dengan menggunakan satu buah sensor saja, implementasi dapat menggunakan metode Sensor Fusion. Sensor Fusion adalah metode untuk menggabungkan nilai-nilai yang didapatkan pada setiap sensor untuk mencapai tujuan tertentu.
+    \item Membuat \textit{library} untuk algoritma pendeteksi gerakan kepala, sehingga dapat dimanfaatkan dan digunakan oleh pengembang lain.
+\end{enumerate}
