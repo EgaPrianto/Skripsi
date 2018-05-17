@@ -10,29 +10,30 @@ Google Cardboard\cite{googlevr} adalah gawai murah yang terbuat dari kardus untu
 
 Pada gawai Google Cardboard cara pengguna memberikan masukan kepada program sangatlah terbatas. Cara tersebut hanyalah dengan gerakan kepala dan tombol pada Google Cardboard. Tombol ini pun terkadang tidak berfungsi dengan baik. Cara lainnya agar dapat memberikan masukan kepada program adalah dengan menghubungkan \textit{smartphone} yang digunakan dengan \textit{bluetooth controller}.
 
-Skripsi ini akan membuat aplikasi untuk menambahkan cara baru  memberikan masukan pada Google Cardboard. Pada skripsi ini, akan dibuat dua buah perangkat lunak. Perangkat lunak pertama akan digunakan untuk menganalisis data yang didapat dari sensor-sensor pada Android. Perangkat lunak kedua akan dapat mendeteksi gerakan kepala penggunanya ketika sedang menggeleng atau mengangguk. Pada perangkat lunak kedua merupakan perangkat lunak berbentuk permainan berbasis VR. Jenis masukan yang diberikan kepada komputer hanya ya(mengangguk) atau tidak(menggeleng).
+Pada Skripsi ini dibuat dua buah aplikasi untuk menambahkan cara baru  memberikan masukan pada Google Cardboard.  Perangkat lunak pertama digunakan untuk menganalisis data yang didapat dari sensor-sensor pada Android. Data yang telah diperoleh menggunakan perangkat lunak pertama diubah menjadi grafik dengan bantuan aplikasi Microsoft Excel. Perangkat lunak kedua dapat mendeteksi gerakan kepala penggunanya ketika sedang menggeleng atau mengangguk. Perangkat lunak kedua merupakan permainan berbasis VR. Jenis masukan baru yang diberikan hanya ya(mengangguk) atau tidak(menggeleng).
 
 Agar VR yang menggunakan Google Cardboard dapat berjalan dengan sempurna, dibutuhkan \textit{smartphone} yang memiliki 3 jenis sensor. Ketiga sensor itu adalah \textit{Magnetometer}, \textit{Accelerometer}, dan \textit{Gyroscope}.\cite{android_open_source_project} Hampir seluruh \textit{smartphone} sekarang telah memiliki sensor \textit{Accelerometer}, dan \textit{Gryoscope}. Khusus untuk sensor \textit{Gyroscope}, tidak seluruh \textit{smartphone} memilikinya, terutama pada \textit{low-end smartphone}. \textit{Magnetometer} digunakan untuk mengetahui arah pandang pengguna. \textit{Accelerometer} digunakan untuk mengetahui arah gaya gravitasi.\cite{bleser2009advanced} \textit{Gyroscope} digunakan untuk mengetahui percepatan perputaran sudut kepala pengguna. Ketiga sensor ini juga harus menggunakan sensor 3 sumbu. Ketiga sensor tersebut tidak hanya berfungsi agar dapat menjalankan VR dengan Google Cardboard dan \textit{smartphone}, tetapi juga dapat berfungsi sebagai pendeteksi gerakan kepala.
 \section{Rumusan Masalah}
 
 \begin{itemize}
-	\item Bagaimana cara menampilkan grafik data yang diambil dari sensor-sensor pada \textit{smartphone}?
-	\item Bagaimana cara mendeteksi gerakan kepala dari data yang didapat dari sensor-sensor pada \textit{smartphone}?
+	\item Bagaimana cara memperoleh data yang diambil dari sensor-sensor pada \textit{smartphone}?
+	\item Bagaimana cara menganalisis hasil data sensor-sensor dan merancang algoritma deteksi gerakan kepala dari data tersebut.
+	\item Bagaimana membuat aplikasi permainan dengan fitur pendeteksi gerakan kepala.
 \end{itemize}
 
 \section{Tujuan}
 
 \begin{itemize}
-	\item Mengetahui cara untuk menampilkan grafik data dari sensor-sensor pada \textit{smartphone}.
-	\item Mengetahui cara mendeteksi gerakan kepala dari data yang didapat dari sensor-sensor pada \textit{smartphone}.
+	\item Mempelajari dan mengimplementasikan cara untuk menampilkan grafik data dari sensor-sensor pada \textit{smartphone}.
+	\item Mempelajari dan mengimplementasikan cara mendeteksi gerakan kepala dari data yang didapat dari sensor-sensor pada \textit{smartphone}.
 \end{itemize}
 
 \section{Batasan Masalah}
 
 Penelitian ini dibuat berdasarkan batasan-batasan sebagai berikut: 
 \begin{enumerate}
-	\item Program pertama yang akan dibuat dalam skripsi ini hanya akan digunakan untuk membantu dalam menganalisis sensor.
-	\item Program kedua yang akan dibuat hanya dapat melakukan pendeteksi gerakan kepala khusus untuk mengangguk dan menggeleng saja.
+	\item Program pertama yang dibuat pada skripsi ini hanya digunakan untuk membantu dalam menganalisis sensor.
+	\item Program kedua yang dibuat hanya dapat melakukan pendeteksi gerakan kepala khusus untuk mengangguk dan menggeleng saja.
 \end{enumerate}
 
 \section{Metode Penelitian}
@@ -44,17 +45,17 @@ Berikut adalah metode penelitian yang digunakan dalam penelitian ini:
 		\item Menganalisis aplikasi-aplikasi sejenis.
 		\item Merekam dan menganalisis grafik dari sensor-sensor pada \textit{smartphone} ketika mengangguk dan menggeleng.
 		\item Menganalisis metode pendeteksi gerakan kepala.
-		\item Merancang aplikasi untuk mendeteksi gerakan kepala
-		\item Mengimplementasi algoritma pendeteksi gerakan kepala ke aplikasi \textit{virtual reality}.
+		\item Merancang aplikasi permainan yang mengimplementasikan pendeteksian gerakan kepala
+		\item Mengimplementasikan algoritma pendeteksi gerakan kepala ke aplikasi permainan VR.
 	\end{enumerate}
 \section{Sistematika Penulisan}
 
 Setiap bab dalam penelitian ini memiliki sistematika penulisan yang dijelaskan ke dalam poin-poin sebagai berikut:
 \begin{enumerate}
 	\item Bab 1: Pendahuluan, yaitu membahas mengenai gambaran umum penelitian ini. Berisi tenang latar belakang, rumusan masalah, tujuan, batasan masalah, metode penelitian, dan sistematika penulisan.
-	\item Bab 2: Dasar Teori, yaitu membahas teori-teori yang mendukung berjalannya penelitian ini. Berisi tentang Android SDK, Google VR SDK, Quaternion.
-	\item Bab 3: Analisis, yaitu membahas mengenai analisa masalah. Berisi tentang analisis aplikasi-aplikasi sejenis, perekaman data sensor, analisis grafik dari sensor-sensor pada \textit{smartphone} ketika mengangguk dan menggeleng, analisis metode pendeteksi gerakan kepala. 
-	\item Bab 4: Perancangan, yaitu membahas mengenai perancangan aplikasi VR yang dapat mendeteksi gerakan menggeleng dan mengangguk.
+	\item Bab 2: Dasar Teori, yaitu membahas teori-teori yang mendukung berjalannya penelitian ini. Berisi tentang Android SDK, Google VR SDK, dan Quaternion.
+	\item Bab 3: Analisis, yaitu membahas mengenai analisa masalah. Berisi tentang analisis aplikasi-aplikasi sejenis, perekaman data sensor, analisis grafik dari sensor-sensor pada \textit{smartphone} ketika mengangguk dan menggeleng, analisis metode pendeteksi gerakan kepala, dan analisis aplikasi permainan yang mendeteksi gerakan kepala. 
+	\item Bab 4: Perancangan, yaitu membahas mengenai perancangan aplikasi permainan VR yang dapat mendeteksi gerakan menggeleng dan mengangguk.
 	\item Bab 5: Implementasi dan Pengujian, yaitu membahas mengenai implementasi dan pengujian aplikasi yang telah dilakukan. Berisi tentang implementasi dan hasil pengujian aplikasi.
 	\item Bab 6: Kesimpulan dan Saran, yaitu membahas mengenai kesimpulan dari keseluruhan penelitian ini dan saran-saran yang dapat diberikan untuk penelitian selanjutnya. 
 \end{enumerate}

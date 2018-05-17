@@ -46,7 +46,9 @@
 \usepackage[table]{xcolor}
 \usepackage{longtable}
 \usepackage{amsmath}
-\usepackage{todo}
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -68,8 +70,8 @@
 % \mode{kosong}
 % \mode{cover}
 % \mode{sidang}
-\mode{sidang_akhir}
-%\mode{final} 
+% \mode{sidang_akhir}
+\mode{final} 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -157,7 +159,7 @@
 %			 (e.g. \namanpm{Jane Doe}{1992710001}
 % - judul : Dalam bahasa Indonesia, perhatikan penggunaan huruf besar, judul
 %			tidak menggunakan huruf besar seluruhnya !!! 
-% - tanggal : isi dengan {tangga}{bulan}{tahun} dalam angka numerik, jangan 
+% - tanggal : isi dengan {tanggal}{bulan}{tahun} dalam angka numerik, jangan 
 %			  menuliskan kata (e.g. AGUSTUS) dalam isian bulan
 %			  Tanggal ini adalah tanggal dimana anda akan melaksanakan sidang 
 %			  ujian akhir skripsi/tugas akhir
@@ -169,9 +171,9 @@
 % !!Lihat singkatan pembimbing dan penguji anda di file dosen.tex
 %=============================================================================
 \namanpm{Ega Prianto}{2013730047}	%hilangkan tanda << & >>
-\tanggal{20}{10}{2016}			%hilangkan tanda << & >>
-\pembimbing{\PAS}{<<pembimbing pendamping/2>>} %hilangkan tanda << & >>    
-\penguji{<<penguji 1>>}{<<penguji 2>>} 				%hilangkan tanda << & >>
+\tanggal{30}{5}{2017}			%hilangkan tanda << & >>
+\pembimbing{\VSM}{} %hilangkan tanda << & >>    
+\penguji{\BHR}{\JNH} 				%hilangkan tanda << & >>
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -199,6 +201,7 @@
 % PERHATIAN: langsung mulai setelah '{' awal, jangan mulai menulis di baris 
 %			 bawahnya
 %=============================================================================
+\hyphenation{mem-be-ri-kan}
 \abstrakINA{
 \textit{Virtual Reality} adalah salah satu interaksi antara manusia dengan komputer yang membuat penggunanya merasakan berada pada suatu lingkungan buatan yang berada pada komputer. Banyak cara untuk dapat merasakan pengalaman \textit{Virtual Reality} salah satunya adalah dengan menggunakan Google Cardboard. Google Cardboard merupakan gawai murah yang terbuat dari kardus untuk mengalami pengalaman \textit{Virtual Reality} pada perangkat \textit{smartphone} Android atau IOS. Google Cardboard dapat memberikan pengalaman \textit{Virtual Reality} karena menggunakan sensor-sensor yang terdapat pada perangkat \textit{smartphone}. 
 
@@ -208,11 +211,11 @@ Pengujian dilakukan dengan mencoba menjalankan aplikasi yang telah dibuat pada b
 
 }
 \abstrakENG{
-Virtual Reality is one of the interactions between humans and computers that make its users feel in the artificial environment on a computer. There are a lot of ways to experience the Virtual Reality, one of them is using Google Cardboard. Google Cardboard is a low-cost system to encourage interest and development in Virtual Reality applications on a Android or IOS smartphone. Google Cardboard using sensors on smartphone devices to perform Virtual Reality.
+Virtual Reality is one of the interactions between humans and computers that make its users feel in the artificial environment on a computer. There are a lot of ways to experience the Virtual Reality, one of them is using Google Cardboard. Google Cardboard is a low-cost system to encourage interest and development in Virtual Reality applications on a Android or IOS smartphone. Google Cardboard use sensors on smartphone devices to perform Virtual Reality.
 
-Input method on Google Cardboard is very limited. The only input on the Google Cardboard is to pull or press the button on the Google Cardboard. Sometimes the button doesn't work very well. Therefore this application was made to detect the head, especially nodding by shaking his head.
+Input on Google Cardboard is very limited. The only input on the Google Cardboard is to pull or press the button on the Google Cardboard. Sometimes the button doesn't work very well. Therefore this application is made to detect the head motion, especially nodding and shaking.
 
-Testing is done by trying to run this application that have been made on several devices with different specifications. In addition, testing is also done by inviting some people to use this application. Based on the results of testing, this application runs well on smartphone devices with certain specifications. This application is also able to read the appropriate head movement performed by the user, But sometimes the deviation set in this app does not match the criteria of each user. So the user must adjust his head movement to fit the deviation limit set in this application.
+Testing done by trying to run this application into several devices with different specifications. In addition, testing also done by inviting some people to use this application. Based on the results of testing, this application runs well on smartphone devices with certain specifications. This application also able to read the appropriate head movement performed by the user, But sometimes the deviation set in this app does not match the criteria of each user. So the user must adjust his head movement to fit the deviation limit set in this application.
 } 
 %=============================================================================
 
@@ -234,7 +237,7 @@ Testing is done by trying to run this application that have been made on several
 %=============================================================================
 % Persembahan : kepada siapa anda mempersembahkan skripsi ini ...
 %=============================================================================
-\untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
+\untuk{Teknik Informatika UNPAR dan diri sendiri}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -244,7 +247,20 @@ Testing is done by trying to run this application that have been made on several
 % Kata Pengantar: tempat anda menuliskan kata pengantar dan ucapan terima 
 % kasih kepada yang telah membantu anda bla bla bla ....  
 %=============================================================================
-\prakata{\lipsum[3]}
+\prakata{Puji syukur kepada Tuhan Yang Maha Esa atas berkat yang diberikan kepada penulis sehingga dapat menyelesaikan tugas akhir dengan judul \textbf{Algoritma Deteksi Gerakan Kepala dengan Google Cardboard} dengan baik dan tepat waktu. Penulis juga berterima kasih kepada pihak-pihak yang telah memberikan dukungan dan bantuan kepada penulis dalam menyelesaikan tugas akhir ini, yaitu:
+	\begin{enumerate}
+		\item Keluarga yang selalu memberikan dukungan dan semangat kepada penulis.
+		\item Bapak Pascal Alfadian sebagai dosen pembimbing yang telah membimbing penulis hingga dapat menyelesaikan tugas akhir ini.
+		\item Bapak Aditya Bagoes Saputra dan Ibu Joanna Helga sebagai dosen penguji yang telah membantu dalam menguji dan memperbaiki tugas akhir ini.
+		\item Seluruh penguji aplikasi yang telah membantu untuk kelancaran dalam mengerjakan skripsi ini.
+		\item Teman-teman \textit{admin} lab yang selalu menyediakan lab skripsi agar dapat mengerjakan skripsi dengan nyaman.
+		\item Bapak Kristopher David harjono karena telah membantu mengarahkan dalam mengajukan topik skripsi dan memberikan pengetahuan dasar tentang topik skripsi yang penulis ajukan.
+		\item Ricky Setiawan, Kevin Antonius, Hasudungan Dimas Nathanael Silalahi, Fahrizal, Fadhil Ahsan, Jacinta Delora, Antonius Kurnia, Devi Handevi, Devina Emily dan Jonathan Surya sebagai teman seperjuangan dan bertukar pikiran sekaligus telah memberikan semangat kepada penulis.
+		\item Teman-teman Teknik Informatika UNPAR angkatan 2013 yang telah berbagi ilmu kepada penulis.
+		\item Pihak-pihak lain yang belum disebutkan, yang berperan dalam penyelesaian tugas akhir ini. 
+	\end{enumerate}
+
+Akhir kata, penulis berharap agar tugas akhir ini dapat bermanfaat bagi pembaca yang hendak melakukan penelitian dan pengembangan yang terkait dengan tugas akhir ini.}
 %=============================================================================
 
 %_____________________________________________________________________________
