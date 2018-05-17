@@ -18,8 +18,6 @@ public class SensorGyroscopeActivity extends Activity implements SensorEventList
     private TextView textViewXData;
     private TextView textViewYData;
     private TextView textViewZData;
-    private TextView textViewDebug;
-    private TextView textViewAccuracy;
 
     @Override
     public final void onCreate(Bundle savedInstanceState) {
@@ -28,8 +26,6 @@ public class SensorGyroscopeActivity extends Activity implements SensorEventList
         textViewXData = (TextView) findViewById(R.id.textViewXData);
         textViewYData = (TextView) findViewById(R.id.textViewYData);
         textViewZData = (TextView) findViewById(R.id.textViewZData);
-        textViewDebug = (TextView) findViewById(R.id.textViewDebug);
-        textViewAccuracy = (TextView) findViewById(R.id.textViewAccuracy);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
             mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
